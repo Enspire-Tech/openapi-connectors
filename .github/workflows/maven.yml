@@ -28,4 +28,4 @@ jobs:
       with:
         path: |
           target/*.car.zip
-          target/classes/connector-descriptor*
+          target/connector-descriptor*
