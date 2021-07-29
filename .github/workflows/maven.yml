@@ -26,6 +26,7 @@ jobs:
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
       with:
+        name: pagerduty-artifacts
         path: |
-          target/*.car.zip
+          target/*car.zip
           target/connector-descriptor*
