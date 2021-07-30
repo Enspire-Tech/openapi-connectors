@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         target_connector: ['pagerduty']
+    
     steps:
     - uses: actions/checkout@v2
 
