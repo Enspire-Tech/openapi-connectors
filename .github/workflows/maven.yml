@@ -6,8 +6,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -36,7 +34,19 @@ jobs:
     - name: Archive artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: pagerduty-artifacts
+        name: ${{ matrix.target_connector }}-artifacts
         path: |
           staging/${{ matrix.target_connector }}-car.zip
           staging/${{ matrix.target_connector }}.xml
+
+    - name: Push build artifacts to artifact repository
+      uses: cpina/github-action-push-to-another-repository@v1.3
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source-directory: 'staging'
+        destination-github-username: 'jhmortelliti'
+        destination-repository-name: 'openapi-connector-artifacts'
+        user-email: jacob.mortelliti@enspire-tech.com
+        target-branch: master
+
