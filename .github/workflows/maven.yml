@@ -51,7 +51,8 @@ jobs:
         path: staging/
 
     - name: Display structure of downloaded files
-        run: ls -R
+      run: ls -R
+
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
       env:
