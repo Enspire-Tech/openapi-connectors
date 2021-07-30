@@ -45,7 +45,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
         source-directory: 'staging'
-        destination-github-username: 'jhmortelliti'
+        destination-github-username: 'Enspire-Tech'
         destination-repository-name: 'openapi-connector-artifacts'
         user-email: jacob.mortelliti@enspire-tech.com
         target-branch: master
