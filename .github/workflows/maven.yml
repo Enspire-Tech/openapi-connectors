@@ -50,8 +50,8 @@ jobs:
       with:
         path: staging/
 
-    - name: Display structure of downloaded files
-      run: ls -R
+    - name: Write README.md
+      run: echo "# openapi-connector-artifacts" > staging/README.md
 
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
