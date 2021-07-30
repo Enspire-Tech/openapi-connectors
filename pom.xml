@@ -6,7 +6,7 @@
 
     <groupId>com.boomi.connector</groupId>
     <artifactId>openapiconnector</artifactId>
-    <version>${target_connector}-1.0-SNAPSHOT</version>
+    <version>${target_connector}-1.0</version>
 
     <!-- Specification of the Boomi SDK repository -->
     <repositories>

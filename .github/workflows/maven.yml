@@ -6,8 +6,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -15,6 +13,7 @@ jobs:
     strategy:
       matrix:
         target_connector: ['pagerduty']
+    
     steps:
     - uses: actions/checkout@v2
 
