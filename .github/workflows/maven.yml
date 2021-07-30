@@ -13,32 +13,38 @@ jobs:
     strategy:
       matrix:
         target_connector: ['pagerduty']
+    
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Set up JDK 8
       uses: actions/setup-java@v2
       with:
         java-version: '8'
         distribution: 'adopt'
-        
+
     - name: Build with Maven
       run: mvn clean install -Dtarget_connector=${{ matrix.target_connector }}
-      
-    - name: Stage artifacts
+
+    - name: Stage artifacts for upload
       run: >
-        mkdir staging &&
-        cp target/*car.zip staging/${{ matrix.target_connector }}-car.zip &&
-        cp target/connector-descriptor* staging/${{ matrix.target_connector }}.xml
+        mkdir -p staging &&
+        cp target/*car.zip staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}-car.zip &&
+        cp target/connector-descriptor* staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}.xml
       
-    - name: Archive artifacts
+    - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.target_connector }}-artifacts
         path: |
-          staging/${{ matrix.target_connector }}-car.zip
-          staging/${{ matrix.target_connector }}.xml
+          staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}-car.zip
+          staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}.xml
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    steps:
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
       env:
@@ -49,4 +55,3 @@ jobs:
         destination-repository-name: 'openapi-connector-artifacts'
         user-email: jacob.mortelliti@enspire-tech.com
         target-branch: master
-
