@@ -6,8 +6,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -29,7 +27,7 @@ jobs:
 
     - name: Stage artifacts for upload
       run: >
-        mkdir -p staging &&
+        mkdir -p staging/${{ matrix.target_connector }} &&
         cp target/*car.zip staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}-car.zip &&
         cp target/connector-descriptor* staging/${{ matrix.target_connector }}/${{ matrix.target_connector }}.xml
       
