@@ -17,8 +17,8 @@ public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
 
-    final String URL = "https://api.pagerduty.com";
-    final String SPEC = "https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json";
+    final String URL = "https://{domain}/services/apexrest/spapi/v4";
+    final String SPEC = "https://developer.sage.com/api/people/api-reference/openapi.json";
     final String[] HTTP_METHODS = {
             "GET",
             "POST",

@@ -121,6 +121,8 @@
             </testResource>
         </testResources>
 
+        <testSourceDirectory>${project.basedir}/src/test/java/com/boomi/connector/${target_connector}</testSourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -154,7 +156,6 @@
                 </executions>
             </plugin>
 
-            <!-- To allow testing against external schema files -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
