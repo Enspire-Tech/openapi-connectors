@@ -1,4 +1,4 @@
-package com.boomi.connector.sage_x3_data_integration;
+package com.boomi.connector.azure_data_lake_storage;
 
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.openapi.OpenAPIConnection;

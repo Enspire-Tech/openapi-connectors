@@ -1,11 +1,11 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
     <field id="url" label="Server" type="string">
-        <helpText>The URL for the OpenAPI service</helpText>
-        <defaultValue>https://api-na.sagex3.com/v1/</defaultValue>
+        <helpText>The URL for the PagerDuty REST service</helpText>
+        <defaultValue>https://api.pagerduty.com</defaultValue>
     </field>
     <field id="spec" label="OpenAPI Specification" type="string">
-        <helpText>The OpenAPI specification in JSON or YAML format</helpText>
-        <defaultValue>https://developer.sage.com/api/people/api-reference/openapi.json</defaultValue>
+        <helpText>The PagerDuty REST specification in JSON or YAML format</helpText>
+        <defaultValue>https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json</defaultValue>
     </field>
     <field id="auth" label="Authentication Type" type="string">
         <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
@@ -60,4 +60,5 @@
     <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
 </GenericConnectorDescriptor>

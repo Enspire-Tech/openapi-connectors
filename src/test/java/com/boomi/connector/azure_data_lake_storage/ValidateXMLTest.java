@@ -1,4 +1,4 @@
-package com.boomi.connector.sage_x3_data_integration;
+package com.boomi.connector.azure_data_lake_storage;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class ValidateXMLTest {
 
     @Test
     public void validateConnectorConfig() {
-        String xml = "/connector-config-pageduty.xml";
+        String xml = "/connector-config-azure_data_lake_storage.xml";
         String xsd = "/genericconnector.xsd";
         try {
             validateAgainstXSD(xml, xsd);
@@ -27,10 +27,14 @@ public class ValidateXMLTest {
     }
 
     @Test
-    public void validateConnectorDescriptor() throws IOException, SAXException {
-        String xml = "/connector-descriptor-sage_x3_data_integration.xml";
+    public void validateConnectorDescriptor() {
+        String xml = "/connector-descriptor-azure_data_lake_storage.xml";
         String xsd = "/genericconnectordesc.xsd";
-        validateAgainstXSD(xml, xsd);
+        try {
+            validateAgainstXSD(xml, xsd);
+        } catch (Exception e) {
+            Assert.fail("Exception: " + e);
+        }
     }
 
     void validateAgainstXSD(String xmlPath, String xsdPath) throws IOException, SAXException {

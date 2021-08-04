@@ -1,4 +1,4 @@
-package com.boomi.connector.sage_x3_data_integration;
+package com.boomi.connector.generic;
 
 import com.boomi.connector.api.OperationContext;
 import com.boomi.connector.openapi.OpenAPIOperationConnection;

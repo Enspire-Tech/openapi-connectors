@@ -1,25 +1,29 @@
-package com.boomi.connector.sage_x3_data_integration;
+package com.boomi.connector.generic;
 
 import com.boomi.connector.api.ObjectDefinitionRole;
 import com.boomi.connector.api.ObjectType;
 import com.boomi.connector.api.ObjectTypes;
-import com.boomi.connector.github.CustomConnector;
 import com.boomi.connector.openapi.OpenAPIBrowser;
+import com.boomi.connector.openapi.OpenAPIConnector;
 import com.boomi.connector.testutil.SimpleAtomConfig;
 import com.boomi.connector.testutil.SimpleBrowseContext;
 import com.boomi.util.LogUtil;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CustomBrowserTest {
+public class GenericBrowserTest {
 
-    private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
+    private static final Logger LOG = LogUtil.getLogger(GenericBrowserTest.class);
 
-    final String URL = "https://api-na.sagex3.com/v1/";
-    final String SPEC = "https://developer.sage.com/api/x3/data-integration/swagger/api_reference.yaml";
+    final String URL = "https://www.placeholder.com";
+    //final String SPEC = "https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/storage/data-plane/Microsoft.StorageDataLake/stable/2019-10-31/DataLakeStorage.json";
+    final String SPEC = "spec.yaml";
 
     final String[] HTTP_METHODS = {
             "GET",
@@ -34,7 +38,7 @@ public class CustomBrowserTest {
 
     @Test
     public void testTypes() throws Exception {
-        com.boomi.connector.github.CustomConnector connector = new com.boomi.connector.github.CustomConnector();
+        CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
             put("url", URL);
@@ -73,7 +77,7 @@ public class CustomBrowserTest {
         int stackoverflowCount = 0;
         int otherErrorCount = 0;
 
-        com.boomi.connector.github.CustomConnector connector = new CustomConnector();
+        CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
             put("url", URL);
