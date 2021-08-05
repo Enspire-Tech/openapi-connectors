@@ -17,8 +17,7 @@ public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
 
-    final String URL = "https://{domain}/services/apexrest/spapi/v4";
-    final String SPEC = "https://developer.sage.com/api/people/api-reference/openapi.json";
+    final String SPEC = "https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json";
     final String[] HTTP_METHODS = {
             "GET",
             "POST",
@@ -38,7 +37,6 @@ public class CustomBrowserTest {
         CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
             put("spec", SPEC);
         }};
 
@@ -66,7 +64,6 @@ public class CustomBrowserTest {
         CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
             put("spec", SPEC);
         }};
 
@@ -86,7 +83,6 @@ public class CustomBrowserTest {
                 endPointCount++;
                 String path = objectType.getId();
                 String operationId = objectType.getLabel();
-                //Set<ObjectDefinitionRole> roles = browseContext.getOperationType().getSupportedDefinitionRoles();
                 Set<ObjectDefinitionRole> roles = new HashSet<ObjectDefinitionRole>();
                 roles.add(ObjectDefinitionRole.INPUT);
                 roles.add(ObjectDefinitionRole.OUTPUT);
