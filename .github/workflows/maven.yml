@@ -52,8 +52,11 @@ jobs:
       with:
         path: staging/
 
+    - name: Print directories
+      run: ls -a && ls $GITHUB_WORKSPACE
+
     - name: Stage artifact README.md
-      run: cp /github/workspace/src/main/resources/ARTIFACT_README.md staging/README.md
+      run: cp $GITHUB_WORKSPACE/src/main/resources/ARTIFACT_README.md staging/README.md
 
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
