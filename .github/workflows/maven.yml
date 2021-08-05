@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_connector: ['pagerduty']
+        target_connector: ['pagerduty', 'twitter_v2']
     
     steps:
     - uses: actions/checkout@v2
@@ -50,8 +50,8 @@ jobs:
       with:
         path: staging/
 
-    - name: Display structure of downloaded files
-      run: ls -R
+    - name: Write README.md
+      run: cp src/main/resources/ARTIFACT_README.md staging/README.md
 
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
