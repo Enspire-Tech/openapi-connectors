@@ -1,29 +1,12 @@
 package com.boomi.connector.generic;
 
-import com.boomi.common.apache.http.request.HttpRequestUtil;
-import com.boomi.connector.api.*;
+import com.boomi.connector.api.BrowseContext;
+import com.boomi.connector.api.ContentType;
+import com.boomi.connector.api.ObjectDefinition;
 import com.boomi.connector.openapi.OpenAPIConnection;
-import com.boomi.connector.openapi.util.OpenAPISpecContext;
-import com.boomi.connector.openapi.util.OpenApiParameterType;
-import com.boomi.connector.openapi.util.OpenApiUtil;
-import com.boomi.util.CollectionUtil;
 import com.boomi.util.LogUtil;
-import com.boomi.util.StringUtil;
-import com.boomi.util.json.JSONUtil;
-import com.fasterxml.jackson.databind.JsonNode;
-
-import io.swagger.parser.OpenAPIParser;
-import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
-import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import io.swagger.v3.oas.models.OpenAPI;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 

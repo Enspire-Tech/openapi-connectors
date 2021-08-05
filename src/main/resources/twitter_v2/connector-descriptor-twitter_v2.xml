@@ -1,0 +1,28 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Twitter API v2. For more information, click here: https://developer.twitter.com/en/docs/twitter-api/early-access</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.twitter.com</defaultValue>
+    </field>
+    <field id="spec" label="OpenAPI Specification" type="string">
+        <helpText>The Twitter API v2 specification in JSON or YAML format</helpText>
+        <defaultValue>https://api.twitter.com/labs/2/openapi.json</defaultValue>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="Bearer Token">
+            <value>CUSTOM</value>
+        </allowedValue>
+        <allowedValue label="None">
+            <value>NONE</value>
+        </allowedValue>
+    </field>
+
+    <field id="customAuthCredentials" label="Bearer Token" type="password"/>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>

@@ -3,7 +3,6 @@ package com.boomi.connector.azure_data_lake_storage;
 import com.boomi.connector.api.ObjectDefinitionRole;
 import com.boomi.connector.api.ObjectType;
 import com.boomi.connector.api.ObjectTypes;
-import com.boomi.connector.generic.CustomConnector;
 import com.boomi.connector.openapi.OpenAPIBrowser;
 import com.boomi.connector.testutil.SimpleAtomConfig;
 import com.boomi.connector.testutil.SimpleBrowseContext;
@@ -21,8 +20,6 @@ public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
 
-    final String URL = "https://www.placeholder.com";
-
     final String[] HTTP_METHODS = {
             "GET",
             "POST",
@@ -38,10 +35,7 @@ public class CustomBrowserTest {
     public void testTypes() throws Exception {
         CustomConnector connector = new CustomConnector();
 
-        Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
-            put("spec", SPEC);
-        }};
+        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
 
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
@@ -77,16 +71,13 @@ public class CustomBrowserTest {
 
         CustomConnector connector = new CustomConnector();
 
-        Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
-            put("spec", SPEC);
-        }};
+        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
 
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
                     new SimpleAtomConfig(),
                     connector,
-                    null,//OperationType.valueOfCaseInsensitive(httpMethod),
+                    null,
                     httpMethod,
                     connProps,
                     null
