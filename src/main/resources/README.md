@@ -1,4 +1,4 @@
-#OpenAPI Connectors
+# OpenAPI Connectors
 
 * [PagerDuty](#pagerduty)
   
