@@ -52,9 +52,6 @@ jobs:
       with:
         path: staging/
 
-    - name: Print directories
-      run: ls -a && ls $GITHUB_WORKSPACE
-
     - name: Stage artifact README.md
       run: cp $GITHUB_WORKSPACE/src/main/resources/ARTIFACT_README.md staging/README.md
 

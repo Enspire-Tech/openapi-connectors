@@ -1,5 +1,5 @@
 # OpenAPI Connectors
-There are branded connectors built for the Boomi platform with the Boomi OpenAPI SDK. 
+These are branded connectors built for the Boomi platform with the Boomi OpenAPI SDK. 
 You can find each connector's artifacts in their subdirectory.
 See below for outstanding issues.
 * [PagerDuty](#pagerduty)
