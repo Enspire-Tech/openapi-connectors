@@ -1,4 +1,4 @@
-package com.boomi.connector.generic;
+package com.boomi.connector.circleci;
 
 import com.boomi.connector.api.ObjectDefinitionRole;
 import com.boomi.connector.api.ObjectType;
@@ -16,14 +16,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GenericBrowserTest {
+public class CustomBrowserTest {
 
-    private static final Logger LOG = LogUtil.getLogger(GenericBrowserTest.class);
+    private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
 
-    final String URL = "https://www.placeholder.com";
-    //final String SPEC = "http://resources.docs.salesforce.com/rel1/doc/en-us/static/misc/iot-connect-api-swagger-44.0.yaml";
     final String SPEC = "spec.json";
-
     final String[] HTTP_METHODS = {
             "GET",
             "POST",
@@ -40,7 +37,6 @@ public class GenericBrowserTest {
         CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
             put("spec", SPEC);
         }};
 
@@ -79,15 +75,13 @@ public class GenericBrowserTest {
         CustomConnector connector = new CustomConnector();
 
         Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("url", URL);
             put("spec", SPEC);
         }};
-
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
                     new SimpleAtomConfig(),
                     connector,
-                    null,//OperationType.valueOfCaseInsensitive(httpMethod),
+                    null,
                     httpMethod,
                     connProps,
                     null
