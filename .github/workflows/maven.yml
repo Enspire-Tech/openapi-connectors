@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_connector: ['pagerduty', 'twitter_v2']
+        target_connector: ['pagerduty', 'twitter_v2', 'circleci']
     
     steps:
     - uses: actions/checkout@v2
@@ -51,9 +51,6 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         path: staging/
-
-    - name: Print directories
-      run: ls -a && ls $GITHUB_WORKSPACE
 
     - name: Stage artifact README.md
       run: cp $GITHUB_WORKSPACE/src/main/resources/ARTIFACT_README.md staging/README.md

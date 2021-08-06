@@ -1,0 +1,19 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the CircleCI API. For more information, click here: https://circleci.com/docs/api/v2/</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://circleci.com/api/v2</defaultValue>
+    </field>
+
+    <field id="token" label="CircleToken" type="password">
+            <helpText>This must be a personal API token, not a project token.</helpText>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>
