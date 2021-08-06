@@ -20,7 +20,6 @@ public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
 
-    final String SPEC = "spec.json";
     final String[] HTTP_METHODS = {
             "GET",
             "POST",
@@ -36,9 +35,7 @@ public class CustomBrowserTest {
     public void testTypes() throws Exception {
         CustomConnector connector = new CustomConnector();
 
-        Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("spec", SPEC);
-        }};
+        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
 
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
@@ -74,9 +71,7 @@ public class CustomBrowserTest {
 
         CustomConnector connector = new CustomConnector();
 
-        Map<String, Object> connProps = new HashMap<String, Object>() {{
-            put("spec", SPEC);
-        }};
+        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
                     new SimpleAtomConfig(),

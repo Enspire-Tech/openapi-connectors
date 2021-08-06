@@ -5642,7 +5642,7 @@
             "in": "path",
             "name": "job-number",
             "description": "The number of the job.",
-            "schema": {},schema": {}
+            "schema": {},
             "required": true,
             "example": "123"
           },
