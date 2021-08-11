@@ -7,7 +7,11 @@ See below for outstanding issues.
 * [Twitter v2](#twitterv2)
 
 * [CircleCI](#circleci)
-   
+
+* [Firecracker](#firecracker)
+
+* [Quickbase](#quickbase)
+
 
 ---
 <a name="pagerduty"></a>
@@ -16,6 +20,8 @@ See below for outstanding issues.
 Documentation: https://developer.pagerduty.com/api-reference/
 
 Specification: https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json
+
+**10 out of 193 endpoints are failing.**
 
 The following operations are not supported at this time:
 * listAuditRecords
@@ -63,6 +69,8 @@ Documentation: https://developer.twitter.com/en/docs/twitter-api/early-access
 
 Specification: https://api.twitter.com/labs/2/openapi.json
 
+**4 out of 7 endpoints are failing.**
+
 The following operations are not supported at this time:
 * getTweetById
 * getUserById
@@ -88,6 +96,8 @@ The following operations are not supported at this time:
 
 Documentation: https://circleci.com/docs/api/v2/  
 
+**6 out of 41 endpoints are failing.**
+
 The following operations are not supported at this time:
 * getCollaborations
 * getTests
@@ -109,8 +119,53 @@ The following operations are not supported at this time:
     + The response content type is array.
     + Affected operations:
         * getCollaborations
-    
 
-      
+---   
+
+<a name="firecracker"></a>
+## Firecracker
+
+Documentation: https://github.com/firecracker-microvm/firecracker
+
+Specification: https://raw.githubusercontent.com/firecracker-microvm/firecracker/main/src/api_server/swagger/firecracker.yaml
+
+**All 26 endpoints are passing.**
+
+---   
+
+<a name="quickbase"></a>
+## Quickbase
+
+Documentation: https://developer.quickbase.com/
+
+**9 out of 35 endpoints failing.**
+
+The following operations are not supported at this time:
+* getAppEvents
+* getAppTables
+* getTableReports
+* getFields
+* getFieldsUsage
+* getFieldUsage
+* deleteApp
+* deleteFields
+* deleteRecords
+
+### Issues
+1. Unsupported type: ARRAY
+    + The response content type is array, which is not supported by Boomi at this time.
+    + Affected operations:
+      * getAppEvents
+      * getAppTables
+      * getTableReports
+      * getFields
+      * getFieldsUsage
+      * getFieldUsage
+
+2. DELETE requests should not return a request body.
+    + According to OpenAPI specifications, DELETE requests should not include a request body.
+    + Affected operations:
+      * deleteApp
+      * deleteFields
+      * deleteRecords
    
-

@@ -1,0 +1,26 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Quickbase API. For more information, click here: https://developer.quickbase.com/</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.quickbase.com/v1/</defaultValue>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="User Token">
+            <value>CUSTOM</value>
+        </allowedValue>
+        <allowedValue label="None">
+            <value>NONE</value>
+        </allowedValue>
+    </field>
+
+    <field id="customAuthCredentials" label="User Token" type="password"/>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>
