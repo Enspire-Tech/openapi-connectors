@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase']
+        target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase', 'apache_pulsar_functions']
     
     steps:
     - uses: actions/checkout@v2
