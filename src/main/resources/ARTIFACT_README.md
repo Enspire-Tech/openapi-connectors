@@ -1,4 +1,4 @@
-# OpenAPI Connectors
+# Boomi OpenAPI Connectors
 These are branded connectors built for the Boomi platform with the Boomi OpenAPI SDK. 
 You can find each connector's artifacts in their subdirectory.
 See below for outstanding issues.
@@ -11,6 +11,8 @@ See below for outstanding issues.
 * [Firecracker](#firecracker)
 
 * [Quickbase](#quickbase)
+
+* [Apache Pulsar Functions](#apache_pulsar_functions)
 
 
 ---
@@ -153,7 +155,7 @@ The following operations are not supported at this time:
 
 ### Issues
 1. Unsupported type: ARRAY
-    + The response content type is array, which is not supported by Boomi at this time.
+    + The response content type is array, which is not a supported response type.
     + Affected operations:
       * getAppEvents
       * getAppTables
@@ -168,4 +170,36 @@ The following operations are not supported at this time:
       * deleteApp
       * deleteFields
       * deleteRecords
-   
+
+---   
+
+<a name="apache_pulsar_functions"></a>
+## Apache Pulsar Functions
+Documentation: https://pulsar.apache.org/functions-rest-api/
+
+**5 out of 19 endpoints are failing.**
+
+The following operations are not supported at this time:
+* getConnectorsList
+* listFunctions
+* registerFunction
+* triggerFunction
+* updateFunction
+
+### Issues
+1. Unsupported type: ARRAY
+   + The response content type is array, which is not a supported response type.
+   + Affected operations:
+      * getConnectorsList
+2. Unsupported type: STRING
+   + The response content type is string, which is not a supported response type.
+   + Affected operations:
+      * listFunctions
+3. Schema can't be null
+   + The request body has a content type of form-data. Only JSON request bodies are supported.
+   + Affected operations:
+     * registerFunction
+     * triggerFunction
+     * updateFunction
+
+---   

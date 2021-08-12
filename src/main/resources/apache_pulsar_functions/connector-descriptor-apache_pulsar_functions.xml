@@ -1,0 +1,17 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Apache Pulsar Functions Rest API. For more information, click here: https://pulsar.apache.org/admin-rest-api/</description>
+    <field id="url" label="Server" type="string">
+        <helpText>The base path is /admin/v3. Ex: {server}/admin/v3</helpText>
+        <defaultValue></defaultValue>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>
