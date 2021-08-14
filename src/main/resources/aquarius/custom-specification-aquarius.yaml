@@ -1,0 +1,225 @@
+openapi: 3.0.1
+info:
+  title: Aquarius
+  description: Aquarius provides an off-chain database store for metadata about data
+    assets. When running with our Docker images, it is exposed under:`http://localhost:5000`.
+  version: 3.0.1
+servers:
+  - url: /
+paths:
+  /api/v1/aquarius/assets/ddo/encrypt:
+    post:
+      tags:
+        - ddo
+      summary: Encrypt a DDO.
+      requestBody:
+        description: data
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successfully request.
+          content: {}
+        400:
+          description: Invalid format
+          content: {}
+        500:
+          description: Error
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/assets/ddo/encryptashex:
+    post:
+      tags:
+        - ddo
+      summary: Encrypt a DDO.
+      requestBody:
+        description: data
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successfully request. data is converted to hex
+          content: {}
+        400:
+          description: Invalid format
+          content: {}
+        500:
+          description: Error
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/assets/ddo/es-query:
+    post:
+      tags:
+        - ddo
+      summary: Runs a native ES query.
+      responses:
+        200:
+          description: successful action
+          content: {}
+  /api/v1/aquarius/assets/ddo/query:
+    post:
+      tags:
+        - ddo
+      summary: Get a list of DDOs that match with the executed query.
+      requestBody:
+        description: Asset metadata.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: Query to realize
+                  example: ""
+                sort:
+                  type: object
+                  properties: {}
+                  description: Key or list of keys to sort the result
+                  example:
+                    value: 1
+        required: true
+      responses:
+        200:
+          description: successful action
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/assets/ddo/validate:
+    post:
+      tags:
+        - ddo
+      summary: Validate metadata content.
+      requestBody:
+        description: Asset metadata.
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successfully request.
+          content: {}
+        500:
+          description: Error
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/assets/ddo/validate-remote:
+    post:
+      tags:
+        - ddo
+      summary: Validate DDO content.
+      requestBody:
+        description: Asset DDO.
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successfully request.
+          content: {}
+        400:
+          description: Invalid DDO format
+          content: {}
+        500:
+          description: Error
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/assets/ddo/{did}:
+    get:
+      tags:
+        - ddo
+      summary: Get DDO of a particular asset.
+      parameters:
+        - name: did
+          in: path
+          description: DID of the asset.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: On successful operation returns DDO information.
+          content: {}
+        404:
+          description: This asset DID is not in OceanDB
+          content: {}
+  /api/v1/aquarius/assets/metadata/{did}:
+    get:
+      tags:
+        - metadata
+      summary: Get metadata of a particular asset
+      parameters:
+        - name: did
+          in: path
+          description: DID of the asset.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation.
+          content: {}
+        404:
+          description: This asset DID is not in OceanDB.
+          content: {}
+  /api/v1/aquarius/assets/names:
+    post:
+      tags:
+        - name
+      summary: Get names of assets as specified in the payload
+      requestBody:
+        description: list of asset DIDs
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          description: successful operation.
+          content: {}
+        404:
+          description: assets not found
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/aquarius/chains/list:
+    get:
+      tags:
+        - chains
+      summary: Get chains list
+      responses:
+        200:
+          description: successful operation.
+          content: {}
+        404:
+          description: No chains are present
+          content: {}
+  /api/v1/aquarius/chains/status/{chain_id}:
+    get:
+      tags:
+        - chains
+      summary: Get index status for a specific chain_id
+      parameters:
+        - name: chain_id
+          in: path
+          description: chainId
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: successful operation.
+          content: {}
+        404:
+          description: This chainId is not indexed.
+          content: {}
+components: {}

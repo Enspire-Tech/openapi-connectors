@@ -14,6 +14,8 @@ See below for outstanding issues.
 
 * [Apache Pulsar Functions](#apache_pulsar_functions)
 
+* [Aquarius](#aquarius)
+
 
 ---
 <a name="pagerduty"></a>
@@ -203,3 +205,24 @@ The following operations are not supported at this time:
      * updateFunction
 
 ---   
+
+<a name="aquarius"></a>
+## Aquarius
+
+Documentation: https://docs.oceanprotocol.com/references/aquarius/
+
+** 2 out of 11 endpoints are failing.**
+
+The following operations are not supported at this time:
+* /api/v1/aquarius/assets/ddo/encrypt
+* /api/v1/aquarius/assets/ddo/encryptashex
+
+### Issues
+1. Schema can't be nul
+    + The request body has a content type of octet-stream. Only JSON request bodies are supported.
+    + Affected operations:
+      * /api/v1/aquarius/assets/ddo/encrypt
+      * /api/v1/aquarius/assets/ddo/encryptashex
+
+---
+
