@@ -1,0 +1,22 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Aquarius Rest API. For more information, click here: https://docs.oceanprotocol.com/references/aquarius/</description>
+    <field id="url" label="Server" type="string">
+        <helpText>When running with docker, it is exposed under: http://0.0.0.0:5000</helpText>
+        <defaultValue></defaultValue>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>This will override the custom specification included with the connector.</helpText>
+    </field>
+
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>
