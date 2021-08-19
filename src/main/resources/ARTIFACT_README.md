@@ -181,7 +181,6 @@ The following operations are not supported at this time:
 Documentation: https://pulsar.apache.org/functions-rest-api/
 
 **5 out of 19 endpoints are failing.**
-request bodies are supported.
 
 The following operations are not supported at this time:
 * getConnectorsList
@@ -220,7 +219,7 @@ The following operations are not supported at this time:
 * /api/v1/aquarius/assets/ddo/encryptashex
 
 ### Issues
-1. Schema can't be nul'
+1. Schema can't be null
     + The request body has a content type of octet-stream. Only JSON request bodies are supported.
     + Affected operations:
       * /api/v1/aquarius/assets/ddo/encrypt
