@@ -1,8 +1,8 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
     <description>This connector provides access to the Ocean Protocol Provider API. Documentation located here: https://github.com/oceanprotocol/provider/blob/main/API.md</description>
     <field id="url" label="Server" type="string">
-        <defaultValue></defaultValue>
         <helpText>Usually exposed under http://localhost:8030</helpText>
+        <defaultValue></defaultValue>
     </field>
 
     <field id="spec" label="Override OpenAPI Spec" type="string">
