@@ -16,6 +16,7 @@ See below for outstanding issues.
 
 * [Aquarius](#aquarius)
 
+* [Provider](#provider)
 
 ---
 <a name="pagerduty"></a>
@@ -211,14 +212,14 @@ The following operations are not supported at this time:
 
 Documentation: https://docs.oceanprotocol.com/references/aquarius/
 
-** 2 out of 11 endpoints are failing.**
+**2 out of 11 endpoints are failing.**
 
 The following operations are not supported at this time:
 * /api/v1/aquarius/assets/ddo/encrypt
 * /api/v1/aquarius/assets/ddo/encryptashex
 
 ### Issues
-1. Schema can't be nul
+1. Schema can't be null
     + The request body has a content type of octet-stream. Only JSON request bodies are supported.
     + Affected operations:
       * /api/v1/aquarius/assets/ddo/encrypt
@@ -226,3 +227,21 @@ The following operations are not supported at this time:
 
 ---
 
+<a name="provider"></a>
+## Provider
+Documentation: https://github.com/oceanprotocol/provider/blob/main/API.md
+
+**2 out of 7 endpoints are failing.**
+
+The following operations are not supported at this time:
+* /api/v1/services/compute POST
+* /api/v1/services/download GET
+
+### Issues
+1. Unsupported Parameter Type: null
+    + The query parameter has no type. It contains an empty schema. ***"schema": {}***
+    + Affected operations:
+      * /api/v1/services/compute POST
+      * /api/v1/services/download GET
+
+--- 
