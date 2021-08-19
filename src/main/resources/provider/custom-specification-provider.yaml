@@ -1,0 +1,295 @@
+openapi: 3.0.1
+info:
+  title: Provider
+  description: Ocean Provider is the technical component executed by Data Providers
+    allowing them to provide extended data services. When running with our Docker
+    images, it is exposed under `http://localhost:8030`.
+  version: 0.4.12
+servers:
+  - url: /
+paths:
+  /api/v1/services/compute:
+    get:
+      tags:
+        - services
+      summary: Get status for a specific jobId/documentId/owner
+      parameters:
+        - name: signature
+          in: query
+          description: Signature of (consumerAddress+jobId+documentId) to verify the
+            consumer of this asset/compute job. The signature uses ethereum based signing
+            method (see https://github.com/ethereum/EIPs/pull/683)
+          schema:
+            type: string
+        - name: documentId
+          in: query
+          description: The ID of the asset. If not provided, the status of all currently
+            running and old compute jobs for the specified consumerAddress will be returned.
+          required: true
+          schema:
+            type: string
+        - name: consumerAddress
+          in: query
+          description: The consumer ethereum address.
+          required: true
+          schema:
+            type: string
+        - name: jobId
+          in: query
+          description: The ID of the compute job. If not provided, all running compute
+            jobs of the specified consumerAddress/documentId are suspended
+          schema:
+            type: string
+      responses:
+        200:
+          description: Call to the operator-service was successful.
+          content: {}
+        400:
+          description: One of the required attributes is missing.
+          content: {}
+        401:
+          description: Consumer signature is invalid or failed verification.
+          content: {}
+        503:
+          description: Service Unavailable
+          content: {}
+    put:
+      tags:
+        - services
+      summary: Stop the execution of a workflow.
+      parameters:
+        - name: signature
+          in: query
+          description: Signature of (consumerAddress+jobId+documentId) to verify the
+            consumer of this compute job/asset. The signature uses ethereum based signing
+            method (see https://github.com/ethereum/EIPs/pull/683)
+          schema:
+            type: string
+        - name: documentId
+          in: query
+          description: The ID of the asset. If not provided, all currently running compute
+            jobs will be stopped for the specified consumerAddress
+          required: true
+          schema:
+            type: string
+        - name: consumerAddress
+          in: query
+          description: The consumer ethereum address.
+          required: true
+          schema:
+            type: string
+        - name: jobId
+          in: query
+          description: The ID of the compute job. If not provided, all running compute
+            jobs of the specified consumerAddress/documentId are suspended
+          schema:
+            type: string
+      responses:
+        200:
+          description: Call to the operator-service was successful.
+          content: {}
+        400:
+          description: One of the required attributes is missing.
+          content: {}
+        401:
+          description: Consumer signature is invalid or failed verification.
+          content: {}
+        503:
+          description: Service unavailable
+          content: {}
+    post:
+      tags:
+        - services
+      summary: Call the execution of a workflow.
+      parameters:
+        - name: signature
+          in: query
+          description: Signature of (consumerAddress+jobId+documentId) to verify the
+            consumer of this asset/compute job. The signature uses ethereum based signing
+            method (see https://github.com/ethereum/EIPs/pull/683)
+          schema:
+            type: string
+        - name: consumerAddress
+          in: query
+          description: The consumer ethereum address.
+          required: true
+          schema:
+            type: string
+        - name: algorithmDid
+          in: query
+          description: The DID of the algorithm Asset to be executed
+          schema:
+            type: string
+        - name: algorithmMeta
+          in: query
+          description: json object that define the algorithm attributes and url or raw
+            code
+          schema: {}
+        - name: output
+          in: query
+          description: json object that define the output section
+          required: true
+          schema: {}
+      responses:
+        200:
+          description: Call to the operator-service was successful.
+          content: {}
+        400:
+          description: One of the required attributes is missing.
+          content: {}
+        401:
+          description: Consumer signature is invalid or failed verification
+          content: {}
+        503:
+          description: Service unavailable
+          content: {}
+    delete:
+      tags:
+        - services
+      summary: Deletes a workflow.
+      parameters:
+        - name: signature
+          in: query
+          description: Signature of the documentId to verify that the consumer has rights
+            to download the asset.
+          schema:
+            type: string
+        - name: documentId
+          in: query
+          description: The ID of the asset
+          required: true
+          schema:
+            type: string
+        - name: consumerAddress
+          in: query
+          description: The consumer address.
+          required: true
+          schema:
+            type: string
+        - name: jobId
+          in: query
+          description: JobId.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Call to the operator-service was successful.
+          content: {}
+        400:
+          description: One of the required attributes is missing.
+          content: {}
+        401:
+          description: Invalid asset data.
+          content: {}
+        503:
+          description: Service Unavailable
+          content: {}
+  /api/v1/services/download:
+    get:
+      tags:
+        - services
+      summary: Allows download of asset data file.
+      parameters:
+        - name: consumerAddress
+          in: query
+          description: The consumer address.
+          required: true
+          schema:
+            type: string
+        - name: documentId
+          in: query
+          description: The ID of the asset/document (the DID).
+          required: true
+          schema:
+            type: string
+        - name: url
+          in: query
+          description: This URL is only valid if Provider acts as a proxy. Consumer
+            can't download using the URL if it's not through the Provider.
+          required: true
+          schema:
+            type: string
+        - name: signature
+          in: query
+          description: Signature of the documentId to verify that the consumer has rights
+            to download the asset.
+          schema: {}
+        - name: index
+          in: query
+          description: Index of the file in the array of files.
+          schema: {}
+      responses:
+        200:
+          description: Redirect to valid asset url.
+          content: {}
+        400:
+          description: One of the required attributes is missing.
+          content: {}
+        401:
+          description: Invalid asset data.
+          content: {}
+        503:
+          description: Service Unavailable
+          content: {}
+  /api/v1/services/encrypt:
+    post:
+      tags:
+        - services
+      summary: Encrypt document using the Provider's own symmetric key (symmetric
+        encryption).
+      description: This can be used by the publisher of an asset to encrypt the urls
+        of the<br/>asset data files before publishing the asset ddo. The publisher
+        to use this<br/>service is one that is using a front-end with a wallet app
+        such as MetaMask.<br/>The `urls` are encrypted by the provider so that the
+        provider will be able<br/>to decrypt at time of providing the service later
+        on.<br/>
+      requestBody:
+        description: Asset urls encryption.
+        content:
+          application/json:
+            schema:
+              required:
+                - document
+                - documentId
+              type: object
+              properties:
+                document:
+                  type: string
+                  description: document
+                  example: /some-url
+                documentId:
+                  type: string
+                  description: Identifier of the asset to be registered in ocean.
+                  example: did:op:08a429b8529856d59867503f8056903a680935a76950bb9649785cc97869a43d
+                publisherAddress:
+                  type: string
+                  description: Publisher address.
+                  example: 0x00a329c0648769A73afAc7F9381E08FB43dBEA72
+        required: true
+      responses:
+        201:
+          description: document successfully encrypted.
+          content: {}
+        503:
+          description: Service Unavailable
+          content: {}
+      x-codegen-request-body-name: body
+  /api/v1/services/fileinfo:
+    post:
+      tags:
+        - services
+      summary: Retrieves Content-Type and Content-Length from the given URL or asset.
+        Supports a payload of either url or did.
+      description: This can be used by the publisher of an asset to check basic information<br/>about
+        the URL(s). For now, this information consists of the Content-Type<br/>and
+        Content-Length of the request, using primarily OPTIONS, with fallback<br/>to
+        GET. In the future, we will add a hash to make sure that the file was<br/>not
+        tampered with at consumption time.<br/>
+      responses:
+        200:
+          description: the URL(s) could be analysed (returns the result).
+          content: {}
+        400:
+          description: the URL(s) could not be analysed (bad request).
+          content: {}
+components: {}
