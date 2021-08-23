@@ -18,6 +18,8 @@ See below for outstanding issues.
 
 * [Provider](#provider)
 
+* [Blackboard](#blackboard)
+
 ---
 <a name="pagerduty"></a>
 ## PagerDuty
@@ -245,3 +247,15 @@ The following operations are not supported at this time:
       * /api/v1/services/download GET
 
 --- 
+
+<a name="blackboard"></a>
+## Blackboard
+
+Documentation: https://developer.blackboard.com/portal/displayApi
+
+**All 248 endpoints are passing.**
+
+---
+
+
+
