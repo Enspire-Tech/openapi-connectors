@@ -14,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase', 'apache_pulsar_functions', 'aquarius', 'provider', 'blackboard']
+        target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase',
+                           'apache_pulsar_functions', 'aquarius', 'provider', 'blackboard', 'docusign_esignature',
+                           'docusign_click', 'docusign_rooms']
     
     steps:
     - uses: actions/checkout@v2

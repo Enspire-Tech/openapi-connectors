@@ -357,7 +357,7 @@ EOM
 
 popd
 
-ECHO "Basic file generation complete. Please customize descriptor."
+echo "Basic file generation complete. Please customize descriptor."
 
 
 
