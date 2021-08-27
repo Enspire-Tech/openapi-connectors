@@ -604,7 +604,7 @@ The following operations are not supported at this time:
 1. Stackoverflow error
    + Circular references are causing stack overflow errors.
    + Affected operations:
-     * FieldsThe key "scope" and its value must be added as an "Extended JWT Claim"._GetFieldSet
+     * Fields_GetFieldSet
      * Rooms_GetRoomFieldSet
 2. Schema can't be null
    + The request body has a content type of form-data. Only JSON request bodies are supported.
