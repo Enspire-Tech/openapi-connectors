@@ -574,7 +574,7 @@ Documentation: https://developers.docusign.com/docs/click-api/click101
 2. If using an OAuth 2.0 JWT Bearer Token grant type:
    1. The public and private key needs to be imported to Boomi as an X509 certificate.
    2. The expiration field requires an "expires in" value in seconds. Usually that should be 3600.
-   3. The key "scope" with value "signature impersonation" must be added as an "Extended JWT Claim".
+   3. The key "scope" and its value must be added as an "Extended JWT Claim".
 
 **All 21 endpoints are passing.**
 
@@ -590,7 +590,7 @@ Documentation: https://developers.docusign.com/docs/rooms-api/rooms101
 2. If using an OAuth 2.0 JWT Bearer Token grant type:
    1. The public and private key needs to be imported to Boomi as an X509 certificate.
    2. The expiration field requires an "expires in" value in seconds. Usually that should be 3600.
-   3. The key "scope" with value "signature impersonation" must be added as an "Extended JWT Claim".
+   3. The key "scope" and its value must be added as an "Extended JWT Claim".
 
 **4 out of 89 endpoints are failing.**
 
