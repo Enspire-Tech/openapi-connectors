@@ -20,9 +20,6 @@ public class CustomOperationConnection extends OpenAPIOperationConnection {
 
     private static final Logger LOG = LogUtil.getLogger(CustomOperationConnection.class);
 
-//    private static final String BEARER_TOKEN_PROPERTY = "bearerTokenId";
-//    private static final String BEARER_TOKEN_EXPIRE_PROPERTY = "bearerTokenExpireId";
-
     public CustomOperationConnection(OperationContext context) {
         super(context);
     }

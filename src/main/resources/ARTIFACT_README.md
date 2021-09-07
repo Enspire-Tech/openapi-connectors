@@ -26,6 +26,16 @@ See below for outstanding issues.
 
 * [Docusign Rooms](#docusign_rooms)
 
+* [Xero Assets](#xero_assets)
+
+* [Xero Files](#xero_files)
+
+* [Xero Projects](#xero_projects)
+
+* [Xero Payroll NZ](#xero_payroll_nz)
+
+* [Xero Payroll UK](#xero_payroll_uk)
+
 ##Summary of Issues
 <table>
    <tr><th>Error</th><th>Explanation</th><th>Example</th></tr>
@@ -180,7 +190,7 @@ See below for outstanding issues.
    </tr>
    <tr>
       <td>Schema can't be null</td>
-      <td>The request body has a content type of form-data. Only JSON request bodies are supported.</td>
+      <td>The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported.</td>
       <td>
          API: Apache Pulsar Functions, OperationId: registerFunction
          <pre>
@@ -190,6 +200,22 @@ requestBody:
       schema:
         $ref: '#/components/schemas/FunctionConfig'
   required: false
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Parameters at path level are ignored</td>
+      <td>
+         In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
+      </td>
+      <td>
+         API: Xero Assets, OperationId: getAssets
+         <pre>
+paths:
+  /Assets:
+    parameters:
+      - $ref: '#/components/parameters/requiredHeader'
+    get:
          </pre>
       </td>
    </tr>
@@ -612,4 +638,127 @@ The following operations are not supported at this time:
      * Rooms_AddDocumentToRoomViaFileUpload
      * Rooms_UpdatePicture
      
+---
+
+<a name="xero_assets"></a>
+## Xero Assets
+
+Documentation: https://developer.xero.com/documentation/api/assets/overview
+
+### Implementation Notes
+1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
+
+
+**2 out of 6 endpoints are failing.**
+
+The following operations are not supported at this time:
+* getAssets
+* getAssetTypes
+
+### Issues
+1. Unsupported Parameter Type: null
+   + References are not followed when validating parameter schema type.
+   + Affected operations:
+     + getAssets
+2. Unsupported type:ARRAY
+   + Responses with a schema type of array are not supported.
+   + Affected operations:
+     + getAssetTypes
+
+---
+
+<a name="xero_files"></a>
+## Xero Files
+
+Documentation: https://developer.xero.com/documentation/api/files/files
+
+### Implementation Notes
+1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
+
+**5 out of 17 endpoints are failing.**
+
+The following operations are not supported at this time:
+* getFileAssociations
+* getAssociationsByObject
+* getFolders
+* uploadFile
+* uploadFileToFolder
+
+### Issues
+1. Unsupported type:ARRAY
+   + Responses with a schema type of array are not supported.
+   + Affected operations:
+      + getFileAssociations
+      + getAssociationsByObject
+      + getFolders
+2. Schema can't be null
+   + The request body has a content type of form-data. Only JSON request bodies are supported.
+   + Affected operations:
+      + uploadFile
+      + uploadFileToFolder
+
+---
+
+<a name="xero_projects"></a>
+## Xero Projects
+
+Documentation: https://developer.xero.com/documentation/api/projects/overview
+
+### Implementation Notes
+1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
+
+
+**1 out of 13 endpoints are failing.**
+
+The following operations are not supported at this time:
+* getTasks
+
+### Issues
+1. Unsupported Parameter Type: null
+   + References are not followed when validating parameter schema type.
+   + Affected operations:
+      + getTasks
+
+---
+
+<a name="xero_payroll_nz"></a>
+## Xero Payroll NZ
+
+Documentation: https://developer.xero.com/documentation/api/payrollnz/overview
+
+### Implementation Notes
+1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
+
+**2 out of 68 endpoints are failing.**
+
+The following operations are not supported at this time:
+* createEmployeeOpeningBalances
+* createMultipleEmployeeEarningsTemplate
+
+### Issues
+1. Unsupported type:ARRAY
+   + Responses with a schema type of array are not supported.
+   + Affected operations:
+      + createEmployeeOpeningBalances
+      + createMultipleEmployeeEarningsTemplate
+---
+
+<a name="xero_payroll_uk"></a>
+## Xero Payroll UK
+
+Documentation: https://developer.xero.com/documentation/api/payrolluk/overview
+
+### Implementation Notes
+1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
+
+**1 out of 70 endpoints are failing.**
+
+The following operations are not supported at this time:
+* createMultipleEmployeeEarningsTemplate
+
+### Issues
+1. Unsupported type:ARRAY
+   + Responses with a schema type of array are not supported.
+   + Affected operations:
+      + createMultipleEmployeeEarningsTemplate
 ---

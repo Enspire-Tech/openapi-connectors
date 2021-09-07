@@ -1,0 +1,70 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Xero Projects API. For more information, click here: https://developer.xero.com/documentation/api/projects/overview</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.xero.com/projects.xro/2.0</defaultValue>
+    </field>
+
+    <field id="spec" label="OpenAPI Specification" type="string">
+        <defaultValue>https://raw.githubusercontent.com/XeroAPI/Xero-OpenAPI/master/xero-projects.yaml</defaultValue>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="OAuth 2.0">
+            <value>OAUTH2</value>
+        </allowedValue>
+        <allowedValue label="None">
+            <value>NONE</value>
+        </allowedValue>
+    </field>
+
+    <field id="oauthContext" label="OAuth 2.0" type="oauth">
+        <oauth2FieldConfig>
+            <authorizationTokenEndpoint>
+                <url>
+                    <defaultValue>https://login.xero.com/identity/connect/authorize</defaultValue>
+                </url>
+            </authorizationTokenEndpoint>
+            <authorizationParameters access="hidden"/>
+            <accessTokenEndpoint>
+                <url>
+                    <defaultValue>https://identity.xero.com/connect/token</defaultValue>
+                </url>
+            </accessTokenEndpoint>
+            <accessTokenParameters access="hidden"/>
+            <grantType>
+                <allowedValue label="Authorization Code">
+                    <value>code</value>
+                </allowedValue>
+            </grantType>
+        </oauth2FieldConfig>
+    </field>
+
+    <field type="string" id="cookieScope" label="Cookie Scope">
+        <defaultValue>GLOBAL</defaultValue>
+        <allowedValue label="Global">
+            <value>GLOBAL</value>
+        </allowedValue>
+        <allowedValue label="Connector Shape">
+            <value>CONNECTOR_SHAPE</value>
+        </allowedValue>
+        <allowedValue label="Ignored">
+            <value>IGNORED</value>
+        </allowedValue>
+    </field>
+
+    <field id="preemptive" label="Preemptive authentication" type="boolean">
+        <helpText>Applicable for Basic and OAuth 2.0 authentication. When selected, the connector builds and sends the authorization header to the HTTP server ahead of time in the initial request. Use preemptive authentication when you trust the server and to reduce the overhead of making an additional request. When cleared, the authorization header is not sent to the HTTP server ahead of time in the initial request. The server sends the response back to the connector indicating the information it expects to authenticate. You can view the logging information (equivalent to the "FINE" setting) by selecting the Atom's Enable Debug Logging property (com.boomi.container.debug) check box.</helpText>
+        <defaultValue>true</defaultValue>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>
