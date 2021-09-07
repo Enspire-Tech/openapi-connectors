@@ -26,9 +26,6 @@ public class CustomOperation extends OpenAPIOperation {
     protected Iterable<Map.Entry<String, String>> getHeaders(ObjectData data) {
         Iterable<Map.Entry<String, String>> originalHeaders = super.getHeaders(data);
 
-
-
-
         Map<String, String> customHeaders = getConnection().getContext().getConnectionProperties().getCustomProperties(CUSTOM_HEADERS_PROPERTY);
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<Map.Entry<String, String>>();
