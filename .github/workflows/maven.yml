@@ -16,7 +16,8 @@ jobs:
       matrix:
         target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase',
                            'apache_pulsar_functions', 'aquarius', 'provider', 'blackboard', 'docusign_esignature',
-                           'docusign_click', 'docusign_rooms']
+                           'docusign_click', 'docusign_rooms', 'xero_assets', 'xero_files', 'xero_projects',
+                           'xero_payroll_nz', 'xero_payroll_uk']
     
     steps:
     - uses: actions/checkout@v2

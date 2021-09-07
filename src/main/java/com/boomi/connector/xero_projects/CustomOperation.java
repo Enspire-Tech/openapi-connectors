@@ -1,8 +1,9 @@
-package com.boomi.connector.blackboard;
+package com.boomi.connector.xero_projects;
 
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;
 import com.boomi.util.CollectionUtil;
+import com.boomi.util.StringUtil;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -27,12 +28,10 @@ public class CustomOperation extends OpenAPIOperation {
         Iterable<Map.Entry<String, String>> originalHeaders = super.getHeaders(data);
 
 
-
-
         Map<String, String> customHeaders = getConnection().getContext().getConnectionProperties().getCustomProperties(CUSTOM_HEADERS_PROPERTY);
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<Map.Entry<String, String>>();
-        
+
         //add other custom headers
         while (originalHeaderIterator.hasNext()) {
             headerList.add(originalHeaderIterator.next());
@@ -42,7 +41,14 @@ public class CustomOperation extends OpenAPIOperation {
                 headerList.add(new AbstractMap.SimpleEntry<>(key, customHeaders.get(key)));
             }
         }
-        Iterable<Map.Entry<String, String>> headers = headerList;
-        return headers;
+
+        //add Xero-Tenant-Id header obtained during browse
+        String tenantId = getContext().getOperationProperties().getProperty("tenantId");
+        String headerKey = "Xero-Tenant-Id";
+        if (StringUtil.isNotBlank(tenantId)) {
+            headerList.add(new AbstractMap.SimpleEntry<>(headerKey, tenantId));
+        }
+
+        return headerList;
     }
 }

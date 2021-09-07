@@ -93,7 +93,7 @@ public class CustomOperation extends OpenAPIOperation {
 
         Map<String, String> customHeaders = getConnection().getContext().getConnectionProperties().getCustomProperties(CUSTOM_HEADERS_PROPERTY);
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
-        ArrayList<Map.Entry<String, String>> headerList = new ArrayList<Map.Entry<String, String>>();
+        ArrayList<Map.Entry<String, String>> headerList = new ArrayList<>();
 
         //add other custom headers
         while (originalHeaderIterator.hasNext()) {
@@ -104,8 +104,8 @@ public class CustomOperation extends OpenAPIOperation {
                 headerList.add(new AbstractMap.SimpleEntry<>(key, customHeaders.get(key)));
             }
         }
-        Iterable<Map.Entry<String, String>> headers = headerList;
-        return headers;
+
+        return headerList;
     }
 }
 EOM
@@ -191,6 +191,10 @@ import java.util.logging.Logger;
 public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
+    private static final String SPEC = "";
+    final Map<String, Object> connProps = new HashMap<String, Object>() {{
+        put("spec", SPEC);
+    }};
 
     final String[] HTTP_METHODS = {
             "GET",
@@ -206,8 +210,6 @@ public class CustomBrowserTest {
     @Test
     public void testTypes() throws Exception {
         CustomConnector connector = new CustomConnector();
-
-        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
 
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
@@ -243,7 +245,6 @@ public class CustomBrowserTest {
 
         CustomConnector connector = new CustomConnector();
 
-        Map<String, Object> connProps = new HashMap<String, Object>() {{}};
         for (String httpMethod : HTTP_METHODS) {
             SimpleBrowseContext browseContext = new SimpleBrowseContext(
                     new SimpleAtomConfig(),
