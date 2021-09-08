@@ -36,36 +36,45 @@ See below for outstanding issues.
 
 * [Xero Payroll UK](#xero_payroll_uk)
 
-##Summary of Issues
+### Skipped APIs
+* **Bitbucket** 
+  * https://api.bitbucket.org/swagger.json
+  * 160 out of 304 endpoints failing (as a 2.0 spec)
+  * Issue converting to OAS3
+* **Github** 
+  * https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/ghes-3.1/ghes-3.1.json
+  * 171 out of 682 endpoints failing
+  * Mostly "Unsupported type: ARRAY" errors
+* **Insightly**
+  * https://api.na1.insightly.com/v3.1/swagger/docs/v3.1
+  * 184 out of 417 endpoints failing
+  * Mostly "Unsupported type: ARRAY" errors
+* **Amdocs MarketOne**
+  * https://api.swaggerhub.com/apis/Amdocs_Media/MarketONE/2021.02.Released
+  * 19 out of 39 endpoints failing
+  * Mostly stackoverflow errors due to circular references
+* **Apache Pulsar Admin**
+  * https://pulsar.apache.org/swagger/master//swagger.json
+  * 131 out of 413 endpoints failing
+  * Various errors
+* **Guru**
+  * https://api.getguru.com/api/v1/swagger.json
+  * 22 out of 54 endpoints failing
+  * Mostly "Unsupported type: ARRAY" errors
+* **Xero Accounting**
+  * https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_accounting.yaml
+  * 83 out of 226 endpoints failing
+  * Mostly stack overflow errors due to circular references
+
+## Summary of Issues
+
 <table>
-   <tr><th>Error</th><th>Explanation</th><th>Example</th></tr>
+   <tr><th>Priority</th></td><th>Error</th><th>Explanation</th><th>Endpoints Affected</th><th>Example</th></tr>
    <tr>
-      <td>Property value is null</td>
-      <td>Schema references to parameter components are not resolved.</td>
-      <td>
-         API: Pagerduty, OperationId: listAuditRecords<br>
-         <pre>"$ref": "#/components/parameters/audit_method_type/schema"</pre>
-      </td>
-   </tr>
-   <tr>
-      <td>Unsupported type: ARRAY</td>
-      <td>Responses with a schema type of array are not supported.</td>
-      <td>
-         API: Pagerduty, OperationId: createScheduleOverride<br>
-         <pre>
-"responses": {
-   "201": {
-      "description": "A list of overrides requested and a status code indicating whether they were created or rejected",
-         "content": {
-            "application/json": {
-                "schema": {
-                  "type": "array",
-         </pre>
-      </td>
-   </tr>
-   <tr>
+      <td>1</td>
       <td>Stackoverflow error</td>
       <td>Circular references are causing stack overflow errors.</td>
+      <td>5</td>
       <td>
          API: Pagerduty, OperationId: getServiceIntegration<br>
          <pre>
@@ -107,8 +116,28 @@ See below for outstanding issues.
       </td>
    </tr>
    <tr>
+      <td>1</td>
+      <td>Unsupported type: ARRAY</td>
+      <td>Responses with a schema type of array are not supported.</td>
+      <td>16</td>
+      <td>
+         API: Pagerduty, OperationId: createScheduleOverride<br>
+         <pre>
+"responses": {
+   "201": {
+      "description": "A list of overrides requested and a status code indicating whether they were created or rejected",
+         "content": {
+            "application/json": {
+                "schema": {
+                  "type": "array",
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>2</td>
       <td>Unsupported Parameter Type: null</td>
       <td>References are not followed when validating parameter schema type.</td>
+      <td>5</td>
       <td>
          API: Twitter V2, OperationId: findTweetById<br>
          <pre>
@@ -124,24 +153,10 @@ See below for outstanding issues.
       </td>
    </tr>
    <tr>
-      <td>Unsupported type: STRING</td>
-      <td>In the response, the JSON schema type is "string".</td>
-      <td>
-         API: Twitter V2, OperationId: getOpenApiSpec<br>
-         <pre>
-"responses" : {
- "200" : {
-   "description" : "The request was successful",
-   "content" : {
-     "application/json" : {
-       "schema" : {
-         "type" : "string"
-         </pre>
-      </td>
-   </tr>
-   <tr>
+      <td>2</td>
       <td>Unsupported Parameter Type: null</td>
       <td>The path parameter has no type. It contains an empty schema.</td>
+      <td>7</td>
       <td>
          API: CircleCI, OperationId: getTests<br>
          <pre>
@@ -158,8 +173,55 @@ See below for outstanding issues.
       </td>
    </tr>
    <tr>
+      <td>2</td>
+      <td>Schema can't be null</td>
+      <td>The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported.</td>
+      <td>11</td>
+      <td>
+         API: Apache Pulsar Functions, OperationId: registerFunction
+         <pre>
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '#/components/schemas/FunctionConfig'
+  required: false
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>2</td>
+      <td>Property value is null</td>
+      <td>Schema references to parameter components are not resolved.</td>
+      <td>6</td>
+      <td>
+         API: Pagerduty, OperationId: listAuditRecords<br>
+         <pre>"$ref": "#/components/parameters/audit_method_type/schema"</pre>
+      </td>
+   </tr>
+   <tr>
+      <td>3</td>
+      <td>Unsupported type: STRING</td>
+      <td>In the response, the JSON schema type is "string".</td>
+      <td>2</td>
+      <td>
+         API: Twitter V2, OperationId: getOpenApiSpec<br>
+         <pre>
+"responses" : {
+ "200" : {
+   "description" : "The request was successful",
+   "content" : {
+     "application/json" : {
+       "schema" : {
+         "type" : "string"
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>3</td>
       <td>DELETE requests should not return a request body</td>
       <td>According to OpenAPI specifications, GET, DELETE, and HEAD are no longer allowed to have a request body.</td>
+      <td>35</td>
       <td>
          API: Quickbase, OperationId: deleteApp<br>
          <pre>
@@ -189,25 +251,12 @@ See below for outstanding issues.
       </td>
    </tr>
    <tr>
-      <td>Schema can't be null</td>
-      <td>The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported.</td>
-      <td>
-         API: Apache Pulsar Functions, OperationId: registerFunction
-         <pre>
-requestBody:
-  content:
-    multipart/form-data:
-      schema:
-        $ref: '#/components/schemas/FunctionConfig'
-  required: false
-         </pre>
-      </td>
-   </tr>
-   <tr>
+      <td>3</td>
       <td>Parameters at path level are ignored</td>
       <td>
          In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
       </td>
+      <td>0</td>
       <td>
          API: Xero Assets, OperationId: getAssets
          <pre>
