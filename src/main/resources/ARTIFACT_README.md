@@ -61,7 +61,10 @@ See below for outstanding issues.
   * https://api.getguru.com/api/v1/swagger.json
   * 22 out of 54 endpoints failing
   * Mostly "Unsupported type: ARRAY" errors
-
+* **Xero Accounting**
+  * https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_accounting.yaml
+  * 83 out of 226 endpoints failing
+  * Mostly stack overflow errors due to circular references
 
 ## Summary of Issues
 
