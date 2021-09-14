@@ -36,6 +36,8 @@ See below for outstanding issues.
 
 * [Xero Payroll UK](#xero_payroll_uk)
 
+* [Ably Control](#ably_control)
+
 ### Skipped APIs
 * **Bitbucket** 
   * https://api.bitbucket.org/swagger.json
@@ -64,7 +66,16 @@ See below for outstanding issues.
 * **Xero Accounting**
   * https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_accounting.yaml
   * 83 out of 226 endpoints failing
-  * Mostly stack overflow errors due to circular references
+  * Mostly stackoverflow errors due to circular references
+* **Stripe**
+  * https://github.com/stripe/openapi/blob/master/openapi/spec3.json
+  * 302 out of 384 endpoints failing
+  * Mostly stackoverflow errors due to circular references
+* **Ably**
+  * https://github.com/ably/open-specs/blob/main/definitions/platform-v1.yaml
+  * 21 out of 22 endpoints failing
+  * 20 endpoints failing due to the HTTP status code range issue
+  
 
 ## Summary of Issues
 
@@ -268,6 +279,20 @@ paths:
          </pre>
       </td>
    </tr>
+    <tr>
+        <td>3</td>
+        <td>Status code ranges are not recognized</td>
+        <td>'2XX' is a valid range definition according to the OpenAPI specification. Boomi is not recognizing this 
+            status code as a successful response.</td>
+        <td>20</td>
+        <td>
+            API: Ably, OperationId: getMessagesByChannel<br>
+            <pre>
+responses:
+    '2XX':
+            </pre>
+        </td>
+    </tr>
 </table>
 
 
@@ -811,3 +836,35 @@ The following operations are not supported at this time:
    + Affected operations:
       + createMultipleEmployeeEarningsTemplate
 ---
+
+<a name="ably_control"></a>
+## Ably Control
+
+https://developer.xero.com/documentation/api/payrollnz/overview
+
+Documentation: https://ably.com/documentation/control-api
+
+**6 out of 22 endpoints are failing.**
+
+The following endpoints are not supported at this time:
+* /accounts/{account_id}/apps 
+* /apps/{app_id}/keys
+* /apps/{app_id}/namespaces
+* /apps/{app_id}/queues
+* /apps/{app_id}/rules
+* /apps/{id}/pkcs12
+
+### Issues
+1. Unsupported type:ARRAY
+    + Responses with a schema type of array are not supported.
+    + Affected operations:
+      * /accounts/{account_id}/apps
+      * /apps/{app_id}/keys
+      * /apps/{app_id}/namespaces
+      * /apps/{app_id}/queues
+      * /apps/{app_id}/rules
+2. Schema can't be null
+    + The request body has a content type of "multipart/form-data"
+    + Affected operations:
+      * /apps/{id}/pkcs12
+

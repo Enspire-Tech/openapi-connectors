@@ -1,0 +1,33 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Ably Control API. For more information, click here: https://ably.com/documentation/control-api</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://control.ably.net/v1</defaultValue>
+    </field>
+
+    <field id="spec" label="OpenAPI Spec" type="string">
+        <defaultValue>https://raw.githubusercontent.com/ably/open-specs/main/definitions/control-v1.yaml</defaultValue>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="API Key">
+            <value>CUSTOM</value>
+        </allowedValue>
+        <allowedValue label="None">
+            <value>NONE</value>
+        </allowedValue>
+    </field>
+
+    <field id="customAuthCredentials" label="API Key" type="password"/>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>
