@@ -20,7 +20,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.sdk.version>2.10.0</connector.sdk.version>
+        <connector.sdk.version>2.11.0</connector.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -34,6 +34,40 @@
         </dependency>
 
         <dependency>
+            <groupId>com.boomi.util</groupId>
+            <artifactId>boomi-json-util</artifactId>
+            <version>1.1.10</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.boomi.util</groupId>
+            <artifactId>boomi-util</artifactId>
+            <version>2.3.8</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-rest</artifactId>
+            <version>0.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>2.0.23</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-ext</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-util</artifactId>
             <version>${connector.sdk.version}</version>
@@ -43,7 +77,9 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.2</version>
+            <version>0.4-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/connector-sdk-openapi-0.4-SNAPSHOT.jar</systemPath>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
