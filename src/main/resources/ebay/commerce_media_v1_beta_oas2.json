@@ -1,0 +1,478 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Media API allows sellers to create, upload, and fetch videos.",
+    "version": "v1_beta.0.0",
+    "title": "Media API",
+    "contact": {
+      "name": "eBay Inc,"
+    },
+    "license": {
+      "name": "eBay API License Agreement",
+      "url": "https://go.developer.ebay.com/api-license-agreement"
+    }
+  },
+  "host": "apim.ebay.com",
+  "basePath": "/commerce/media/v1_beta",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/video": {
+      "post": {
+        "tags": [
+          "video"
+        ],
+        "description": "This method creates a video. When using this method, specify the title, size, and classification of the video to be created. Description is an optional field for this method. Tip: See Adding a video to your listing in the eBay Seller Center for details about video formatting requirements and restrictions, or visit the relevant eBay site help pages for the region in which the listings will be posted. When a video is successfully created, the method returns the HTTP Status Code 201 Created.The method also returns the location response header containing the video ID, which you can use to retrieve the video. Note: There is no ability to edit metadata on videos at this time. There is also no method to delete videos. To upload a created video, use the uploadVideo method.",
+        "operationId": "createVideo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CreateVideoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The created video resource location and the unique video ID."
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "x-response-codes": {
+              "errors": {
+                "190002": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Missing or invalid size. The size of the file (in bytes) is required."
+                },
+                "190003": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Maximum size exceeded for supported uploads. Please refer to the documentation."
+                },
+                "190004": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Title length limit has been exceeded. Please refer to the documentation."
+                },
+                "190005": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Description length exceeded. Please refer to the documentation."
+                },
+                "190006": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "A video title is required."
+                },
+                "190014": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "A video classification is required."
+                },
+                "190016": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Markups are not permitted in the video title."
+                },
+                "190017": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Markups are not permitted in the video description."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "x-response-codes": {
+              "errors": {
+                "190013": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Unauthorized access."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-response-codes": {
+              "errors": {
+                "190000": {
+                  "domain": "API_MEDIA",
+                  "category": "APPLICATION",
+                  "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization Code": [
+              "https://api.ebay.com/oauth/api_scope/sell.inventory"
+            ]
+          }
+        ]
+      }
+    },
+    "/video/{video_id}": {
+      "get": {
+        "tags": [
+          "video"
+        ],
+        "description": "This method retrieves a video's metadata and content given a specified video ID. The method returns the title, size, classification, description, video ID, playList, status, status message (if any), expiration date, and thumbnail image of the retrieved video. The video&rsquo;s title, size, classification, and description are set using the createVideo method. The video's playList contains two URLs that link to instances of the streaming video based on the supported protocol. The status field contains the current status of the video. After a video upload is successfully completed, the video's status will show as PROCESSING until the video reaches one of the terminal states of LIVE, BLOCKED or PROCESSING_FAILED. If a video's processing fails, it could be because the file is corrupted, is too large, or its size doesn&rsquo;t match what was provided in the metadata. Refer to the error messages to determine the cause of the video&rsquo;s failure to upload. The status message will indicate why a video was blocked from uploading. The video&rsquo;s expiration date is automatically set to 365 days (one year) after the video&rsquo;s initial creation. The video's thumbnail image is automatically generated when the video is created.",
+        "operationId": "getVideo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "description": "The video ID for the video to be retrieved.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Video"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden",
+            "x-response-codes": {
+              "errors": {
+                "190013": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "Unauthorized access."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-response-codes": {
+              "errors": {
+                "190001": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The specified video_Id does not exist."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-response-codes": {
+              "errors": {
+                "190000": {
+                  "domain": "API_MEDIA",
+                  "category": "APPLICATION",
+                  "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization Code": [
+              "https://api.ebay.com/oauth/api_scope/sell.inventory"
+            ]
+          }
+        ]
+      }
+    },
+    "/video/{video_id}/upload": {
+      "post": {
+        "tags": [
+          "video"
+        ],
+        "description": "This method associates the specified file with the specified video ID and uploads the input file. After the file has been uploaded the processing of the file begins. Note: The size of the video to be uploaded must exactly match the size of the video's input stream that was set in the createVideo method. If the sizes do not match, the video will not upload successfully. When a video is successfully uploaded, it returns the HTTP Status Code 200 OK. The status flow is PENDING_UPLOAD &gt; PROCESSING &gt; LIVE, PROCESSING_FAILED, or BLOCKED. After a video upload is successfully completed, the status will show as PROCESSING until the video reaches one of the terminal states of LIVE, BLOCKED, or PROCESSING_FAILED. If the size information (in bytes) provided is incorrect, the API will throw an error. Tip: See Adding a video to your listing in the eBay Seller Center for details about video formatting requirements and restrictions, or visit the relevant eBay site help pages for the region in which the listings will be posted. To retrieve an uploaded video, use the getVideo method.",
+        "operationId": "uploadVideo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "video_id",
+            "in": "path",
+            "description": "The video ID for the uploaded video.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Content-Length",
+            "in": "header",
+            "description": "Use this header to specify the content length for the upload. Use Content-Range: bytes {1}-{2}/{3} and Content-Length:{4} headers. Note: This header is optional and is only required for resumable uploads (when an upload is interrupted and must be resumed from a certain point).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Content-Range",
+            "in": "header",
+            "description": "Use this header to specify the content range for the upload. The Content-Range should be of the following bytes ((?:[0-9]+-[0-9]+)|\\\\\\\\*)/([0-9]+|\\\\\\\\*) pattern. Note: This header is optional and is only required for resumable uploads (when an upload is interrupted and must be resumed from a certain point).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "Use this header to specify the content type for the upload. The Content-Type should be set to application/octet-stream.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request payload for this method is the input stream for the video source. The input source must be an .mp4 file of the type MPEG-4 Part 10 or Advanced Video Coding (MPEG-4 AVC).",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/InputStream"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "x-response-codes": {
+              "errors": {
+                "190007": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The content length does not match the content size specified."
+                },
+                "190010": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The video's Content-Range is invalid. The Content-Range should be of the following bytes ((?:[0-9]+-[0-9]+)|\\\\\\\\*)/([0-9]+|\\\\\\\\*) pattern."
+                },
+                "190012": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The content length of the video is invalid."
+                },
+                "190015": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The uploaded content must match the video size."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "x-response-codes": {
+              "errors": {
+                "190001": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The specified video_Id does not exist."
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "x-response-codes": {
+              "errors": {
+                "190011": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The video is already uploaded."
+                }
+              }
+            }
+          },
+          "411": {
+            "description": "Content Length Required",
+            "x-response-codes": {
+              "errors": {
+                "190008": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The content length is required."
+                }
+              }
+            }
+          },
+          "416": {
+            "description": "Range Not Satisfiable",
+            "x-response-codes": {
+              "errors": {
+                "190009": {
+                  "domain": "API_MEDIA",
+                  "category": "REQUEST",
+                  "description": "The Content-Range specified is incorrect. Use Content-Range: bytes {1}}-{2}/{3} and Content-Length:{4} headers."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "x-response-codes": {
+              "errors": {
+                "190000": {
+                  "domain": "API_MEDIA",
+                  "category": "APPLICATION",
+                  "description": "There was a problem with an eBay internal system or process. Contact eBay developer support for assistance."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization Code": [
+              "https://api.ebay.com/oauth/api_scope/sell.inventory"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization Code": {
+      "description": "The security definitions for this API. Please check individual operations for applicable scopes.",
+      "type": "oauth2",
+      "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+      "tokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+      "flow": "accessCode",
+      "scopes": {
+        "https://api.ebay.com/oauth/api_scope/sell.inventory": "View and manage your inventory and offers"
+      }
+    }
+  },
+  "definitions": {
+    "CreateVideoRequest": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "array",
+          "description": "The intended use for this video content. The video&rsquo;s classification is used to associate the video with a user or seller. Currently, the classification of all videos should be set to ITEM.",
+          "items": {
+            "type": "string",
+            "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:Classification'>eBay API documentation</a>"
+          }
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size, in bytes, of the video content."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the video."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the video."
+        }
+      },
+      "description": "The request to create a video, which must contain the video's <b>title</b>, <b>size</b>, and <b>classification</b>. <b>Description</b> is an optional field when creating videos."
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "imageUrl": {
+          "type": "string",
+          "description": "The URL to access this image."
+        }
+      },
+      "description": "The automatically generated thumbnail image of the video."
+    },
+    "InputStream": {
+      "type": "object",
+      "description": "The streaming input of the video source. The input source must be an .mp4 file of the type MPEG-4 Part 10 or Advanced Video Coding (MPEG-4 AVC)."
+    },
+    "Play": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "The protocol for the video playlist. Supported protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP&nbsp;Live Streaming). For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:ProtocolEnum'>eBay API documentation</a>"
+        },
+        "playUrl": {
+          "type": "string",
+          "description": "The playable URL for this video."
+        }
+      },
+      "description": "Lists the two streaming video URLs available for a successfully uploaded video with a status of <code>LIVE</code>. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming)."
+    },
+    "Video": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "array",
+          "description": "The intended use for this video content. The video&rsquo;s classification is used to associate the video with a user or seller. Currently, the classification of all videos should be set to ITEM.",
+          "items": {
+            "type": "string",
+            "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:Classification'>eBay API documentation</a>"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the video. The video description is an optional field that can be set using the createVideo method."
+        },
+        "expirationDate": {
+          "type": "string",
+          "description": "The expiration date of the video in Coordinated Universal Time (UTC). The video&rsquo;s expiration date is automatically set to 365 days (one year) after the video&rsquo;s initial upload."
+        },
+        "playLists": {
+          "type": "array",
+          "description": "The playlist created for the uploaded video, which provides the streaming video URLs to play the video. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP&nbsp;Live Streaming). The playlist will only be generated if a video is successfully uploaded with a status of LIVE.",
+          "items": {
+            "$ref": "#/definitions/Play"
+          }
+        },
+        "size": {
+          "type": "integer",
+          "description": "The size, in bytes, of the video content."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the current video resource. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:VideoStatusEnum'>eBay API documentation</a>"
+        },
+        "statusMessage": {
+          "type": "string",
+          "description": "The statusMessage field contains additional information on the status. For example, information on why processing might have failed or if the video was blocked."
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/Image"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the video."
+        },
+        "videoId": {
+          "type": "string",
+          "description": "The unique ID of the video."
+        }
+      },
+      "description": "A response field that retrieves all the metadata for the video, including its <b>title</b>, <b>classification</b>, <b>size</b>, <b>description</b>, <b>status</b>, <b>status message</b> (if any), and <b>expiration date</b>."
+    }
+  }
+}
