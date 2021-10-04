@@ -25,7 +25,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.sdk.version>2.11.1</connector.sdk.version>
+        <connector.sdk.version>2.11.2</connector.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
