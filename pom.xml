@@ -15,12 +15,17 @@
             <name>Connector SDK Repository</name>
             <url>https://boomisdk.s3.amazonaws.com/releases</url>
         </repository>
+
+        <repository>
+            <id>local-repo</id>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
     </repositories>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.sdk.version>2.11.0</connector.sdk.version>
+        <connector.sdk.version>2.11.2</connector.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -78,8 +83,6 @@
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
             <version>0.4-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/connector-sdk-openapi-0.4-SNAPSHOT.jar</systemPath>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
@@ -119,6 +122,14 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-model</artifactId>
+            <version>2.11.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -172,9 +172,7 @@ mkdir -p ../../test/java/com/boomi/connector/${CONNECTOR_NAME}
 cat <<EOM >../../test/java/com/boomi/connector/${CONNECTOR_NAME}/CustomBrowserTest.java
 package com.boomi.connector.${CONNECTOR_NAME};
 
-import com.boomi.connector.api.ObjectDefinitionRole;
-import com.boomi.connector.api.ObjectType;
-import com.boomi.connector.api.ObjectTypes;
+import com.boomi.connector.api.*;
 import com.boomi.connector.openapi.OpenAPIBrowser;
 import com.boomi.connector.testutil.SimpleAtomConfig;
 import com.boomi.connector.testutil.SimpleBrowseContext;
@@ -277,7 +275,21 @@ public class CustomBrowserTest {
 
                 try {
                     try {
-                        browser.getObjectDefinitions(path, roles);
+                        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(path, roles);
+                        boolean outputExists = false;
+                        for (ObjectDefinition objectDefinition: objectDefinitions.getDefinitions()) {
+                            ContentType contentType = objectDefinition.getOutputType();
+                            if (!contentType.toString().contains("NONE")) {
+                                outputExists = true;
+                            }
+                        }
+                        if (!outputExists && httpMethod.contains("GET")) {
+                            String message = String.format(
+                                    "No output for path: %s, http method: %s, operation id: %s",
+                                    path, httpMethod, operationId);
+                            System.err.println(message);
+                            errorCount++;
+                        }
                     } catch (StackOverflowError e) {
                         System.err.println("Stackoverflow error for operationId " + operationId);
                         errorCount++;

@@ -1,0 +1,160 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the eBay RESTful APIs. For more information, see: https://developer.ebay.com/docs</description>
+
+
+    <field id="apiCategory" label="API Category" type="string" displayType="list">
+<!--        <allowedValue label="Sell APIs"><value>sellApi</value></allowedValue>-->
+        <allowedValue label="Buy APIs"><value>buyApi</value></allowedValue>
+<!--        <allowedValue label="Commerce APIs"><value>commerceApi</value></allowedValue>-->
+<!--        <allowedValue label="Developer APIs"><value>developerApi</value></allowedValue>-->
+    </field>
+
+
+<!--    <field id="sellApi" label="Sell API" type="string" displayType="list">-->
+<!--        <allowedValue label="Account API"><value>sell_account</value></allowedValue>-->
+<!--        <allowedValue label="Inventory API"><value>sell_inventory</value></allowedValue>-->
+<!--        <allowedValue label="Fulfillment API"><value>sell_fulfillment</value></allowedValue>-->
+<!--        <allowedValue label="Finances API"><value>sell_finances</value></allowedValue>-->
+<!--        <allowedValue label="Marketing API"><value>sell_marketing</value></allowedValue>-->
+<!--        <allowedValue label="Negotiation API"><value>sell_negotiation</value></allowedValue>-->
+<!--        <allowedValue label="Recommendation API"><value>sell_recommendation</value></allowedValue>-->
+<!--        <allowedValue label="Analytics API"><value>sell_analytics</value></allowedValue>-->
+<!--        <allowedValue label="Metadata API"><value>sell_metadata</value></allowedValue>-->
+<!--        <allowedValue label="Compliance API"><value>sell_compliance</value></allowedValue>-->
+<!--        <allowedValue label="Feed API"><value>sell_feed</value></allowedValue>-->
+
+<!--        <visibilityCondition>-->
+<!--            <valueCondition fieldId="apiCategory">-->
+<!--                <value>sellApi</value>-->
+<!--            </valueCondition>-->
+<!--        </visibilityCondition>-->
+<!--    </field>-->
+
+
+    <field id="buyApi" label="Buy API" type="string" displayType="list">
+        <allowedValue label="Browse API"><value>buy_browse</value></allowedValue>
+        <allowedValue label="Marketing API"><value>buy_marketing</value></allowedValue>
+
+        <visibilityCondition>
+                <valueCondition fieldId="apiCategory">
+                    <value>buyApi</value>
+                </valueCondition>
+            </visibilityCondition>
+    </field>
+
+
+<!--    <field id="commerceApi" label="Commerce API" type="string" displayType="list">-->
+<!--        <allowedValue label="Catalog API"><value>commerce_catalog</value></allowedValue>-->
+<!--        <allowedValue label="Charity API"><value>commerce_charity</value></allowedValue>-->
+<!--        <allowedValue label="Media API"><value>commerce_media</value></allowedValue>-->
+<!--        <allowedValue label="Notification API"><value>commerce_notification</value></allowedValue>-->
+<!--        <allowedValue label="Taxonomy API"><value>commerce_taxonomy</value></allowedValue>-->
+<!--        <allowedValue label="Translation API"><value>commerce_translation</value></allowedValue>-->
+
+<!--        <visibilityCondition>-->
+<!--            <valueCondition fieldId="apiCategory">-->
+<!--                <value>commerceApi</value>-->
+<!--            </valueCondition>-->
+<!--        </visibilityCondition>-->
+<!--    </field>-->
+
+
+<!--    <field id="developerApi" label="Developer API" type="string" displayType="list">-->
+<!--        <allowedValue label="Analytics API"><value>developer_analytics</value></allowedValue>-->
+
+<!--        <visibilityCondition>-->
+<!--            <valueCondition fieldId="apiCategory">-->
+<!--                <value>developerApi</value>-->
+<!--            </valueCondition>-->
+<!--        </visibilityCondition>-->
+<!--    </field>-->
+
+    <field id="serverType" label="Server Type" type="string" displayType="list">
+        <allowedValue label="Sandbox"><value>sandbox</value></allowedValue>
+        <allowedValue label="Production"><value>production</value></allowedValue>
+    </field>
+
+
+    <field id="url" label="Override Server URL" type="string">
+        <helpText>This will override the URL for the chosen API.</helpText>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>This will override the custom specification included with the connector.</helpText>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="Client Credentials OAuth 2.0">
+            <value>CUSTOM</value>
+        </allowedValue>
+<!--        <allowedValue label="Authorization Code OAuth 2.0">-->
+<!--            <value>OAUTH2</value>-->
+<!--        </allowedValue>-->
+        <allowedValue label="None">
+            <value>NONE</value>
+        </allowedValue>
+    </field>
+
+    <field id="grantType" label="Grant Type" type="string">
+        <allowedValue>
+            <value>Client Credentials</value>
+        </allowedValue>
+    </field>
+
+    <field id="clientId" label="Client ID" type="string">
+        <helpText>This is your EBay App ID</helpText>
+    </field>
+
+    <field id="clientSecret" label="Client Secret" type="password">
+        <helpText>This is your EBay Cert ID</helpText>
+    </field>
+
+    <field id="accessTokenUrl" label="Access Token URL" type="string">
+        <helpText>Sandbox: https://api.sandbox.ebay.com/identity/v1/oauth2/token, Production: https://api.ebay.com/identity/v1/oauth2/token</helpText>
+    </field>
+
+    <field id="scope" label="Scope" type="string">
+        <helpText>See here: https://developer.ebay.com/api-docs/static/oauth-scopes.html</helpText>
+    </field>
+
+
+    <field type="string" id="cookieScope" label="Cookie Scope">
+        <defaultValue>GLOBAL</defaultValue>
+        <allowedValue label="Global">
+            <value>GLOBAL</value>
+        </allowedValue>
+        <allowedValue label="Connector Shape">
+            <value>CONNECTOR_SHAPE</value>
+        </allowedValue>
+        <allowedValue label="Ignored">
+            <value>IGNORED</value>
+        </allowedValue>
+    </field>
+
+    <field id="preemptive" label="Preemptive authentication" type="boolean">
+        <helpText>Applicable for Basic and OAuth 2.0 authentication. When selected, the connector builds and sends the authorization header to the HTTP server ahead of time in the initial request. Use preemptive authentication when you trust the server and to reduce the overhead of making an additional request. When cleared, the authorization header is not sent to the HTTP server ahead of time in the initial request. The server sends the response back to the connector indicating the information it expects to authenticate. You can view the logging information (equivalent to the "FINE" setting) by selecting the Atom's Enable Debug Logging property (com.boomi.container.debug) check box.</helpText>
+        <defaultValue>true</defaultValue>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+
+<!--    <field id="oauthContext" label="OAuth 2.0" type="oauth">-->
+<!--        <oauth2FieldConfig>-->
+<!--            <grantType>-->
+<!--                <allowedValue label="Authorization Code">-->
+<!--                    <value>code</value>-->
+<!--                </allowedValue>-->
+<!--            </grantType>-->
+<!--        </oauth2FieldConfig>-->
+<!--    </field>-->
+
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>

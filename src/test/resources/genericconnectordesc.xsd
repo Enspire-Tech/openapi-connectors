@@ -87,7 +87,20 @@
                 <xs:annotation>
                     <xs:appinfo>
                         <jxb:property name="trackedProperties"><jxb:javadoc>
-                            Tracked Fields which could be present for a connector.&lt;p&gt;
+                            Declare zero to many trackedPropery(ies). The tracked property is used process developers in shapes that
+                            utilizes get parameter and it is also shown within process reporting column per document. Developers should
+                            include the data with PayloadMetadata. 
+                        </jxb:javadoc></jxb:property>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="trackedGroup" type="TrackedGroupConfig" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <jxb:property name="trackedGroups"><jxb:javadoc>
+                            Declare zero to many trackedGroup(s). The tracked group is used process developers in shapes that
+                            utilizes get parameter. In order for a value to be fetched, the key must need known for a specific group.
+                            Developers should include the data with PayloadMetadata.
                         </jxb:javadoc></jxb:property>
                     </xs:appinfo>
                 </xs:annotation>
@@ -392,7 +405,7 @@
     <xs:complexType name="TrackedPropertyConfig">
         <xs:annotation>
             <xs:documentation xml:lang="en">
-                Specification for a tracked field of information necessary in order to track document.
+                TrackedPropertyConfig is the definition for the display and unique identifier for a trackedProperty.
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -411,6 +424,7 @@
                 <xs:appinfo>
                     <jxb:property><jxb:javadoc>
                         The actual name of the field which will be passed as the property key to the connector.
+                        This id needs to be unique and cannot be an id that has been specified by the trackedGroup field.
                     </jxb:javadoc></jxb:property>
                 </xs:appinfo>
             </xs:annotation>
@@ -426,6 +440,35 @@
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
+
+    <xs:complexType name="TrackedGroupConfig">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                TrackedGroupConfig is the definition for the display and unique identifier for a trackedGroup.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="id" type="xs:NCName" use="required">
+            <xs:annotation>
+                <xs:appinfo>
+                    <jxb:property><jxb:javadoc>
+                        The group id of the tracked group. This id needs to be to be unique and cannot be an id 
+                        that has been specified by the trackedProperty field.
+                    </jxb:javadoc></jxb:property>
+                </xs:appinfo>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="label" type="xs:normalizedString">
+            <xs:annotation>
+                <xs:appinfo>
+                    <jxb:property><jxb:javadoc>
+                        Optional text string which will be displayed in the GUI for this group.  If not defined, the
+                        id will be used.
+                    </jxb:javadoc></jxb:property>
+                </xs:appinfo>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    
     <xs:complexType name="TestConnectionConfig">
         <xs:annotation>
             <xs:documentation xml:lang="en">

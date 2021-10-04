@@ -41,6 +41,7 @@
             </grantType>
         </oauth2FieldConfig>
     </field>
+
     <field type="string" id="cookieScope" label="Cookie Scope">
         <defaultValue>GLOBAL</defaultValue>
         <allowedValue label="Global">

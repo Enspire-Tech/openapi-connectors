@@ -245,6 +245,15 @@
                     </xs:appinfo>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="visibilityCondition" type="VisibilityCondition" minOccurs="0" maxOccurs="10">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <jxb:property name="visibilityConditions">
+                            <jxb:javadoc>Configuration of a rule that controls the visibility of the current field based on the value of another field within the same screen. Currently there is a limit of 1 visibility condition.</jxb:javadoc>
+                        </jxb:property>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:NCName" use="required">
             <xs:annotation>
@@ -415,5 +424,59 @@
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ConditionalFieldConfiguration" abstract="true">
+        <xs:annotation>
+            <xs:documentation>Conditions based on the state of another field.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="valueCondition" type="ValueCondition" minOccurs="1" maxOccurs="10">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <jxb:property name="valueConditions">
+                            <jxb:javadoc>Condition that is based on the value of another field. Currently there is a limit of 1 value condition.</jxb:javadoc>
+                        </jxb:property>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ValueCondition">
+        <xs:annotation>
+            <xs:documentation>A condition based on the value(s) of another field.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="FieldCondition">
+                <xs:sequence>
+                    <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="100">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <jxb:property name="values">
+                                    <jxb:javadoc>Set of values that will drive the action defined. Values are case insensitive.</jxb:javadoc>
+                                </jxb:property>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FieldCondition" abstract="true">
+        <xs:annotation>
+            <xs:documentation>A condition based on the state of another field identified by the field's ID.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="fieldId" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="VisibilityCondition">
+        <xs:annotation>
+            <xs:documentation>A condition that will drive the visibility of a field if the value(s) match. Otherwise the field is not visible.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ConditionalFieldConfiguration"/>
+        </xs:complexContent>
     </xs:complexType>
 </xs:schema>

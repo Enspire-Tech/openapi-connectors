@@ -8,7 +8,7 @@ See below for outstanding issues.
 
 * [CircleCI](#circleci)
 
-* [Firecracker](#firecracker)
+* [Firecracker](#firecracker) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
 
 * [Quickbase](#quickbase)
 
@@ -18,11 +18,11 @@ See below for outstanding issues.
 
 * [Provider](#provider)
 
-* [Blackboard](#blackboard)
+* [Blackboard](#blackboard) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
 
 * [Docusign Esignature](#docusign_esignature)
 
-* [Docusign Click](#docusign_click)
+* [Docusign Click](#docusign_click) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
 
 * [Docusign Rooms](#docusign_rooms)
 
@@ -37,6 +37,13 @@ See below for outstanding issues.
 * [Xero Payroll UK](#xero_payroll_uk)
 
 * [Ably Control](#ably_control)
+
+* [EBay Browse](#ebay_browse) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+
+* [EBay Marketing](#ebay_marketing) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+
+* [Interzoid](#interzoid) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+
 
 ### Skipped APIs
 * **Bitbucket** 
@@ -75,13 +82,25 @@ See below for outstanding issues.
   * https://github.com/ably/open-specs/blob/main/definitions/platform-v1.yaml
   * 21 out of 22 endpoints failing
   * 20 endpoints failing due to the HTTP status code range issue
+* **EBay**
+  * The majority of EBay APIs were skipped
+  * This is due to the OAUTH2 Authorization Header Issue
   
 
 ## Summary of Issues
 
 <table>
    <tr><th>Priority</th></td><th>Error</th><th>Explanation</th><th>Endpoints Affected</th><th>Example</th></tr>
-   <tr>
+    <tr>
+        <td>1</td>
+        <td>OAUTH2 Authorization Header</td>
+        <td>Some implementations of OAUTH2 Authorization Code and Client Credentials flows require an authorization
+            header in the access token request. Boomi does not support this. 
+        </td>
+        <td>~25</td>
+        <td>EBay Sell Account API</td>
+    </tr>
+    <tr>
       <td>1</td>
       <td>Stackoverflow error</td>
       <td>Circular references are causing stack overflow errors.</td>
@@ -840,8 +859,6 @@ The following operations are not supported at this time:
 <a name="ably_control"></a>
 ## Ably Control
 
-https://developer.xero.com/documentation/api/payrollnz/overview
-
 Documentation: https://ably.com/documentation/control-api
 
 **6 out of 22 endpoints are failing.**
@@ -867,4 +884,58 @@ The following endpoints are not supported at this time:
     + The request body has a content type of "multipart/form-data"
     + Affected operations:
       * /apps/{id}/pkcs12
+
+---
+
+<a name="ebay_browse"></a>
+## EBay Buy Browse 
+
+Documentation: https://developer.ebay.com/docs
+
+**All 11 endpoints are passing.**
+
+---
+
+<a name="ebay_marketing"></a>
+## EBay Buy Marketing
+
+Documentation: https://developer.ebay.com/docs
+
+**All 3 endpoints are passing.**
+
+---
+
+<a name="interzoid"></a>
+## Interzoid API Collection
+
+Documentation: https://www.interzoid.com/services
+
+**All 23 endpoints are passing.**
+
+The following Interzoid APIs are supported:
+<pre>Get Company Match Similarity Key
+Get Full Name Match Similarity Key
+Get Full Name Parsed Match Similarity Key
+Get Address Match Similarity Key
+Get City Match Similarity Key
+Get Country Match Similarity Key
+Get State Two-Letter Abbreviation
+Get City Standard
+Get Country Standard
+Retrieve Detailed Information for an Email Address
+Global Page Load Performance
+Get Currency Rate
+Convert Currency Rate
+Get Current Crypto Price
+Get Precious Metal Price
+Get Current Time for a Global Location
+Get Global Number Information
+Get North American Area Code
+Get North American Area Code From Number
+Get Current Weather for a US City
+Get Current Weather by US Zip Code
+Get Current US Weather by Lat and Long
+Get Zip Code Detailed Info
+</pre>
+
 
