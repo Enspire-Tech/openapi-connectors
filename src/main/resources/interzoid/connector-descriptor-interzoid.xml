@@ -1,0 +1,41 @@
+  <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to Interzoid APIs. For more information, see here: https://www.interzoid.com/services</description>
+
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.interzoid.com/</defaultValue>
+    </field>
+
+    <field id="spec" label="Interzoid API" type="string">
+        <helpText>Each API points to a different OAS3 specification.</helpText>
+        <allowedValue label="Get Company Match Similarity Key"><value>https://oas.interzoid.com/api/getcompanymatchadvanced.json</value></allowedValue>
+        <allowedValue label="Get Full Name Match Similarity Key"><value>https://oas.interzoid.com/api/getfullnamematch.json</value></allowedValue>
+        <allowedValue label="Get Full Name Parsed Match Similarity Key"><value>https://oas.interzoid.com/api/getfullnameparsedmatch.json</value></allowedValue>
+        <allowedValue label="Get Address Match Similarity Key"><value>https://oas.interzoid.com/api/getaddressmatchadvanced.json</value></allowedValue>
+        <allowedValue label="Get City Match Similarity Key "><value>https://oas.interzoid.com/api/getcitymatch.json</value></allowedValue>
+        <allowedValue label="Get Country Match Similarity Key"><value>https://oas.interzoid.com/api/getcountrymatch.json</value></allowedValue>
+        <allowedValue label="Get State Two-Letter Abbreviation"><value>https://oas.interzoid.com/api/getstateabbreviation.json</value></allowedValue>
+        <allowedValue label="Get City Standard"><value>https://oas.interzoid.com/api/getcitystandard.json</value></allowedValue>
+        <allowedValue label="Get Country Standard"><value>https://oas.interzoid.com/api/getcountrystandard.json</value></allowedValue>
+        <allowedValue label="Retrieve Detailed Information for an Email Address"><value>https://oas.interzoid.com/api/getemailinfo.json</value></allowedValue>
+        <allowedValue label="Global Page Load Performance"><value>https://oas.interzoid.com/api/globalpageload.json</value></allowedValue>
+        <allowedValue label="Get Currency Rate"><value>https://oas.interzoid.com/api/getcurrencyrate.json</value></allowedValue>
+        <allowedValue label="Convert Currency Rate"><value>https://oas.interzoid.com/api/convertcurrency.json</value></allowedValue>
+        <allowedValue label="Get Current Crypto Price"><value>https://oas.interzoid.com/api/getcryptoprice.json</value></allowedValue>
+        <allowedValue label="Get Precious Metal Price"><value>https://oas.interzoid.com/api/getmetalprice.json</value></allowedValue>
+        <allowedValue label="Get Current Time for a Global Location"><value>https://oas.interzoid.com/api/getglobaltime.json</value></allowedValue>
+        <allowedValue label="Get Global Number Information"><value>https://oas.interzoid.com/api/getglobalnumberinfo.json</value></allowedValue>
+        <allowedValue label="Get North American Area Code"><value>https://oas.interzoid.com/api/lookupareacode.json</value></allowedValue>
+        <allowedValue label="Get North American Area Code From Number"><value>https://oas.interzoid.com/api/getareacodefromnumber.json</value></allowedValue>
+        <allowedValue label="Get Current Weather for a US City"><value>https://oas.interzoid.com/api/getweathercity.json</value></allowedValue>
+        <allowedValue label="Get Current Weather by US Zip Code"><value>https://oas.interzoid.com/api/getweatherzip.json</value></allowedValue>
+        <allowedValue label="Get Current US Weather by Lat and Long"><value>https://oas.interzoid.com/api/getweatherlatlong.json</value></allowedValue>
+        <allowedValue label="Get Zip Code Detailed Info"><value>https://oas.interzoid.com/api/getzipinfo.json</value></allowedValue>
+    </field>
+
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>

@@ -42,6 +42,9 @@ See below for outstanding issues.
 
 * [EBay Marketing](#ebay_marketing) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
 
+* [Interzoid](#interzoid) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+
+
 ### Skipped APIs
 * **Bitbucket** 
   * https://api.bitbucket.org/swagger.json
@@ -856,8 +859,6 @@ The following operations are not supported at this time:
 <a name="ably_control"></a>
 ## Ably Control
 
-https://developer.xero.com/documentation/api/payrollnz/overview
-
 Documentation: https://ably.com/documentation/control-api
 
 **6 out of 22 endpoints are failing.**
@@ -889,6 +890,8 @@ The following endpoints are not supported at this time:
 <a name="ebay_browse"></a>
 ## EBay Buy Browse 
 
+Documentation: https://developer.ebay.com/docs
+
 **All 11 endpoints are passing.**
 
 ---
@@ -896,5 +899,43 @@ The following endpoints are not supported at this time:
 <a name="ebay_marketing"></a>
 ## EBay Buy Marketing
 
+Documentation: https://developer.ebay.com/docs
+
 **All 3 endpoints are passing.**
+
+---
+
+<a name="interzoid"></a>
+## Interzoid API Collection
+
+Documentation: https://www.interzoid.com/services
+
+**All 23 endpoints are passing.**
+
+The following Interzoid APIs are supported:
+<pre>Get Company Match Similarity Key
+Get Full Name Match Similarity Key
+Get Full Name Parsed Match Similarity Key
+Get Address Match Similarity Key
+Get City Match Similarity Key
+Get Country Match Similarity Key
+Get State Two-Letter Abbreviation
+Get City Standard
+Get Country Standard
+Retrieve Detailed Information for an Email Address
+Global Page Load Performance
+Get Currency Rate
+Convert Currency Rate
+Get Current Crypto Price
+Get Precious Metal Price
+Get Current Time for a Global Location
+Get Global Number Information
+Get North American Area Code
+Get North American Area Code From Number
+Get Current Weather for a US City
+Get Current Weather by US Zip Code
+Get Current US Weather by Lat and Long
+Get Zip Code Detailed Info
+</pre>
+
 
