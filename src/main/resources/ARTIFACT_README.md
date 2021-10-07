@@ -44,6 +44,7 @@ See below for outstanding issues.
 
 * [Interzoid](#interzoid) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
 
+* [Google Drive](#google_drive)
 
 ### Skipped APIs
 * **Bitbucket** 
@@ -319,24 +320,7 @@ responses:
 <a name="pagerduty"></a>
 ## PagerDuty
 
-Documentation: https://developer.pagerduty.com/api-reference/
-
-Specification: https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json
-
 **10 out of 193 endpoints are failing.**
-
-The following operations are not supported at this time:
-* listAuditRecords
-* listEscalationPolicyAuditRecords
-* listSchedulesAuditRecords 
-* listServiceAuditRecords
-* listTeamsAuditRecords
-* listUsersAuditRecords
-* createScheduleOverride 
-* getServiceIntegration 
-* createServiceIntegration 
-* updateServiceIntegration
-
 
 ### Issues
 1. Property value is null. 
@@ -367,17 +351,7 @@ The following operations are not supported at this time:
 <a name="twitterv2"></a>
 ## Twitter API v2
 
-Documentation: https://developer.twitter.com/en/docs/twitter-api/early-access
-
-Specification: https://api.twitter.com/labs/2/openapi.json
-
 **4 out of 7 endpoints are failing.**
-
-The following operations are not supported at this time:
-* findTweetById
-* findUserById
-* findUserByUsername
-* getOpenAPISpec
 
 ### Issues
 1. Unsupported Parameter Type: null
@@ -396,17 +370,7 @@ The following operations are not supported at this time:
 <a name="circleci"></a>
 ## CircleCI
 
-Documentation: https://circleci.com/docs/api/v2/  
-
 **6 out of 41 endpoints are failing.**
-
-The following operations are not supported at this time:
-* getCollaborations
-* getTests
-* getJobDetails
-* getPipelineByNumber
-* getJobDetails
-* getJobArtifacts
 
 ### Issues
 1. Unsupported Parameter Type: null
@@ -427,10 +391,6 @@ The following operations are not supported at this time:
 <a name="firecracker"></a>
 ## Firecracker
 
-Documentation: https://github.com/firecracker-microvm/firecracker
-
-Specification: https://raw.githubusercontent.com/firecracker-microvm/firecracker/main/src/api_server/swagger/firecracker.yaml
-
 **All 26 endpoints are passing.**
 
 ---   
@@ -438,20 +398,7 @@ Specification: https://raw.githubusercontent.com/firecracker-microvm/firecracker
 <a name="quickbase"></a>
 ## Quickbase
 
-Documentation: https://developer.quickbase.com/
-
 **9 out of 35 endpoints failing.**
-
-The following operations are not supported at this time:
-* getAppEvents
-* getAppTables
-* getTableReports
-* getFields
-* getFieldsUsage
-* getFieldUsage
-* deleteApp
-* deleteFields
-* deleteRecords
 
 ### Issues
 1. Unsupported type: ARRAY
@@ -475,16 +422,8 @@ The following operations are not supported at this time:
 
 <a name="apache_pulsar_functions"></a>
 ## Apache Pulsar Functions
-Documentation: https://pulsar.apache.org/functions-rest-api/
 
 **5 out of 19 endpoints are failing.**
-
-The following operations are not supported at this time:
-* getConnectorsList
-* listFunctions
-* registerFunction
-* triggerFunction
-* updateFunction
 
 ### Issues
 1. Unsupported type: ARRAY
@@ -507,13 +446,7 @@ The following operations are not supported at this time:
 <a name="aquarius"></a>
 ## Aquarius
 
-Documentation: https://docs.oceanprotocol.com/references/aquarius/
-
 **2 out of 11 endpoints are failing.**
-
-The following operations are not supported at this time:
-* /api/v1/aquarius/assets/ddo/encrypt
-* /api/v1/aquarius/assets/ddo/encryptashex
 
 ### Issues
 1. Schema can't be null
@@ -526,13 +459,8 @@ The following operations are not supported at this time:
 
 <a name="provider"></a>
 ## Provider
-Documentation: https://github.com/oceanprotocol/provider/blob/main/API.md
 
 **2 out of 7 endpoints are failing.**
-
-The following operations are not supported at this time:
-* /api/v1/services/compute POST
-* /api/v1/services/download GET
 
 ### Issues
 1. Unsupported Parameter Type: null
@@ -546,8 +474,6 @@ The following operations are not supported at this time:
 <a name="blackboard"></a>
 ## Blackboard
 
-Documentation: https://developer.blackboard.com/portal/displayApi
-
 **All 248 endpoints are passing.**
 
 ---
@@ -555,69 +481,7 @@ Documentation: https://developer.blackboard.com/portal/displayApi
 <a name="docusign_esignature"></a>
 ## Docusign Esignature v2.1
 
-Documentation: https://developers.docusign.com/docs/esign-rest-api
-
-### Implementation Notes
-1. If using an OAuth 2.0 Authorization Code grant type, the "Preemptive authentication" option must be checked on.
-2. If using an OAuth 2.0 JWT Bearer Token grant type:
-   1. The public and private key needs to be imported to Boomi as an X509 certificate.
-   2. The expiration field requires an "expires in" value in seconds. Usually that should be 3600.
-   3. The key "scope" with value "signature impersonation" must be added as an "Extended JWT Claim". 
-
 **51 out of 402 endpoints are failing.**
-
-The following operations are not supported at this time:
-* Envelopes_PostEnvelopes
-* Recipients_PostRecipients
-* EnvelopeTransferRules_PostEnvelopeTransferRules
-* PowerForms_PostPowerForm
-* Templates_PostTemplates
-* Recipients_PostTemplateRecipients
-* BrandLogo_PutBrandLogo
-* BrandResources_PutBrandResources
-* Envelopes_PutEnvelope
-* Documents_PutDocuments
-* Recipients_PutRecipients
-* EnvelopeTransferRules_PutEnvelopeTransferRules
-* EnvelopeTransferRules_PutEnvelopeTransferRule
-* Folders_PutFolderById
-* PowerForms_PutPowerForm
-* Templates_PutTemplate
-* Documents_PutTemplateDocuments
-* Documents_PutTemplateDocument
-* Recipients_PutTemplateRecipients
-* Brands_DeleteBrands
-* CaptiveRecipients_DeleteCaptiveRecipientsPart
-* Contacts_DeleteContacts
-* Attachments_DeleteAttachments
-* CustomFields_DeleteCustomFields
-* Documents_DeleteDocuments
-* DocumentFields_DeleteDocumentFields
-* Tabs_DeleteDocumentTabs
-* Recipients_DeleteRecipients
-* Recipients_DeleteRecipientTabs
-* Views_DeleteEnvelopeCorrectView
-* FavoriteTemplates_UnFavoriteTemplate
-* Groups_DeleteGroups
-* Brands_DeleteGroupBrands
-* Groups_DeleteGroupUsers
-* PowerForms_DeletePowerFormsList
-* SigningGroups_DeleteSigningGroups
-* SigningGroups_DeleteSigningGroupUsers
-* Templates_DeleteTemplatePart
-* CustomFields_DeleteTemplateCustomFields
-* Documents_DeleteTemplateDocuments
-* DocumentFields_DeleteTemplateDocumentFields
-* Pages_DeleteTemplatePage
-* Tabs_DeleteTemplateDocumentTabs
-* Lock_DeleteTemplateLock
-* Recipients_DeleteTemplateRecipients
-* Recipients_DeleteTemplateRecipient
-* Recipients_DeleteTemplateRecipientTabs
-* Users_DeleteUsers
-* CloudStorage_DeleteCloudStorageProviders
-* UserCustomSettings_DeleteCustomSettings
-* WorkspaceFolder_DeleteWorkspaceItems
 
 ### Issues
 
@@ -686,15 +550,6 @@ The following operations are not supported at this time:
 <a name="docusign_click"></a>
 ## Docusign Click v2
 
-Documentation: https://developers.docusign.com/docs/click-api/click101
-
-### Implementation Notes
-1. If using an OAuth 2.0 Authorization Code grant type, the "Preemptive authentication" option must be checked on.
-2. If using an OAuth 2.0 JWT Bearer Token grant type:
-   1. The public and private key needs to be imported to Boomi as an X509 certificate.
-   2. The expiration field requires an "expires in" value in seconds. Usually that should be 3600.
-   3. The key "scope" and its value must be added as an "Extended JWT Claim".
-
 **All 21 endpoints are passing.**
 
 ---
@@ -702,22 +557,7 @@ Documentation: https://developers.docusign.com/docs/click-api/click101
 <a name="docusign_rooms"></a>
 ## Docusign Rooms v2
 
-Documentation: https://developers.docusign.com/docs/rooms-api/rooms101
-
-### Implementation Notes
-1. If using an OAuth 2.0 Authorization Code grant type, the "Preemptive authentication" option must be checked on.
-2. If using an OAuth 2.0 JWT Bearer Token grant type:
-   1. The public and private key needs to be imported to Boomi as an X509 certificate.
-   2. The expiration field requires an "expires in" value in seconds. Usually that should be 3600.
-   3. The key "scope" and its value must be added as an "Extended JWT Claim".
-
 **4 out of 89 endpoints are failing.**
-
-The following operations are not supported at this time:
-* Fields_GetFieldSet
-* Rooms_GetRoomFieldSet
-* Rooms_AddDocumentToRoomViaFileUpload
-* Rooms_UpdatePicture
 
 ### Issues
 1. Stackoverflow error
@@ -736,17 +576,7 @@ The following operations are not supported at this time:
 <a name="xero_assets"></a>
 ## Xero Assets
 
-Documentation: https://developer.xero.com/documentation/api/assets/overview
-
-### Implementation Notes
-1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
-
-
 **2 out of 6 endpoints are failing.**
-
-The following operations are not supported at this time:
-* getAssets
-* getAssetTypes
 
 ### Issues
 1. Unsupported Parameter Type: null
@@ -763,19 +593,7 @@ The following operations are not supported at this time:
 <a name="xero_files"></a>
 ## Xero Files
 
-Documentation: https://developer.xero.com/documentation/api/files/files
-
-### Implementation Notes
-1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
-
 **5 out of 17 endpoints are failing.**
-
-The following operations are not supported at this time:
-* getFileAssociations
-* getAssociationsByObject
-* getFolders
-* uploadFile
-* uploadFileToFolder
 
 ### Issues
 1. Unsupported type:ARRAY
@@ -795,16 +613,7 @@ The following operations are not supported at this time:
 <a name="xero_projects"></a>
 ## Xero Projects
 
-Documentation: https://developer.xero.com/documentation/api/projects/overview
-
-### Implementation Notes
-1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
-
-
 **1 out of 13 endpoints are failing.**
-
-The following operations are not supported at this time:
-* getTasks
 
 ### Issues
 1. Unsupported Parameter Type: null
@@ -817,16 +626,7 @@ The following operations are not supported at this time:
 <a name="xero_payroll_nz"></a>
 ## Xero Payroll NZ
 
-Documentation: https://developer.xero.com/documentation/api/payrollnz/overview
-
-### Implementation Notes
-1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
-
 **2 out of 68 endpoints are failing.**
-
-The following operations are not supported at this time:
-* createEmployeeOpeningBalances
-* createMultipleEmployeeEarningsTemplate
 
 ### Issues
 1. Unsupported type:ARRAY
@@ -839,15 +639,7 @@ The following operations are not supported at this time:
 <a name="xero_payroll_uk"></a>
 ## Xero Payroll UK
 
-Documentation: https://developer.xero.com/documentation/api/payrolluk/overview
-
-### Implementation Notes
-1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
-
 **1 out of 70 endpoints are failing.**
-
-The following operations are not supported at this time:
-* createMultipleEmployeeEarningsTemplate
 
 ### Issues
 1. Unsupported type:ARRAY
@@ -859,17 +651,7 @@ The following operations are not supported at this time:
 <a name="ably_control"></a>
 ## Ably Control
 
-Documentation: https://ably.com/documentation/control-api
-
 **6 out of 22 endpoints are failing.**
-
-The following endpoints are not supported at this time:
-* /accounts/{account_id}/apps 
-* /apps/{app_id}/keys
-* /apps/{app_id}/namespaces
-* /apps/{app_id}/queues
-* /apps/{app_id}/rules
-* /apps/{id}/pkcs12
 
 ### Issues
 1. Unsupported type:ARRAY
@@ -890,8 +672,6 @@ The following endpoints are not supported at this time:
 <a name="ebay_browse"></a>
 ## EBay Buy Browse 
 
-Documentation: https://developer.ebay.com/docs
-
 **All 11 endpoints are passing.**
 
 ---
@@ -899,16 +679,12 @@ Documentation: https://developer.ebay.com/docs
 <a name="ebay_marketing"></a>
 ## EBay Buy Marketing
 
-Documentation: https://developer.ebay.com/docs
-
 **All 3 endpoints are passing.**
 
 ---
 
 <a name="interzoid"></a>
 ## Interzoid API Collection
-
-Documentation: https://www.interzoid.com/services
 
 **All 23 endpoints are passing.**
 
@@ -938,4 +714,14 @@ Get Current US Weather by Lat and Long
 Get Zip Code Detailed Info
 </pre>
 
+---
 
+<a name="google_drive"></a>
+## Google Drive
+**2 out of 46 endpoints are failing.**
+### Issues
+1. Schema can't be null
+    + The request body has a content type of octet-stream. Only JSON request bodies are supported.
+    + Affected operations:
+        * drive.files.create
+        * drive.files.update
