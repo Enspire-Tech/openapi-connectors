@@ -11,6 +11,6 @@ public class CustomConnection extends OpenAPIConnection {
 
     @Override
     public String getSpec() {
-        return "spec.json";
+        return "custom-specification-circleci.json";
     }
 }

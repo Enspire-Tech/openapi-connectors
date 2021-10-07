@@ -285,7 +285,7 @@ public class CustomBrowserTest {
                         }
                         if (!outputExists && httpMethod.contains("GET")) {
                             String message = String.format(
-                                    "No output for path: %s, http method: %s, operation id: %s",
+                                    "*WARNING* No output for path: %s, http method: %s, operation id: %s",
                                     path, httpMethod, operationId);
                             System.err.println(message);
                             errorCount++;
@@ -366,6 +366,25 @@ public class ValidateXMLTest {
 
     }
 }
+EOM
+
+cat <<EOM >../../main/resources/${CONNECTOR_NAME}/${CONNECTOR_NAME}-readme.md
+# ${CONNECTOR_NAME} Connector
+A readme for ${CONNECTOR_NAME}.
+
+Documentation: {linktodocs}
+
+Specification: https://github.com/Enspire-Tech/openapi-connector-artifacts/blob/master/${CONNECTOR_NAME}/custom-specification-${CONNECTOR_NAME}.yaml
+
+## Prerequisites
+
++ What is required to run the connector
+
+## Supported Operations
+**X out of Y endpoints are failing.**
+
+The following operations are **not** supported at this time:
+* operations not supported
 EOM
 
 popd
