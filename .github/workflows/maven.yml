@@ -62,7 +62,7 @@ jobs:
       run: cp $GITHUB_WORKSPACE/src/main/resources/"OpenAPI Connector Factory.docx" staging/"OpenAPI Connector Factory.docx"
 
     - name: Stage connector specifications
-      run: for connector in $GITHUB_WORKSPACE/src/main/resources/*; do cp "$connector"/*.{json,yaml} staging/$(basename "$connector") 2> /dev/null; done
+      run: for connector in $GITHUB_WORKSPACE/src/main/resources/*; do cp "$connector"/*.{json,yaml} staging/$(basename "$connector") 2> /dev/null || :; done
 
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
