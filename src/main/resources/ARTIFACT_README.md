@@ -46,6 +46,9 @@ See below for outstanding issues.
 
 * [Google Drive](#google_drive)
 
+* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+
+
 ### Skipped APIs
 * **Bitbucket** 
   * https://api.bitbucket.org/swagger.json
@@ -86,7 +89,13 @@ See below for outstanding issues.
 * **EBay**
   * The majority of EBay APIs were skipped
   * This is due to the OAUTH2 Authorization Header Issue
-  
+* **Google Analytics Data**
+  * https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/analyticsdata/v1beta/openapi.yaml
+  * 6 out of 7 endpoints failing
+  * Stack overflow errors due to circular references
+* **Postman**
+  * Endpoints failing due to issue: Parameters at path level are ignored.
+
 
 ## Summary of Issues
 
@@ -161,6 +170,24 @@ See below for outstanding issues.
             "application/json": {
                 "schema": {
                   "type": "array",
+         </pre>
+      </td>
+   </tr>
+   <tr>
+      <td>1</td>
+      <td>Parameters at path level are ignored</td>
+      <td>
+         In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
+      </td>
+      <td> </td>
+      <td>
+         API: Xero Assets, OperationId: getAssets
+         <pre>
+paths:
+  /Assets:
+    parameters:
+      - $ref: '#/components/parameters/requiredHeader'
+    get:
          </pre>
       </td>
    </tr>
@@ -278,24 +305,6 @@ requestBody:
            example:
              name: Name of an application to delete
      required: false
-         </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>3</td>
-      <td>Parameters at path level are ignored</td>
-      <td>
-         In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
-      </td>
-      <td>0</td>
-      <td>
-         API: Xero Assets, OperationId: getAssets
-         <pre>
-paths:
-  /Assets:
-    parameters:
-      - $ref: '#/components/parameters/requiredHeader'
-    get:
          </pre>
       </td>
    </tr>
@@ -725,3 +734,12 @@ Get Zip Code Detailed Info
     + Affected operations:
         * drive.files.create
         * drive.files.update
+
+---
+
+<a name="google_analytics_v3"></a>
+## Google Analytics v3
+**All 88 endpoints are passing**
+
+---
+
