@@ -17,7 +17,8 @@ jobs:
         target_connector: ['pagerduty', 'twitter_v2', 'circleci', 'firecracker', 'quickbase',
                            'apache_pulsar_functions', 'aquarius', 'provider', 'blackboard', 'docusign_esignature',
                            'docusign_click', 'docusign_rooms', 'xero_assets', 'xero_files', 'xero_projects',
-                           'xero_payroll_nz', 'xero_payroll_uk', 'ably_control', 'ebay', 'interzoid', 'google_drive']
+                           'xero_payroll_nz', 'xero_payroll_uk', 'ably_control', 'ebay', 'interzoid', 'google_drive',
+                           'google_analytics_v3']
     
     steps:
     - uses: actions/checkout@v2
@@ -63,6 +64,9 @@ jobs:
 
     - name: Stage connector specifications
       run: for connector in $GITHUB_WORKSPACE/src/main/resources/*; do cp "$connector"/*.{json,yaml} staging/$(basename "$connector") 2> /dev/null || :; done
+
+    - name: Stage connector readme
+      run: for connector in $GITHUB_WORKSPACE/src/main/resources/*; do cp "$connector"/*.md staging/$(basename "$connector") 2> /dev/null || :; done
 
     - name: Push build artifacts to artifact repository
       uses: cpina/github-action-push-to-another-repository@v1.3
