@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.boomi.util</groupId>
             <artifactId>boomi-json-util</artifactId>
-            <version>1.1.10</version>
+            <version>1.1.11-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
@@ -82,7 +82,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>

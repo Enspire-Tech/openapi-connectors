@@ -2,22 +2,22 @@
 <metadata modelVersion="1.1.0">
   <groupId>com.boomi.connsdk</groupId>
   <artifactId>connector-sdk-openapi</artifactId>
-  <version>0.4-SNAPSHOT</version>
+  <version>0.7-SNAPSHOT</version>
   <versioning>
     <snapshot>
       <localCopy>true</localCopy>
     </snapshot>
-    <lastUpdated>20211028152811</lastUpdated>
+    <lastUpdated>20211028153016</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.4-SNAPSHOT</value>
-        <updated>20211028152811</updated>
+        <value>0.7-SNAPSHOT</value>
+        <updated>20211028153016</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.4-SNAPSHOT</value>
-        <updated>20210917031605</updated>
+        <value>0.7-SNAPSHOT</value>
+        <updated>20211028153016</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

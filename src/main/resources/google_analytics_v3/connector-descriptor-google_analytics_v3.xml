@@ -38,11 +38,10 @@
                         <defaultValue>force</defaultValue>
                     </value>
                 </parameter>
-
             </authorizationParameters>
             <accessTokenEndpoint>
                 <url>
-                    <defaultValue>https://accounts.google.com/o/oauth2/token</defaultValue>
+                    <helpText>For Authorization Code: https://accounts.google.com/o/oauth2/token ~ For JWT Bearer Token: https://oauth2.googleapis.com/token</helpText>
                 </url>
             </accessTokenEndpoint>
             <accessTokenParameters access="hidden"/>
@@ -57,6 +56,19 @@
                     <value>jwt-bearer</value>
                 </allowedValue>
             </grantType>
+            <jwtParameters>
+                <audience>
+                    <defaultValue>https://oauth2.googleapis.com/token</defaultValue>
+                </audience>
+                <expiration>
+                    <defaultValue>3600</defaultValue>
+                </expiration>
+                <extendedClaims>
+                    <claim name="scope">
+                        <value></value>
+                    </claim>
+                </extendedClaims>
+            </jwtParameters>
         </oauth2FieldConfig>
     </field>
 

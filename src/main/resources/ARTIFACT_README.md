@@ -8,7 +8,7 @@ See below for outstanding issues.
 
 * [CircleCI](#circleci)
 
-* [Firecracker](#firecracker) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Firecracker](#firecracker) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Quickbase](#quickbase)
 
@@ -18,11 +18,11 @@ See below for outstanding issues.
 
 * [Provider](#provider)
 
-* [Blackboard](#blackboard) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Blackboard](#blackboard) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Docusign Esignature](#docusign_esignature)
 
-* [Docusign Click](#docusign_click) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Docusign Click](#docusign_click) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Docusign Rooms](#docusign_rooms)
 
@@ -38,15 +38,17 @@ See below for outstanding issues.
 
 * [Ably Control](#ably_control)
 
-* [EBay Browse](#ebay_browse) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [EBay Browse](#ebay_browse) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [EBay Marketing](#ebay_marketing) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [EBay Marketing](#ebay_marketing) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [Interzoid](#interzoid) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Interzoid](#interzoid) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Google Drive](#google_drive)
 
-* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+
+* [Google Healthcare](#google_healthcare) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 
 ### Skipped APIs
@@ -743,3 +745,8 @@ Get Zip Code Detailed Info
 
 ---
 
+<a name="google_healthcare"></a>
+## Google Healthcare API v1
+**All 56 endpoints are passing**
+
+---

@@ -1,0 +1,3605 @@
+openapi: 3.0.1
+info:
+  title: Guru API
+  version: v1
+externalDocs:
+  url: https://developer.getguru.com/docs
+servers:
+- url: https://api.getguru.com/
+tags:
+- name: /v1
+  description: Guru API, version 1
+- name: /v1/alerts
+  description: Operations on knowledge alerts
+- name: /v1/boards
+  description: Operations on boards
+- name: /v1/cards
+  description: Operations on cards
+- name: /v1/cards/comments
+- name: /v1/cards/verifiers
+  description: Operations on card verifiers
+- name: /v1/collections
+  description: Operations on collections
+- name: /v1/groups
+  description: Operations on user groups
+- name: /v1/kcs
+  description: Operations on Knowledge Centered Support
+- name: /v1/members
+  description: Operations on team members
+- name: /v1/search
+- name: /v1/tasks
+  description: Operations on notifications
+- name: /v1/teams
+  description: Operations on teams
+- name: /v1/teams/analytics
+  description: Operations on team analytics
+- name: /v1/teams/tagcategories
+  description: Operations on tag categories
+- name: /v1/templates
+  description: Operations on card templates
+paths:
+  /api/v1/alerts:
+    get:
+      tags:
+      - /v1/alerts
+      summary: List knowledge alerts
+      description: Returns all alerts owned by the authenticated user.  A maximum
+        of 50 alerts will be returned.  If more than 50 alerts exist, a link to the
+        next page of results will be included in the Link header
+      operationId: get:/v1/alerts/getDelegatedAlerts
+      parameters:
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+          enum:
+          - cardTitle
+          - dateSent
+          - percentRead
+          - collection
+      - name: sortOrder
+        in: query
+        description: Sort order
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnowledgeAlertDelegated'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/alerts
+      summary: Create a knowledge alert
+      operationId: post:/v1/alerts/createAlert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeAlert'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeAlertDelegated'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/alerts/{alertId}:
+    delete:
+      tags:
+      - /v1/alerts
+      summary: Delete a knowledge alert
+      operationId: delete:/v1/alerts/deleteAlert
+      parameters:
+      - name: alertId
+        in: path
+        description: The ID of the alert
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/alerts/{alertId}/export:
+    post:
+      tags:
+      - /v1/alerts
+      summary: Export knowledge alert user details
+      description: Initiates the export of user details for the knowledge alert with
+        the given alertId.  Results will be emailed when available.
+      operationId: post:/v1/alerts/exportAlertUsers
+      parameters:
+      - name: alertId
+        in: path
+        description: The ID of the alert
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkOperationResponse'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/alerts/{alertId}/read:
+    put:
+      tags:
+      - /v1/alerts
+      summary: Mark a knowledge alert as read
+      operationId: put:/v1/alerts/markAlertRead
+      parameters:
+      - name: alertId
+        in: path
+        description: The ID of the alert
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/alerts/{alertId}/remind:
+    post:
+      tags:
+      - /v1/alerts
+      summary: Send knowledge alert reminders
+      description: Sends alert reminders to any users who have not yet read the alert
+      operationId: post:/v1/alerts/sendAlertReminder
+      parameters:
+      - name: alertId
+        in: path
+        description: The ID of the alert
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/boards/{boardId}:
+    get:
+      tags:
+      - /v1/boards
+      summary: Get a board
+      description: Including a Board's ID will load information about a single board
+        with its cards and sections. With this call, you can also return a 'Home Board',
+        which is what we call the structure that lists what Boards and Board Groups
+        exist within a collection. To return this information, set the `boardId` to
+        `home` and include a `collection` param set to the collection's ID.
+      operationId: get:/v1/boards/getBoard
+      parameters:
+      - name: boardId
+        in: path
+        description: The ID of the board
+        required: true
+        schema:
+          type: string
+      - name: collection
+        in: query
+        description: The ID of the collection
+        schema:
+          type: string
+      - name: X-Guru-ActivitySubType
+        in: header
+        schema:
+          type: string
+      - name: X-Guru-Application
+        in: header
+        schema:
+          type: string
+      - name: X-Guru-ActivityID
+        in: header
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the board
+          content: {}
+        404:
+          description: Board could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/extended:
+    post:
+      tags:
+      - /v1/cards
+      summary: Create a card with additional details
+      description: Content and title are required. Card share status should be set
+        to TEAM to make a card team shared.  Omitting the share status value or setting
+        it to PRIVATE will result in a card that is only accessible by the card owner.
+        This endpoint allows the verifier to be set upon card creation, rather than
+        requiring a separate call.
+      operationId: post:/v1/cards/createExtendedFact
+      requestBody:
+        description: Card data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Card'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete request. Content and title are required
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/cards/featuredunverified:
+    get:
+      tags:
+      - /v1/cards
+      summary: Get interesting unverified cards
+      description: Returns the top few cards which are currently unverified. These
+        cards are chosen based on various criteria which make them standouts among
+        all the currently unverified cards.
+      operationId: get:/v1/cards/getFeaturedUnverifiedCards
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeaturedUnverifiedCards'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/verificationmgr:
+    get:
+      tags:
+      - /v1/cards
+      summary: List unverified cards
+      description: Returns all unverified cards accessible by the authenticated user.  A
+        maximum of 50 cards will be returned.  If more than 50 cards exist, a link
+        to the next page of results will be included in the Link header
+      operationId: get:/v1/cards/getVerificationManager
+      parameters:
+      - name: maxResults
+        in: query
+        description: Maximum results to return
+        schema:
+          type: integer
+          format: int32
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - lastModifiedBy
+          - boardCount
+          - verificationState
+          - copyCount
+          - viewCount
+          - favoriteCount
+          - dateCreated
+          - verificationInterval
+          - verifier
+          - owner
+          - originalOwner
+          - lastVerifiedBy
+          - lastVerified
+          - verificationReason
+          - popularity
+          - unverifiedViewsCopies
+          - nextVerificationDate
+          - collection
+          - title
+      - name: sortOrder
+        in: query
+        description: Sort order
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: X-Guru-ActivitySubType
+        in: header
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}:
+    delete:
+      tags:
+      - /v1/cards
+      summary: Delete a card
+      operationId: delete:/v1/cards/deleteFact
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: Successful deletion of card
+          content: {}
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/attributes:
+    get:
+      tags:
+      - /v1/cards
+      summary: Get a card's attributes
+      operationId: get:/v1/cards/getCardAttributeValues
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardAttributeValue'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - /v1/cards
+      summary: Update a card's attributes
+      operationId: put:/v1/cards/updateCardAttributeValues
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: List of card attribute values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardAttributeValues'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardAttributeValue'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/cards/{cardId}/attributes/{cardAttributeValueId}:
+    delete:
+      tags:
+      - /v1/cards
+      summary: Delete a card attribute
+      operationId: delete:/v1/cards/deleteCardAttributeValue
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: cardAttributeValueId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/comments:
+    get:
+      tags:
+      - /v1/cards/comments
+      summary: List card comments
+      description: Returns all undeleted card comments accessible to the authenticated
+        user.  A maximum of 25 card comments will be returned.  If more than 25 card
+        comments exist, a link to the next page of results will be included in the
+        Link header
+      operationId: get:/v1/cards/comments/getComments
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: status
+        schema:
+          type: string
+          enum:
+          - OPEN
+          - RESOLVED
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardComment'
+        400:
+          description: Unable to decode paging token.  Paging tokens are generated
+            by the system and can not be altered.
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to card
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/comments/{commentId}:
+    delete:
+      tags:
+      - /v1/cards/comments
+      summary: Delete a card comment
+      operationId: delete:/v1/cards/comments/deleteComment
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: commentId
+        in: path
+        description: The ID of the comment
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: Comment deleted
+          content: {}
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card comment
+          content: {}
+        404:
+          description: Card comment could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/extended:
+    get:
+      tags:
+      - /v1/cards
+      summary: Get a card with additional details
+      description: Load the card and the card teams and collaborators.  If there are
+        more than 25 teams or collaborators, a Link header will be provided for the
+        next page of results.
+      operationId: get:/v1/cards/getExtendedFact
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: X-Guru-ActivitySubType
+        in: header
+        schema:
+          type: string
+      - name: X-Guru-Application
+        in: header
+        schema:
+          type: string
+      - name: X-Guru-ActivityID
+        in: header
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - /v1/cards
+      summary: Update a card with additional details
+      description: This endpoint allows the verifier to be set upon card creation,
+        rather than requiring a separate call. Content and title are required. Card
+        share status should be set to TEAM to make a card team shared. Omitting the
+        share status value or setting it to PRIVATE will result in a card that is
+        only accessible by the card owner. If tags are omitted or an empty list, then
+        all existing tags will be removed from the card.
+      operationId: put:/v1/cards/updateExtendedFact
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Card data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Card'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete request. Content and title are required
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/cards/{cardId}/favoritelists:
+    get:
+      tags:
+      - /v1/cards
+      summary: List favorite lists including this card
+      operationId: get:/v1/cards/getFactFavoriteLists
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Board'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/unverify:
+    post:
+      tags:
+      - /v1/cards
+      summary: Unverify a card
+      description: Mark the card with the given cardId as unverified
+      operationId: post:/v1/cards/unverifyFact
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/verifiers:
+    get:
+      tags:
+      - /v1/cards/verifiers
+      summary: List card verifiers
+      operationId: get:/v1/cards/verifiers/getVerifiers
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserVerifier'
+        400:
+          description: Unable to decode paging token.  Paging tokens are generated
+            by the system and can not be altered.
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to card
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/cards/verifiers
+      summary: Replace card verifiers
+      description: Create a card verifier and delete all existing verifiers
+      operationId: post:/v1/cards/verifiers/upsertVerifier
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: List of card verifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CardVerifier'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardVerifiers'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/cards/{cardId}/verifiers/{verifierId}:
+    get:
+      tags:
+      - /v1/cards/verifiers
+      summary: Get a card verifier
+      operationId: get:/v1/cards/verifiers/getVerifier
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: verifierId
+        in: path
+        description: The email address of the verifier
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserVerifier'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the verifier
+          content: {}
+        404:
+          description: Verifier could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/cards/{cardId}/verify:
+    put:
+      tags:
+      - /v1/cards
+      summary: Verify a card
+      operationId: put:/v1/cards/verify
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: Successful verification of card
+          content: {}
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card, user not authorized to verify
+            the card
+          content: {}
+        404:
+          description: Card could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/collections:
+    get:
+      tags:
+      - /v1/collections
+      summary: List collections
+      description: Returns all undeleted collections accessible to the authenticated
+        user.  A maximum of 25 collections will be returned. If more than 25 collections
+        exist, a link to the next page of results will be included in the Link header
+      operationId: get:/v1/collections/getKnowledgeBases
+      parameters:
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Search term
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+      - name: sortDir
+        in: query
+        description: Sort order
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        400:
+          description: Unable to decode paging token.  Paging tokens are generated
+            by the system and can not be altered.
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/groups:
+    get:
+      tags:
+      - /v1/groups
+      summary: List user groups
+      description: Returns all groups on the team.
+      operationId: get:/v1/groups/getUserGroups
+      parameters:
+      - name: search
+        in: query
+        description: Search term
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+      - name: sortDir
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserGroup'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/kcs:
+    get:
+      tags:
+      - /v1/kcs
+      summary: List ticket links
+      description: Returns all ticket links for the authenticated team.  A maximum
+        of 25 ticket links will be returned.  If more than 25 ticket links exist,
+        a link to the next page of results will be included in the Link header
+      operationId: get:/v1/kcs/getKCS
+      parameters:
+      - name: platform
+        in: query
+        description: Ticketing platform type
+        schema:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+      - name: conversationId
+        in: query
+        description: The ID of the conversation
+        schema:
+          type: string
+      - name: cardId
+        in: query
+        description: The ID of the card
+        schema:
+          type: string
+      - name: email
+        in: query
+        description: Email address
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: Start date
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: End date
+        schema:
+          type: string
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnowledgeCenteredSupportResponse'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/kcs
+      summary: Create a ticket link
+      operationId: post:/v1/kcs/createKCS
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeCenteredSupportInfo'
+        required: true
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/kcs/app/{appType}:
+    put:
+      tags:
+      - /v1/kcs
+      summary: Enable a ticket linking platform
+      operationId: put:/v1/kcs/addKCSApp
+      parameters:
+      - name: appType
+        in: path
+        description: Ticketing platform type
+        required: true
+        schema:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - ZENDESK
+                  - LIVEPERSON
+                  - SALESFORCE
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - /v1/kcs
+      summary: Disable a ticket linking platform
+      operationId: delete:/v1/kcs/deleteKCSApp
+      parameters:
+      - name: appType
+        in: path
+        description: Ticketing platform type
+        required: true
+        schema:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/kcs/apps:
+    get:
+      tags:
+      - /v1/kcs
+      summary: Get enabled ticket linking platforms
+      operationId: get:/v1/kcs/getKCSApps
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - ZENDESK
+                  - LIVEPERSON
+                  - SALESFORCE
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/kcs/{cardId}:
+    delete:
+      tags:
+      - /v1/kcs
+      summary: Delete a ticket link
+      operationId: delete:/v1/kcs/deleteKCS
+      parameters:
+      - name: cardId
+        in: path
+        description: The ID of the card
+        required: true
+        schema:
+          type: string
+      - name: platform
+        in: query
+        description: Ticketing platform type
+        required: true
+        schema:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+      - name: conversationId
+        in: query
+        description: The ID of the conversation
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/members:
+    get:
+      tags:
+      - /v1/members
+      summary: List team members
+      description: Returns all team members.  A maximum of 50 team members will be
+        returned.  If more than 50 team members exist, a link to the next page of
+        results will be included in the Link header
+      operationId: get:/v1/members/getTeamMembers
+      parameters:
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Search term
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        description: Sort Field
+        schema:
+          type: string
+      - name: sortDir
+        in: query
+        description: Sort Direction
+        schema:
+          type: string
+      - name: userType
+        in: query
+        description: User Type Filter
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamUser'
+        400:
+          description: Unable to decode paging token.  Paging tokens are generated
+            by the system and can not be altered.
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to team
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/search/cardmgr:
+    get:
+      tags:
+      - /v1/search
+      summary: Search for cards
+      description: A maximum of 50 cards will be returned.  If more than 50 cards
+        exist, a link to the next page of results will be included in the Link header
+      operationId: get:/v1/search/querySearchCardMgr
+      parameters:
+      - name: q
+        in: query
+        description: Query String
+        schema:
+          type: string
+      - name: searchTerms
+        in: query
+        schema:
+          type: string
+      - name: queryType
+        in: query
+        schema:
+          type: string
+          enum:
+          - cards
+          - questions
+          - archived
+          - recovered
+          - draft
+          - legacy
+      - name: showArchived
+        in: query
+        description: Include archived cards
+        schema:
+          type: boolean
+      - name: maxResults
+        in: query
+        description: Maximum results
+        schema:
+          type: integer
+          format: int32
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - lastModifiedBy
+          - boardCount
+          - verificationState
+          - copyCount
+          - viewCount
+          - favoriteCount
+          - dateCreated
+          - verificationInterval
+          - verifier
+          - owner
+          - originalOwner
+          - lastVerifiedBy
+          - lastVerified
+          - verificationReason
+          - popularity
+          - unverifiedViewsCopies
+          - nextVerificationDate
+          - collection
+          - title
+      - name: sortOrder
+        in: query
+        description: Sort order
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: X-Guru-ActivitySubType
+        in: header
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/search
+      summary: Search for cards using JSON query
+      description: A maximum of 50 cards will be returned.  If more than 50 cards
+        exist, a link to the next page of results will be included in the Link header
+      operationId: post:/v1/search/querySearchByJsonForCardManager
+      parameters:
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: X-Guru-ActivitySubType
+        in: header
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuerySpec'
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/search/query:
+    get:
+      tags:
+      - /v1/search
+      summary: Search for cards
+      description: A maximum of 50 cards will be returned.  If more than 50 cards
+        exist, a link to the next page of results will be included in the Link header
+      operationId: get:/v1/search/querySearch
+      parameters:
+      - name: q
+        in: query
+        description: Query String
+        schema:
+          type: string
+      - name: searchTerms
+        in: query
+        description: Search terms
+        schema:
+          type: string
+      - name: queryType
+        in: query
+        description: Query Type field
+        schema:
+          type: string
+          default: cards
+          enum:
+          - cards
+          - questions
+          - archived
+          - recovered
+          - draft
+          - legacy
+      - name: showArchived
+        in: query
+        description: Include archived cards
+        schema:
+          type: boolean
+          default: false
+      - name: maxResults
+        in: query
+        description: Maximum results
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: sortField
+        in: query
+        description: Sort field
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - lastModifiedBy
+          - boardCount
+          - verificationState
+          - copyCount
+          - viewCount
+          - favoriteCount
+          - dateCreated
+          - verificationInterval
+          - verifier
+          - owner
+          - originalOwner
+          - lastVerifiedBy
+          - lastVerified
+          - verificationReason
+          - popularity
+          - unverifiedViewsCopies
+          - nextVerificationDate
+          - collection
+          - title
+      - name: sortOrder
+        in: query
+        description: Sort order
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: includeCardAttributes
+        in: query
+        description: Include card attributes
+        schema:
+          type: boolean
+          default: false
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/swagger.json:
+    get:
+      tags:
+      - /v1
+      summary: Gets the api swagger document
+      operationId: get:/v1/getSwagger
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+        default:
+          description: successful operation
+          content: {}
+  /api/v1/tasks/mentions:
+    get:
+      tags:
+      - /v1/tasks
+      summary: List user mentions
+      operationId: get:/v1/tasks/getMentions
+      parameters:
+      - name: token
+        in: query
+        schema:
+          type: string
+      - name: sortField
+        in: query
+        schema:
+          type: string
+          enum:
+          - cardTitle
+          - creator
+          - dateSent
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MentionNotification'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/teams/{teamId}/analytics:
+    get:
+      tags:
+      - /v1/teams/analytics
+      summary: List events
+      description: Returns all events for the team. Date range parameters can be added.
+        A maximum of 500 events will be returned.  If more than 500 events exist,
+        a link to the next page of results will be included in the Link header
+      operationId: get:/v1/teams/analytics/getAnalytics
+      parameters:
+      - name: teamId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: token
+        in: query
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/teams/{teamId}/attributes:
+    get:
+      tags:
+      - /v1/teams
+      summary: List a team's card attributes
+      operationId: get:/v1/teams/getCardAttributes
+      parameters:
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardAttribute'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/teams/{teamId}/stats:
+    get:
+      tags:
+      - /v1/teams
+      summary: Get a team's stats
+      description: Team stats will include counts of trusted and unverified cards,
+        as well as overall trust score and team card count.
+      operationId: get:/v1/teams/getTeamStats
+      parameters:
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamStats'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the team
+          content: {}
+        404:
+          description: Team could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/teams/{teamId}/tagcategories:
+    get:
+      tags:
+      - /v1/teams/tagcategories
+      summary: List tag categories
+      operationId: get:/v1/teams/tagcategories/getTagCategories
+      parameters:
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagCategory'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag category
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Create a tag category
+      operationId: post:/v1/teams/tagcategories/createTagCategory
+      parameters:
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Tag Category config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCategory'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagCategory'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag category
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/teams/{teamId}/tagcategories/tags:
+    post:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Create a tag
+      operationId: post:/v1/teams/tagcategories/createTag
+      parameters:
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Attribute config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/teams/{teamId}/tagcategories/tags/{tagId}:
+    get:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Get a tag
+      operationId: get:/v1/teams/tagcategories/getTag
+      parameters:
+      - name: tagId
+        in: path
+        description: The ID of the tag
+        required: true
+        schema:
+          type: string
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag
+          content: {}
+        404:
+          description: The tag could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Update a tag
+      operationId: put:/v1/teams/tagcategories/updateTag
+      parameters:
+      - name: tagId
+        in: path
+        description: The ID of the tag
+        required: true
+        schema:
+          type: string
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Tag Config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag
+          content: {}
+        404:
+          description: The tag could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/teams/{teamId}/tagcategories/{tagCategoryId}:
+    put:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Update a tag category
+      operationId: put:/v1/teams/tagcategories/updateTagCategory
+      parameters:
+      - name: tagCategoryId
+        in: path
+        description: The ID of the tag category
+        required: true
+        schema:
+          type: string
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Tag Category Config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCategory'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagCategory'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag category
+          content: {}
+        404:
+          description: The tag category could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - /v1/teams/tagcategories
+      summary: Delete a tag category
+      operationId: delete:/v1/teams/tagcategories/deleteTagCategory
+      parameters:
+      - name: tagCategoryId
+        in: path
+        description: The ID of the tag category
+        required: true
+        schema:
+          type: string
+      - name: teamId
+        in: path
+        description: The ID of the team
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the tag category
+          content: {}
+        404:
+          description: The tag category could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/templates/cards:
+    get:
+      tags:
+      - /v1/templates
+      summary: List card templates
+      operationId: get:/v1/templates/getAllTemplatesByTeam
+      parameters:
+      - name: sortField
+        in: query
+        description: Sort the results based on the value of this field
+        schema:
+          type: string
+          enum:
+          - TITLE
+          - LAST_MODIFIED
+      - name: sortOrder
+        in: query
+        description: Defines the direction the results should be sorted
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: token
+        in: query
+        description: Paging token
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Search string
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardTemplate'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card templates
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - /v1/templates
+      summary: Create a card template
+      operationId: post:/v1/templates/createTemplate
+      requestBody:
+        description: Card template information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardTemplate'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTemplate'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card template
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /api/v1/templates/cards/{templateId}:
+    get:
+      tags:
+      - /v1/templates
+      summary: Get a card template
+      operationId: get:/v1/templates/getTemplate
+      parameters:
+      - name: templateId
+        in: path
+        description: The ID of the card template
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTemplate'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card template
+          content: {}
+        404:
+          description: The card template could not be found
+          content: {}
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - /v1/templates
+      summary: Update a card template
+      operationId: put:/v1/templates/updateTemplate
+      parameters:
+      - name: templateId
+        in: path
+        description: The ID of the card template
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Card template information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardTemplate'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTemplate'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card template
+          content: {}
+        404:
+          description: The card template could not be found
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - /v1/templates
+      summary: Delete a card template
+      operationId: delete:/v1/templates/deleteTemplate
+      parameters:
+      - name: templateId
+        in: path
+        description: The ID of the card template
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: The card template was deleted
+          content: {}
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the card template
+          content: {}
+        404:
+          description: The card template could not be found
+          content: {}
+      security:
+      - basicAuth: []
+  /api/v1/whoami:
+    get:
+      tags:
+      - /v1
+      summary: Get user information
+      description: Get basic information about the authenticated user or collection,
+        including their team, and their authentication token
+      operationId: get:/v1/whoAmI
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhoAmI'
+        400:
+          description: Invalid/Incomplete Request
+          content: {}
+        401:
+          description: Request was unauthorized
+          content: {}
+        403:
+          description: Forbidden access to the resource
+          content: {}
+        404:
+          description: Resource could not be found
+          content: {}
+      security:
+      - basicAuth: []
+components:
+  schemas:
+    Board:
+      type: object
+      properties:
+        lastModified:
+          type: string
+          description: The date that the board was last modified
+          format: date-time
+        description:
+          type: string
+          description: An optional short description of the Board
+        id:
+          type: string
+          description: The ID of the board
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        items:
+          type: array
+          description: 'An array of objects with the following types: SECTION, FACT'
+          items:
+            $ref: '#/components/schemas/BoardItem'
+        title:
+          type: string
+          description: The title of the board
+        lastModifiedBy:
+          $ref: '#/components/schemas/User'
+        collection:
+          $ref: '#/components/schemas/CollectionModel'
+        slug:
+          type: string
+          description: The slug is the URL address to the board
+          example: https://app.getguru.com/boards/:slug_goes_here
+        favorited:
+          type: boolean
+          description: Whether this board has been favorited by the current user
+        boardGroupId:
+          type: string
+          description: The ID of the Board Group that this Board belongs to
+        numberOfFacts:
+          type: integer
+          description: The number of cards in the Board
+          format: int32
+        removed:
+          type: boolean
+          description: Boolean flag if this Board has been removed
+        groupsSharedWith:
+          type: array
+          description: Returns the groups that a board is shared with
+          items:
+            type: string
+        favoritedDate:
+          type: string
+          description: When this board has been favorited by the current user
+          format: date-time
+        defaultList:
+          type: boolean
+          description: When this board is a users default favorite list
+    BoardItem:
+      type: object
+    BulkOperationResponse:
+      type: object
+      properties:
+        responseMessage:
+          type: string
+        id:
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkOperationResponseItem'
+    BulkOperationResponseItem:
+      type: object
+      properties:
+        responseMessage:
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        itemId:
+          type: string
+    Card:
+      required:
+      - content
+      - preferredPhrase
+      type: object
+      properties:
+        content:
+          type: string
+          description: The Card's HTML or Markdown content
+          example: Here's some **awesome content**
+        version:
+          type: integer
+          description: Current version of the Card. As the card gets updated and revised,
+            the version number will increase.
+          format: int32
+          example: 1
+        lastModified:
+          type: string
+          description: Date the Card was last modified
+          format: date-time
+        owner:
+          $ref: '#/components/schemas/User'
+        tags:
+          uniqueItems: true
+          type: array
+          description: Returns Tag objects associated with this card
+          items:
+            $ref: '#/components/schemas/Tag'
+        id:
+          type: string
+          description: ID of the Card
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        teamId:
+          type: string
+          description: If the card shareType is TEAM, this is the ID of the Team that
+            it is shared with
+        lastModifiedBy:
+          $ref: '#/components/schemas/User'
+        dateCreated:
+          type: string
+          description: Date the Card was created
+          format: date-time
+        attachments:
+          type: array
+          description: Attachments to the card
+          items:
+            $ref: '#/components/schemas/CardAttachment'
+        boards:
+          uniqueItems: true
+          type: array
+          description: Returns Board objects that this card appears on
+          items:
+            $ref: '#/components/schemas/Board'
+        collection:
+          $ref: '#/components/schemas/CollectionModel'
+        cardTemplateId:
+          type: string
+          description: ID of the template from which this card was created if applicable
+        verificationState:
+          type: string
+          description: Whether the card is TRUSTED, STALE, or NEEDS_VERIFICATION
+          enum:
+          - TRUSTED
+          - STALE
+          - NEEDS_VERIFICATION
+          - SYNCED_NO_VERIFICATION
+        lastVerified:
+          type: string
+          description: Date the Card was last verified
+          format: date-time
+        lastVerifiedBy:
+          $ref: '#/components/schemas/User'
+        preferredPhrase:
+          type: string
+          description: The title of the Card
+          example: My New Card
+        shareStatus:
+          type: string
+          description: The share status of the Card.  TEAM for team shared cards and
+            PRIVATE for privately shared cards
+          example: TEAM
+          enum:
+          - TEAM
+          - PRIVATE
+          - PUBLIC
+        suppressVerification:
+          type: boolean
+          description: Flag for enabling card verification on save
+        verificationInterval:
+          type: integer
+          description: Time interval (in days), indicating the frequency that this
+            card needs re-verification. Passing in null will default to 30 days.
+          format: int32
+        syncInfo:
+          $ref: '#/components/schemas/CardSyncInfo'
+        publicLinkAllowed:
+          type: boolean
+        slug:
+          type: string
+          description: The slug is the URL address to the card
+          example: https://app.getguru.com/cards/:slug_goes_here
+        archived:
+          type: boolean
+          description: Indicates if the Card has been archived
+        originalOwner:
+          $ref: '#/components/schemas/User'
+        favorited:
+          type: boolean
+          description: Whether this card has been favorited by the current user
+        commentCount:
+          type: integer
+          description: Number of comments on the card
+          format: int32
+        verificationType:
+          type: string
+          description: Whether the card's verification date is ABSOLUTE or RELATIVE
+          enum:
+          - ABSOLUTE
+          - RELATIVE
+        verificationInitiator:
+          $ref: '#/components/schemas/User'
+        verificationInitiationDate:
+          type: string
+          description: Date corresponding to the action that unverified the card
+          format: date-time
+        verificationReason:
+          type: string
+          description: Reason this card needs verification.  UPDATE if this card was
+            updated by a user that is not the verifier. NEW_VERIFIER if this card
+            was assigned to a new verifier but has not yet been verified.  This value
+            will only be present if the verification state is NEEDS_VERIFICATION
+          enum:
+          - UPDATE
+          - NEW_VERIFIER
+          - QUESTION
+          - REQUESTED
+          - EXPIRED
+        verificationReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - UPDATE
+            - NEW_VERIFIER
+            - QUESTION
+            - REQUESTED
+            - EXPIRED
+        cardType:
+          type: string
+          description: The type of the Card. CARD for content cards, FILE for file
+            cards, QUESTION for Questions.
+          enum:
+          - FILE
+          - CARD
+          - QUESTION
+        nextVerificationDate:
+          type: string
+          description: Next date that this Card needs verification dependent on verification
+            interval
+          format: date-time
+        collaborators:
+          type: array
+          description: Users/Groups that this card is explicitly shared to. Collaborators
+            of a card are the only ones who have access if the Card's shareStatus
+            is PRIVATE.
+          items:
+            $ref: '#/components/schemas/CardCollaborator'
+        favoritedDate:
+          type: string
+          description: Date when this card has been favorited by the current user
+          format: date-time
+        lastViewed:
+          type: string
+          description: Last time the card was viewed
+          format: date-time
+        cardInfo:
+          $ref: '#/components/schemas/CardInfo'
+      description: The Card is the basic unit of knowledge in Guru
+    CardAttachment:
+      type: object
+      properties:
+        extension:
+          type: string
+          description: The attached file's extension
+          example: csv
+        filename:
+          type: string
+          description: The file name and extension
+          example: file-name.png
+        id:
+          type: string
+          description: The ID of the CardAttachment
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        mimetype:
+          type: string
+        link:
+          type: string
+          description: Link to where the uploaded file is hosted in Guru's servers
+        previewable:
+          type: boolean
+        thumbnailLink:
+          type: string
+          description: Link to where the thumbnail for the uploaded file is hosted
+            in Guru's servers
+        size:
+          type: integer
+          description: The attached file's size in bytes
+          format: int64
+          example: 1000
+      description: Information about attachments within a Card.
+    CardAttribute:
+      type: object
+      properties:
+        content:
+          type: string
+        type:
+          type: string
+          enum:
+          - SINGLELINE
+          - MULTILINE
+        id:
+          type: string
+    CardAttributeValue:
+      type: object
+      properties:
+        content:
+          type: string
+          description: The value of the attribute
+        id:
+          type: string
+          description: ID of the Attribute Value
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        cardAttributeId:
+          type: string
+          description: ID of the associated Attribute
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+      description: Cards can have the option of having attribute values assigned to
+        them like metadata.
+    CardAttributeValues:
+      type: object
+      properties:
+        cardAttributeValues:
+          type: array
+          description: The list containing the card attribute values
+          items:
+            $ref: '#/components/schemas/CardAttributeValue'
+      description: A list of card attribute values
+    CardCollaborator:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID (email address or group ID) of the collaborator
+        dateCreated:
+          type: string
+          description: Date the collaborator was created
+          format: date-time
+        removed:
+          type: boolean
+    CardComment:
+      required:
+      - content
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the comment
+        status:
+          type: string
+          description: Status of the comment
+          enum:
+          - OPEN
+          - RESOLVED
+        totalReplies:
+          type: integer
+          description: Number of total replies on the comment
+          format: int32
+        replies:
+          type: array
+          description: The most recent replies to the comment. If the totalReplies
+            property is greater than the number of replies in this list, additional
+            replies can be found through the Get Replies endpoint.
+          items:
+            $ref: '#/components/schemas/CardCommentReply'
+        content:
+          type: string
+          description: 'Comment content (max length: 2500 characters)'
+        lastModified:
+          type: string
+          description: 'Date the comment was last modified. Dates are in ISO-8601
+            format. Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        owner:
+          $ref: '#/components/schemas/User'
+        dateCreated:
+          type: string
+          description: 'Date the comment was created. Dates are in ISO-8601 format.
+            Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        deleted:
+          type: boolean
+          description: Indicates if the comment has been deleted
+    CardCommentReply:
+      required:
+      - content
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the comment reply
+        content:
+          type: string
+          description: 'Comment content (max length: 2500 characters)'
+        lastModified:
+          type: string
+          description: 'Date the comment was last modified. Dates are in ISO-8601
+            format. Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        owner:
+          $ref: '#/components/schemas/User'
+        dateCreated:
+          type: string
+          description: 'Date the comment was created. Dates are in ISO-8601 format.
+            Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        deleted:
+          type: boolean
+          description: Indicates if the comment has been deleted
+    CardInfo:
+      type: object
+      properties:
+        boards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Board'
+        analytics:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        membersWithCardView:
+          type: integer
+          format: int64
+        membersWithoutCardView:
+          type: integer
+          format: int64
+    CardSyncInfo:
+      type: object
+      properties:
+        externalUrl:
+          type: string
+        lastSyncDate:
+          type: string
+          format: date-time
+        lastUpdateDate:
+          type: string
+          format: date-time
+        contentSyncType:
+          type: string
+          enum:
+          - ZENDESK
+          - CONFLUENCE
+          - MANUAL
+          - GOOGLE_DRIVE
+          - ZENEFITS
+          - BOX
+          - KUSTOMER
+          - DROPBOX
+          - SALESFORCE
+          - GURU
+    CardTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        description:
+          type: string
+        id:
+          type: string
+        lastModifiedBy:
+          $ref: '#/components/schemas/User'
+        dateCreated:
+          type: string
+          format: date-time
+        boards:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Board'
+        jsonContent:
+          type: string
+        collection:
+          $ref: '#/components/schemas/CollectionModel'
+        shareStatus:
+          type: string
+          enum:
+          - PRIVATE
+          - TEAM
+          - PUBLIC
+        verificationInterval:
+          type: integer
+          format: int32
+        createdBy:
+          $ref: '#/components/schemas/User'
+        templateTitle:
+          type: string
+        cardTitle:
+          type: string
+        cardVerifier:
+          $ref: '#/components/schemas/CardVerifier'
+    CardVerifier:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the verifier
+        dateCreated:
+          type: string
+          description: 'Date the verifier was created. Dates are in ISO-8601 format.
+            Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+    CardVerifiers:
+      type: object
+      properties:
+        verificationState:
+          type: string
+          enum:
+          - TRUSTED
+          - STALE
+          - NEEDS_VERIFICATION
+          - SYNCED_NO_VERIFICATION
+        verifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardVerifier'
+        verificationInitiator:
+          $ref: '#/components/schemas/User'
+        verificationReason:
+          type: string
+          enum:
+          - UPDATE
+          - NEW_VERIFIER
+          - QUESTION
+          - REQUESTED
+          - EXPIRED
+    CollectionModel:
+      type: object
+      properties:
+        color:
+          type: string
+          description: A hex value for the color of the Collection
+          example: '#f44336'
+        tags:
+          type: integer
+          description: Returns all Tag objects associated with this collection
+          format: int64
+        description:
+          type: string
+          description: Collection Description
+        id:
+          type: string
+          description: ID of the collection
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        token:
+          type: string
+        defaultVerifier:
+          type: string
+        syncType:
+          type: string
+          description: 'If this Collection has been synced, this will return the type.
+            Types include: Zendesk, Confluence, Google Drive, and Manual.'
+          enum:
+          - ZENDESK
+          - CONFLUENCE
+          - MANUAL
+          - GOOGLE_DRIVE
+          - ZENEFITS
+          - BOX
+          - KUSTOMER
+          - DROPBOX
+          - SALESFORCE
+          - GURU
+        collectionType:
+          type: string
+          description: The type can be either INTERNAL or EXTERNAL.  EXTERNAL indicates
+            that the card is from a synced Collection.
+          enum:
+          - INTERNAL
+          - EXTERNAL
+        dateCreated:
+          type: string
+          description: Date the collection was created
+          format: date-time
+        boards:
+          type: integer
+          description: Number of boards in this Collection
+          format: int64
+        deleted:
+          type: boolean
+          description: Flag for whether this Collection has been deleted
+        cards:
+          type: integer
+          description: Number of cards in this Collection
+          format: int64
+        collectionStats:
+          $ref: '#/components/schemas/CollectionStats'
+        syncVerificationEnabled:
+          type: boolean
+        verificationInterval:
+          type: integer
+          format: int32
+        slug:
+          type: string
+          description: The slug is the URL to get to this Collection
+          example: https://app.getguru.com/collections/:slug_goes_here
+        publicCardsEnabled:
+          type: boolean
+        lastSyncedDate:
+          type: string
+          description: The date that the Collection was last synced from the source
+          format: date-time
+        administrator:
+          type: boolean
+        topLevelSyncLocation:
+          type: string
+          description: The URL where the content of the Collection is being synced
+            from
+        publicCards:
+          type: integer
+          format: int64
+        name:
+          type: string
+          description: Collection Name
+    CollectionStats:
+      type: object
+      properties:
+        stats:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Stats'
+          description: Returns an object that includes the Collection Trust Score,
+            and Card Count of the Collection.
+    Edition:
+      type: object
+      properties:
+        code:
+          type: string
+        key:
+          type: string
+        id:
+          type: string
+        features:
+          type: object
+          additionalProperties:
+            type: string
+        plans:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        usage:
+          type: object
+          additionalProperties:
+            type: object
+            properties: {}
+        name:
+          type: string
+    Event:
+      type: object
+      properties:
+        user:
+          type: string
+          description: Email of user
+        type:
+          type: string
+        eventType:
+          type: string
+          description: Event type
+        id:
+          type: string
+          description: 'Id of event. IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        eventDate:
+          type: string
+          description: 'Timestamp of event. Dates are in ISO-8601 format. Example
+            date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        properties:
+          type: object
+          additionalProperties:
+            type: object
+            properties: {}
+          description: Properties related to event
+    Expression:
+      type: object
+    FeaturedUnverifiedCards:
+      type: object
+      properties:
+        weekOf:
+          type: string
+          format: date-time
+        mostPopular:
+          $ref: '#/components/schemas/Card'
+        longestOverdue:
+          $ref: '#/components/schemas/Card'
+        highAlert:
+          $ref: '#/components/schemas/Card'
+        exclusivelyYours:
+          $ref: '#/components/schemas/Card'
+    KnowledgeAlert:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        id:
+          type: string
+        dateCreated:
+          type: string
+          format: date-time
+        creator:
+          $ref: '#/components/schemas/User'
+        cardId:
+          type: string
+        note:
+          type: string
+    KnowledgeAlertDelegated:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        card:
+          $ref: '#/components/schemas/Card'
+        cardTitle:
+          type: string
+        alertId:
+          type: string
+        dateSent:
+          type: string
+          format: date-time
+        collectionHexColor:
+          type: string
+        note:
+          type: string
+        readCount:
+          type: integer
+          format: int64
+        unreadCount:
+          type: integer
+          format: int64
+        percentRead:
+          type: integer
+          format: int32
+    KnowledgeCenteredSupportInfo:
+      type: object
+      properties:
+        platform:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+        cardId:
+          type: string
+        conversationId:
+          type: string
+    KnowledgeCenteredSupportResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        platform:
+          type: string
+          enum:
+          - ZENDESK
+          - LIVEPERSON
+          - SALESFORCE
+        user:
+          $ref: '#/components/schemas/User'
+        conversationId:
+          type: string
+        card:
+          $ref: '#/components/schemas/Card'
+    MentionNotification:
+      type: object
+      properties:
+        comment:
+          $ref: '#/components/schemas/CardComment'
+        id:
+          type: string
+        creator:
+          $ref: '#/components/schemas/User'
+        card:
+          $ref: '#/components/schemas/Card'
+        dateSent:
+          type: string
+          format: date-time
+        viewed:
+          type: boolean
+        mention:
+          type: string
+        userTaskId:
+          type: string
+        commentReplyId:
+          type: string
+    QuerySpec:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/Expression'
+        searchTerms:
+          type: string
+        sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sort'
+        queryType:
+          type: string
+          enum:
+          - cards
+          - questions
+          - archived
+          - recovered
+          - draft
+          - legacy
+        maxResults:
+          type: integer
+          format: int32
+        showArchived:
+          type: boolean
+        collectionIds:
+          type: array
+          items:
+            type: string
+        collectionUids:
+          type: array
+          items:
+            type: integer
+            format: int64
+    Sort:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - lastModified
+          - lastModifiedBy
+          - boardCount
+          - verificationState
+          - copyCount
+          - viewCount
+          - favoriteCount
+          - dateCreated
+          - verificationInterval
+          - verifier
+          - owner
+          - originalOwner
+          - lastVerifiedBy
+          - lastVerified
+          - verificationReason
+          - popularity
+          - unverifiedViewsCopies
+          - nextVerificationDate
+          - collection
+          - title
+        dir:
+          type: string
+          enum:
+          - ASC
+          - DESC
+    Stats:
+      type: object
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the Tag
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        categoryName:
+          type: string
+          description: If the tag belongs to a category, this is the name for the
+            category
+        numberOfCards:
+          type: integer
+          description: The number of cards associated with this Tag
+          format: int64
+        categoryId:
+          type: string
+          description: If the tag belongs to a category, this is the ID for the category
+          example: 'IDs are formatted like this: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        value:
+          type: string
+          description: The name of the Tag
+      description: Information about the Tag and its Category
+    TagCategory:
+      type: object
+      properties:
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        id:
+          type: string
+        dateCreated:
+          type: string
+          format: date-time
+        collection:
+          $ref: '#/components/schemas/CollectionModel'
+        createdBy:
+          $ref: '#/components/schemas/User'
+        defaultCategory:
+          type: boolean
+        name:
+          type: string
+    Team:
+      type: object
+      properties:
+        domain:
+          type: string
+          description: Domain
+        id:
+          type: string
+          description: ID of the fact
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - DORMANT
+          - LOCKED
+          - EXPIRED
+          - DELETED
+        teamDomains:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamDomain'
+        defaultUserType:
+          type: string
+          enum:
+          - LIGHT
+          - CORE
+        dateCreated:
+          type: string
+          description: 'Date the team was created. Dates are in ISO-8601 format. Example
+            date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        deleted:
+          type: boolean
+          description: Indicates if the fact has been deleted
+        profilePicUrl:
+          type: string
+        trialExpirationDate:
+          type: string
+          format: date-time
+        edition:
+          $ref: '#/components/schemas/Edition'
+        companyName:
+          type: string
+          description: Team Company Name
+        billableUsers:
+          type: integer
+          format: int64
+        totalUsers:
+          type: integer
+          format: int64
+        slackCommandState:
+          type: string
+        slackCommandInstalled:
+          type: boolean
+        sfdcIntegrationState:
+          type: string
+        sfdcIntegrationInstalled:
+          type: boolean
+        clearProfilePic:
+          type: boolean
+        defaultGroup:
+          $ref: '#/components/schemas/UserGroup'
+        zendeskAssistState:
+          type: string
+        zendeskAssistInstalled:
+          type: boolean
+        zendeskKnowledgeState:
+          type: string
+        zendeskKnowledgeInstalled:
+          type: boolean
+        fileSharingDisabled:
+          type: boolean
+        hubspotContactData:
+          type: string
+        zoomChatState:
+          type: string
+        name:
+          type: string
+          description: Team Name
+    TeamDomain:
+      type: object
+      properties:
+        domain:
+          type: string
+        verified:
+          type: boolean
+        verificationCode:
+          type: string
+        capture:
+          type: boolean
+    TeamStats:
+      type: object
+      properties:
+        stats:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Stats'
+    TeamUser:
+      required:
+      - user
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+        id:
+          type: string
+          description: ID of the team member
+        token:
+          type: string
+        numberOfCardsAsVerifier:
+          type: integer
+          format: int64
+        managedByScim:
+          type: boolean
+        highestRole:
+          type: string
+          enum:
+          - ADMIN
+          - AUTHOR
+          - MEMBER
+          - COLL_ADMIN
+        userAttributes:
+          type: object
+          additionalProperties:
+            type: string
+    UseCase:
+      type: object
+      properties:
+        description:
+          type: string
+          description: A description of this use case
+    User:
+      required:
+      - email
+      - firstName
+      - lastName
+      type: object
+      properties:
+        role:
+          type: string
+          description: The user's role
+        status:
+          type: string
+          description: The status of a User can be ACTIVE or PENDING. The User must
+            verify their email address to be considered ACTIVE.
+          enum:
+          - ACTIVE
+          - PENDING
+        email:
+          type: string
+          description: The user's email address
+        lastName:
+          type: string
+          description: The user's last name
+        firstName:
+          type: string
+          description: The user's first name
+        profilePicUrl:
+          type: string
+          description: The profile picture url for the user
+        userProfile:
+          $ref: '#/components/schemas/UserProfile'
+    UserGroup:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - AUTHOR
+          - MEMBER
+          - COLL_ADMIN
+        id:
+          type: string
+          description: ID of the group
+        dateCreated:
+          type: string
+          description: 'Date the group was created. Dates are in ISO-8601 format.
+            Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        expertIdRank:
+          type: integer
+          format: int64
+        groupIdentifier:
+          type: string
+        numberOfMembers:
+          type: integer
+          format: int32
+        numberOfCardsAsVerifier:
+          type: integer
+          format: int32
+        modifiable:
+          type: boolean
+        userModifiable:
+          type: boolean
+        managedByScim:
+          type: boolean
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroupMember'
+        name:
+          type: string
+          description: Group Name
+    UserGroupMember:
+      required:
+      - user
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        id:
+          type: string
+          description: ID of the group member
+        dateCreated:
+          type: string
+          description: 'Date the group member was added to the group. Dates are in
+            ISO-8601 format. Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+        managedByScim:
+          type: boolean
+    UserProfile:
+      type: object
+      properties:
+        role:
+          type: string
+          description: The functional role a Guru user performs on their team
+        roleLevel:
+          type: string
+          description: The level at which the user operates in their current role
+        useCaseList:
+          type: array
+          description: Describes different ways the user intends to use Guru
+          items:
+            $ref: '#/components/schemas/UseCase'
+      description: Specifies additional information about a Guru User
+    UserVerifier:
+      required:
+      - user
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        id:
+          type: string
+          description: ID of the verifier
+        dateCreated:
+          type: string
+          description: 'Date the verifier was created. Dates are in ISO-8601 format.
+            Example date (January 2nd 2014 12pm UTC): 2014-01-02T12:00:00.000+0000'
+          format: date-time
+    WhoAmI:
+      required:
+      - team
+      - tokenType
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        tokenType:
+          type: string
+          description: The type of token used to authenticate this request
+          enum:
+          - API
+          - SESSION
+          - COLLECTION
+          - OTHER
+          - UNKNOWN
+        team:
+          $ref: '#/components/schemas/Team'
+        collection:
+          $ref: '#/components/schemas/CollectionModel'
+      description: Basic information about the authenticated user or collection
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
