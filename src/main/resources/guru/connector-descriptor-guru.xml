@@ -1,6 +1,10 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
     <description>This connector provides access to Guru API v1.0. For more information, click here: https://developer.getguru.com/docs</description>
 
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.getguru.com</defaultValue>
+    </field>
+
     <field id="username" label="User email or collection id" type="string"/>
     <field id="password" label="API Token" type="password"/>
 

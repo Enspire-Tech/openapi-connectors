@@ -17,8 +17,7 @@ public class  CustomConnector extends BaseConnector {
     }
 
     public Operation createExecuteOperation(final OperationContext operationContext){
-        OpenAPIOperationConnection operationConnection = new OpenAPIOperationConnection(operationContext);
-        operationConnection.getContext().getConnectionProperties().put("url", "https://api.getguru.com");
+        CustomOperationConnection operationConnection = new CustomOperationConnection(operationContext);
         return new CustomOperation(operationConnection);
     }
 }

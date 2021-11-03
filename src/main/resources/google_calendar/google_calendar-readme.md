@@ -4,13 +4,8 @@ Manipulates events and other calendar data.
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/calendar/v3/openapi.yaml
 
 ## Prerequisites
-+ Add Boomi callback URL to your GCP application settings: https://platform.boomi.com/account/<your_Boomi Integration_account_ID>/oauth2/callback
-+ OAuth2 Authorization Code Grant and JWT Grant types are supported
-    + If you are using Authorization Code Grant, you must provide:
-        + Client ID
-        + Client Secret
-    + If you are using JWT Grant, you must provide:
-      + A .p12 key file created for a GCP service account
++  JWT Grant type is supported
+    + You must provide a.p12 key file created for a GCP service account
 
 ## Implementation Notes
 + For JWT Bearer Token Grant type
