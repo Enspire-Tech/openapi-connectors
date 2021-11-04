@@ -11,13 +11,11 @@ Specification: https://github.com/PagerDuty/api-schema/blob/main/reference/REST/
 ## Supported Operations
 
 The following operations are not supported at this time:
-* listAuditRecords
 * listEscalationPolicyAuditRecords
 * listSchedulesAuditRecords
 * listServiceAuditRecords
 * listTeamsAuditRecords
 * listUsersAuditRecords
-* createScheduleOverride
 * getServiceIntegration
 * createServiceIntegration
 * updateServiceIntegration

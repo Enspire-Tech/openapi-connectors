@@ -14,11 +14,8 @@ Specification: https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_files.ya
 1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
 
 ## Supported Operations
-**5 out of 17 endpoints are failing.**
+**2 out of 17 endpoints are failing.**
 
 The following operations are not supported at this time:
-* getFileAssociations
-* getAssociationsByObject
-* getFolders
-* uploadFile
-* uploadFileToFolder
++ uploadFile
++ uploadFileToFolder
