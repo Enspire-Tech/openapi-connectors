@@ -18,7 +18,8 @@ jobs:
                            'apache_pulsar_functions', 'aquarius', 'provider', 'blackboard', 'docusign_esignature',
                            'docusign_click', 'docusign_rooms', 'xero_assets', 'xero_files', 'xero_projects',
                            'xero_payroll_nz', 'xero_payroll_uk', 'ably_control', 'ebay', 'interzoid', 'google_drive',
-                           'google_analytics_v3']
+                           'google_analytics_v3', 'google_healthcare', 'google_calendar', 'google_compute_engine',
+                           'guru']
     
     steps:
     - uses: actions/checkout@v2

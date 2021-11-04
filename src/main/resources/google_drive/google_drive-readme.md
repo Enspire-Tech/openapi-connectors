@@ -14,8 +14,4 @@ Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/goo
   + Scope (For example, the most permissive is: https://www.googleapis.com/auth/drive)
 
 ## Supported Operations
-**2 out of 46 endpoints are failing.**
-
-The following operations are **not** supported at this time:
-* drive.files.create
-* drive.files.update
+**0 out of 46 endpoints are failing.**

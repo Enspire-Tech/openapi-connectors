@@ -14,8 +14,4 @@ Specification: https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_assets.y
 1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
 
 ## Supported Operations
-**2 out of 68 endpoints are failing.**
-
-The following operations are not supported at this time:
-* createEmployeeOpeningBalances
-* createMultipleEmployeeEarningsTemplate
+**All 68 endpoints are working.**

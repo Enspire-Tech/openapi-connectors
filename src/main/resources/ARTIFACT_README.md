@@ -8,7 +8,7 @@ See below for outstanding issues.
 
 * [CircleCI](#circleci)
 
-* [Firecracker](#firecracker) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Firecracker](#firecracker) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Quickbase](#quickbase)
 
@@ -18,11 +18,11 @@ See below for outstanding issues.
 
 * [Provider](#provider)
 
-* [Blackboard](#blackboard) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Blackboard](#blackboard) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Docusign Esignature](#docusign_esignature)
 
-* [Docusign Click](#docusign_click) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Docusign Click](#docusign_click) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
 * [Docusign Rooms](#docusign_rooms)
 
@@ -38,16 +38,23 @@ See below for outstanding issues.
 
 * [Ably Control](#ably_control)
 
-* [EBay Browse](#ebay_browse) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [EBay Browse](#ebay_browse) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [EBay Marketing](#ebay_marketing) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [EBay Marketing](#ebay_marketing) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [Interzoid](#interzoid) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Interzoid](#interzoid) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [Google Drive](#google_drive)
+* [Google Drive](#google_drive) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
-* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**ALL ENDPOINTS OPERATIONAL**</span>
+* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
 
+* [Google Healthcare](#google_healthcare) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+
+* [Google Calendar](#google_calendar) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+
+* [Google Compute Engine](#google_compute_engine) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+
+* [Guru](#guru)
 
 ### Skipped APIs
 * **Bitbucket** 
@@ -99,25 +106,17 @@ See below for outstanding issues.
 
 ## Summary of Issues
 
-<table>
-   <tr><th>Priority</th></td><th>Error</th><th>Explanation</th><th>Endpoints Affected</th><th>Example</th></tr>
-    <tr>
-        <td>1</td>
-        <td>OAUTH2 Authorization Header</td>
-        <td>Some implementations of OAUTH2 Authorization Code and Client Credentials flows require an authorization
-            header in the access token request. Boomi does not support this. 
-        </td>
-        <td>~25</td>
-        <td>EBay Sell Account API</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Stackoverflow error</td>
-      <td>Circular references are causing stack overflow errors.</td>
-      <td>5</td>
-      <td>
-         API: Pagerduty, OperationId: getServiceIntegration<br>
-         <pre>
+1. OAUTH2 Authorization Header 
+   1. Priority 1 
+   2. Some implementations of OAUTH2 Authorization Code and Client Credentials flows require an authorization
+  header in the access token request. Boomi does not support this. 
+   3. Example: EBay Sell Account API
+
+2. Circular Reference Error
+   1. Priority 1
+   2. Circular references are causing stack overflow errors.
+   3. Example API: Pagerduty, OperationId: getServiceIntegration
+          <pre>
 "MatchPredicate": {
   "type": "object",
   "properties": {
@@ -152,53 +151,22 @@ See below for outstanding issues.
       "items": {
         "$ref": "#/components/schemas/MatchPredicate"
       }
-         </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>1</td>
-      <td>Unsupported type: ARRAY</td>
-      <td>Responses with a schema type of array are not supported.</td>
-      <td>16</td>
-      <td>
-         API: Pagerduty, OperationId: createScheduleOverride<br>
-         <pre>
-"responses": {
-   "201": {
-      "description": "A list of overrides requested and a status code indicating whether they were created or rejected",
-         "content": {
-            "application/json": {
-                "schema": {
-                  "type": "array",
-         </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>1</td>
-      <td>Parameters at path level are ignored</td>
-      <td>
-         In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
-      </td>
-      <td> </td>
-      <td>
-         API: Xero Assets, OperationId: getAssets
-         <pre>
+3. Path level parameters ignored
+   1. Priority 1
+   2. In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
+   3. Example API: Xero Assets, OperationId: getAssets
+           <pre>
 paths:
   /Assets:
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
     get:
          </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>2</td>
-      <td>Unsupported Parameter Type: null</td>
-      <td>References are not followed when validating parameter schema type.</td>
-      <td>5</td>
-      <td>
-         API: Twitter V2, OperationId: findTweetById<br>
-         <pre>
+4. Can't find schema reference type
+   1. Priority 2
+   2. References are not followed when validating parameter schema type. Presents as "Unsupported Parameter Type: null".
+   3. Example API: Twitter V2, OperationId: findTweetById<br>
+           <pre>
 "parameters" : [ {
  "name" : "id",
  "in" : "path",
@@ -208,16 +176,11 @@ paths:
    "$ref" : "#/components/schemas/TweetID"
  }
          </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>2</td>
-      <td>Unsupported Parameter Type: null</td>
-      <td>The path parameter has no type. It contains an empty schema.</td>
-      <td>7</td>
-      <td>
-         API: CircleCI, OperationId: getTests<br>
-         <pre>
+5. Empty schemas are failing 
+   1. Priority 2
+   2. The path parameter has no type. It contains an empty schema. Presents as: "Unsupported Parameter Type: null".    
+   3. Example API: CircleCI, OperationId: getTests<br>
+            <pre>
 "parameters": [
  {
    "in": "path",
@@ -228,16 +191,12 @@ paths:
    "example": "123"
  },
          </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>2</td>
-      <td>Schema can't be null</td>
-      <td>The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported.</td>
-      <td>11</td>
-      <td>
-         API: Apache Pulsar Functions, OperationId: registerFunction
-         <pre>
+    
+6. Non JSON request bodies are not supported.
+   1. Priority 2
+   2. The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported. This errors as "Schema can't be null".
+   3. Example API: Apache Pulsar Functions, OperationId: registerFunction
+            <pre>
 requestBody:
   content:
     multipart/form-data:
@@ -245,26 +204,12 @@ requestBody:
         $ref: '#/components/schemas/FunctionConfig'
   required: false
          </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>2</td>
-      <td>Property value is null</td>
-      <td>Schema references to parameter components are not resolved.</td>
-      <td>6</td>
-      <td>
-         API: Pagerduty, OperationId: listAuditRecords<br>
-         <pre>"$ref": "#/components/parameters/audit_method_type/schema"</pre>
-      </td>
-   </tr>
-   <tr>
-      <td>3</td>
-      <td>Unsupported type: STRING</td>
-      <td>In the response, the JSON schema type is "string".</td>
-      <td>2</td>
-      <td>
-         API: Twitter V2, OperationId: getOpenApiSpec<br>
-         <pre>
+    
+7. Unsupported response type of string.
+   1. Priority 3
+   2. In the response, the JSON schema type is "string". Errors as "Unsupported type: STRING".
+   3. Example API: Twitter V2, OperationId: getOpenApiSpec<br>
+            <pre>
 "responses" : {
  "200" : {
    "description" : "The request was successful",
@@ -273,19 +218,14 @@ requestBody:
        "schema" : {
          "type" : "string"
          </pre>
-      </td>
-   </tr>
-   <tr>
-      <td>3</td>
-      <td>DELETE requests should not return a request body</td>
-      <td>According to OpenAPI specifications, GET, DELETE, and HEAD are no longer allowed to have a request body.</td>
-      <td>35</td>
-      <td>
-         API: Quickbase, OperationId: deleteApp<br>
-         <pre>
+8. DELETE requests with a request body are not supported. 
+   1. Priority 3
+   2. According to OpenAPI specifications, GET, DELETE, and HEAD are no longer allowed to have a request body.
+   3. Example API: Quickbase, OperationId: deleteApp<br>
+            <pre>
  delete:
    tags:
-     - Apps
+     \- Apps
    summary: Delete an app
    description: Deletes an entire application, including all of the tables and
      data.
@@ -306,12 +246,9 @@ requestBody:
              name: Name of an application to delete
      required: false
          </pre>
-      </td>
-   </tr>
-    <tr>
-        <td>3</td>
-        <td>Status code ranges are not recognized</td>
-        <td>'2XX' is a valid range definition according to the OpenAPI specification. Boomi is not recognizing this 
+9. Status code ranges are not recognized
+   1. Priority 3 
+   2. 2XX is a valid range definition according to the OpenAPI specification. Boomi is not recognizing this 
             status code as a successful response.</td>
         <td>20</td>
         <td>
@@ -320,34 +257,24 @@ requestBody:
 responses:
     '2XX':
             </pre>
-        </td>
-    </tr>
-</table>
-
 
 ---
 <a name="pagerduty"></a>
 ## PagerDuty
 
-**10 out of 193 endpoints are failing.**
+**8 out of 193 endpoints are failing.**
 
 ### Issues
 1. Property value is null. 
     + Schema references to parameter components are not being processed.
     + Affected operations: 
-        * listAuditRecords
         * listEscalationPolicyAuditRecords
         * listSchedulesAuditRecords
         * listServiceAuditRecords
         * listTeamsAuditRecords
         * listUsersAuditRecords
-
-2. Unsupported type: ARRAY
-    + Responses with a schema type of array are not supported.
-    + Affected operations:
-        * createScheduleOverride
-    
-3. Stackoverflow error
+        
+2. Stackoverflow error
     + Circular references are causing stack overflow errors.
     + Affected operations:
         * getServiceIntegration
@@ -390,10 +317,6 @@ responses:
       * getJobDetails
       * getPipelineByNumber
       * getJobDetails
-2. Unsupported type: ARRAY
-    + The response content type is array.
-    + Affected operations:
-        * getCollaborations
 
 ---   
 
@@ -407,20 +330,10 @@ responses:
 <a name="quickbase"></a>
 ## Quickbase
 
-**9 out of 35 endpoints failing.**
+**3 out of 35 endpoints failing.**
 
 ### Issues
-1. Unsupported type: ARRAY
-    + The response content type is array, which is not a supported response type.
-    + Affected operations:
-      * getAppEvents
-      * getAppTables
-      * getTableReports
-      * getFields
-      * getFieldsUsage
-      * getFieldUsage
-
-2. DELETE requests should not return a request body.
+1. DELETE requests should not return a request body.
     + According to OpenAPI specifications, DELETE requests should not include a request body.
     + Affected operations:
       * deleteApp
@@ -432,18 +345,14 @@ responses:
 <a name="apache_pulsar_functions"></a>
 ## Apache Pulsar Functions
 
-**5 out of 19 endpoints are failing.**
+**4 out of 19 endpoints are failing.**
 
 ### Issues
-1. Unsupported type: ARRAY
-   + The response content type is array, which is not a supported response type.
-   + Affected operations:
-      * getConnectorsList
-2. Unsupported type: STRING
+1. Unsupported type: STRING
    + The response content type is string, which is not a supported response type.
    + Affected operations:
       * listFunctions
-3. Schema can't be null
+2. Schema can't be null
    + The request body has a content type of form-data. Only JSON request bodies are supported.
    + Affected operations:
      * registerFunction
@@ -585,33 +494,23 @@ responses:
 <a name="xero_assets"></a>
 ## Xero Assets
 
-**2 out of 6 endpoints are failing.**
+**1 out of 6 endpoints are failing.**
 
 ### Issues
 1. Unsupported Parameter Type: null
    + References are not followed when validating parameter schema type.
    + Affected operations:
      + getAssets
-2. Unsupported type:ARRAY
-   + Responses with a schema type of array are not supported.
-   + Affected operations:
-     + getAssetTypes
 
 ---
 
 <a name="xero_files"></a>
 ## Xero Files
 
-**5 out of 17 endpoints are failing.**
+**2 out of 17 endpoints are failing.**
 
 ### Issues
-1. Unsupported type:ARRAY
-   + Responses with a schema type of array are not supported.
-   + Affected operations:
-      + getFileAssociations
-      + getAssociationsByObject
-      + getFolders
-2. Schema can't be null
+1. Schema can't be null
    + The request body has a content type of form-data. Only JSON request bodies are supported.
    + Affected operations:
       + uploadFile
@@ -635,7 +534,7 @@ responses:
 <a name="xero_payroll_nz"></a>
 ## Xero Payroll NZ
 
-**2 out of 68 endpoints are failing.**
+**All endpoints are working.**
 
 ### Issues
 1. Unsupported type:ARRAY
@@ -648,30 +547,17 @@ responses:
 <a name="xero_payroll_uk"></a>
 ## Xero Payroll UK
 
-**1 out of 70 endpoints are failing.**
+**All endpoints are working.**
 
-### Issues
-1. Unsupported type:ARRAY
-   + Responses with a schema type of array are not supported.
-   + Affected operations:
-      + createMultipleEmployeeEarningsTemplate
 ---
 
 <a name="ably_control"></a>
 ## Ably Control
 
-**6 out of 22 endpoints are failing.**
+**1 out of 22 endpoints are failing.**
 
 ### Issues
-1. Unsupported type:ARRAY
-    + Responses with a schema type of array are not supported.
-    + Affected operations:
-      * /accounts/{account_id}/apps
-      * /apps/{app_id}/keys
-      * /apps/{app_id}/namespaces
-      * /apps/{app_id}/queues
-      * /apps/{app_id}/rules
-2. Schema can't be null
+1. Schema can't be null
     + The request body has a content type of "multipart/form-data"
     + Affected operations:
       * /apps/{id}/pkcs12
@@ -721,20 +607,13 @@ Get Current Weather for a US City
 Get Current Weather by US Zip Code
 Get Current US Weather by Lat and Long
 Get Zip Code Detailed Info
-</pre>
+</pre>[
 
 ---
 
 <a name="google_drive"></a>
 ## Google Drive
-**2 out of 46 endpoints are failing.**
-### Issues
-1. Schema can't be null
-    + The request body has a content type of octet-stream. Only JSON request bodies are supported.
-    + Affected operations:
-        * drive.files.create
-        * drive.files.update
-
+**All 46 endpoints are passing.**
 ---
 
 <a name="google_analytics_v3"></a>
@@ -742,4 +621,24 @@ Get Zip Code Detailed Info
 **All 88 endpoints are passing**
 
 ---
+
+<a name="google_healthcare"></a>
+## Google Healthcare API v1
+**All 56 endpoints are passing**
+
+---
+
+<a name="google_calendar"></a>
+## Google Calendar API v3
+**All 37 endpoints are passing**
+---
+
+<a name="google_compute_engine"></a>
+## Google Compute Engine API v1
+**All 597 endpoints are passing**
+
+---
+<a name="guru"></a>
+## Guru API v1.0
+**All documented endpoints are passing**
 

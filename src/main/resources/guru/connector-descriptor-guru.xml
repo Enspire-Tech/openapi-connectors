@@ -1,0 +1,18 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to Guru API v1.0. For more information, click here: https://developer.getguru.com/docs</description>
+
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.getguru.com</defaultValue>
+    </field>
+
+    <field id="username" label="User email or collection id" type="string"/>
+    <field id="password" label="API Token" type="password"/>
+
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>

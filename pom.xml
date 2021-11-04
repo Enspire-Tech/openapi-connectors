@@ -38,24 +38,61 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--SNAPSNOT JARS-->
         <dependency>
-            <groupId>com.boomi.util</groupId>
-            <artifactId>boomi-json-util</artifactId>
-            <version>1.1.10</version>
+            <groupId>com.boomi.common</groupId>
+            <artifactId>common-apache-http</artifactId>
+            <version>0.6-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.boomi.util</groupId>
-            <artifactId>boomi-util</artifactId>
-            <version>2.3.8</version>
+            <artifactId>boomi-json-util</artifactId>
+            <version>1.1.11-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-rest</artifactId>
-            <version>0.3</version>
+            <version>0.7-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+
+        <!--OLD JARS-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.boomi.connsdk</groupId>-->
+<!--            <artifactId>connector-sdk-rest</artifactId>-->
+<!--            <version>0.3</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.boomi.util</groupId>-->
+<!--            <artifactId>boomi-json-util</artifactId>-->
+<!--            <version>1.1.10</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+        <!--OLD JARS END-->
+
+        <dependency>
+            <groupId>com.boomi.util</groupId>
+            <artifactId>boomi-util</artifactId>
+            <version>2.3.8</version>
             <scope>compile</scope>
         </dependency>
 
@@ -82,7 +119,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.7-SNAPSHOT</version>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
