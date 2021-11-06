@@ -22,25 +22,25 @@
     <field id="oauthContext" label="OAuth 2.0" type="oauth">
         <oauth2FieldConfig>
             <authorizationTokenEndpoint>
-                <url>
-                    <defaultValue>https://accounts.google.com/o/oauth2/auth</defaultValue>
+                <url access="hidden">
+                    <defaultValue>https://accounts.google.com/o/oauth2/v2/auth</defaultValue>
                 </url>
             </authorizationTokenEndpoint>
-            <authorizationParameters>
+            <authorizationParameters access="hidden">
                 <parameter name="access_type">
-                    <value>
+                    <value access="hidden">
                         <defaultValue>offline</defaultValue>
                     </value>
                 </parameter>
                 <parameter name="approval_prompt">
-                    <value>
+                    <value access="hidden">
                         <defaultValue>force</defaultValue>
                     </value>
                 </parameter>
             </authorizationParameters>
             <accessTokenEndpoint>
-                <url>
-                    <helpText>For Authorization Code: https://accounts.google.com/o/oauth2/token ~ For JWT Bearer Token: https://oauth2.googleapis.com/token</helpText>
+                <url access="hidden">
+                    <defaultValue>https://www.googleapis.com/oauth2/v4/token</defaultValue>
                 </url>
             </accessTokenEndpoint>
             <accessTokenParameters access="hidden"/>
@@ -48,14 +48,13 @@
                 <helpText>
                     Defines the extent and access range to protected cloud resources. When
                     using the JWT Bearer Token grant type, leave this field blank. The
-                    scope is automatically set as a claim, and appears as an extended JWT
+                    scope must be set as an extended JWT
                     claim.
                     &lt;br/&gt;&lt;br/&gt;
-                    When using the Authorization Code grant type, enter the following and
+                    When using the Authorization Code grant type, enter any applicable scopes and
                     verify that each entry is separated by a space:
                     &lt;br/&gt;&lt;br/&gt;
                     https://www.googleapis.com/auth/cloud-platform
-                    https://www.googleapis.com/auth/cloud-healthcare
                 </helpText>
                 <defaultValue>https://www.googleapis.com/auth/cloud-platform</defaultValue>
             </scope>
@@ -80,6 +79,12 @@
                 </allowedValue>
             </grantType>
             <jwtParameters>
+                <signatureAlgorithms access="hidden">
+                    <defaultValue>SHA256withRSA</defaultValue>
+                    <allowedValue>
+                        <value>SHA256withRSA</value>
+                    </allowedValue>
+                </signatureAlgorithms>
                 <issuer>
                     <helpText>
                         Identifies the principal that creates, signs, and issues the claim to
@@ -94,10 +99,10 @@
                         the Google Cloud Platform console (Service account details page).
                     </helpText>
                 </subject>
-                <audience>
-                    <defaultValue>https://oauth2.googleapis.com/token</defaultValue>
+                <audience access="hidden">
+                    <defaultValue>https://www.googleapis.com/oauth2/v4/token</defaultValue>
                 </audience>
-                <expiration>
+                <expiration access="hidden">
                     <defaultValue>3600</defaultValue>
                 </expiration>
                 <signatureKey>
@@ -115,6 +120,11 @@
                         </value>
                     </claim>
                 </extendedClaims>
+                <idGeneratorMethods access="hidden">
+                    <allowedValue>
+                        <value>NONE</value>
+                    </allowedValue>
+                </idGeneratorMethods>
             </jwtParameters>
         </oauth2FieldConfig>
     </field>

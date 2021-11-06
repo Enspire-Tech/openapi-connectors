@@ -45,19 +45,7 @@
             </accessTokenEndpoint>
             <accessTokenParameters access="hidden"/>
             <scope access="hidden">
-                <helpText>
-                    Defines the extent and access range to protected cloud resources. When
-                    using the JWT Bearer Token grant type, leave this field blank. The
-                    scope must be set as an extended JWT
-                    claim.
-                    &lt;br/&gt;&lt;br/&gt;
-                    When using the Authorization Code grant type, enter any applicable scopes and
-                    verify that each entry is separated by a space:
-                    &lt;br/&gt;&lt;br/&gt;
-                    https://www.googleapis.com/auth/calendar
-                    https://www.googleapis.com/auth/calendar.readonly
-                </helpText>
-                <defaultValue>https://www.googleapis.com/auth/calendar</defaultValue>
+                <defaultValue></defaultValue>
             </scope>
             <grantType>
                 <helpText>
