@@ -9,7 +9,7 @@ See below for outstanding issues.
 
 * [CircleCI](#circleci)
 
-* [Firecracker](#firecracker) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Firecracker](#firecracker) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Quickbase](#quickbase)
 
@@ -19,11 +19,11 @@ See below for outstanding issues.
 
 * [Provider](#provider)
 
-* [Blackboard](#blackboard) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Blackboard](#blackboard) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Docusign Esignature](#docusign_esignature)
 
-* [Docusign Click](#docusign_click) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Docusign Click](#docusign_click) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Docusign Rooms](#docusign_rooms)
 
@@ -33,27 +33,27 @@ See below for outstanding issues.
 
 * [Xero Projects](#xero_projects)
 
-* [Xero Payroll NZ](#xero_payroll_nz)
+* [Xero Payroll NZ](#xero_payroll_nz) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Xero Payroll UK](#xero_payroll_uk)
+* [Xero Payroll UK](#xero_payroll_uk) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Ably Control](#ably_control)
 
-* [EBay Browse](#ebay_browse) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [EBay Browse](#ebay_browse) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [EBay Marketing](#ebay_marketing) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [EBay Marketing](#ebay_marketing) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Interzoid](#interzoid) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Interzoid](#interzoid) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Drive](#google_drive) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Google Drive](#google_drive) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Analytics v3](#google_analytics_v3) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Google Analytics v3](#google_analytics_v3) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Healthcare](#google_healthcare) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Google Healthcare](#google_healthcare) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Calendar](#google_calendar) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Google Calendar](#google_calendar) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Compute Engine](#google_compute_engine) <span style="color:green">**(ALL ENDPOINTS OPERATIONAL)**</span>
+* [Google Compute Engine](#google_compute_engine) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Guru](#guru)
 
@@ -61,17 +61,30 @@ See below for outstanding issues.
 
 ## Summary of Issues
 
-1. OAUTH2 Authorization Header 
-   1. Priority 1 
-   2. Some implementations of OAUTH2 Authorization Code and Client Credentials flows require an authorization
+1. Unable to create profiles for XML
+    * Priority 1
+    * The OpenAPI SDK cannot parse XML type responses or requests
+    * Example: AWS Elasticbeanstalk API, OperationId: GET_ApplyEnvironmentManagedAction
+```
+responses:
+'200':
+  description: Success
+  content:
+    text/xml:
+      schema:
+        $ref: '#/components/schemas/ApplyEnvironmentManagedActionResult'
+```
+3. OAUTH2 Authorization Header 
+    * Priority 1 
+    * Some implementations of OAUTH2 Authorization Code and Client Credentials flows require an authorization
   header in the access token request. Boomi does not support this. 
-   3. Example: EBay Sell Account API
+    * Example: EBay Sell Account API
 
-2. Circular Reference Error
-   1. Priority 1
-   2. Circular references are causing stack overflow errors.
-   3. Example API: Pagerduty, OperationId: getServiceIntegration
-          <pre>
+4. Circular Reference Error
+    * Priority 1
+    * Circular references are causing stack overflow errors.
+    * Example API: Pagerduty, OperationId: getServiceIntegration
+```
 "MatchPredicate": {
   "type": "object",
   "properties": {
@@ -106,22 +119,23 @@ See below for outstanding issues.
       "items": {
         "$ref": "#/components/schemas/MatchPredicate"
       }
-3. Path level parameters ignored
-   1. Priority 1
-   2. In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
-   3. Example API: Xero Assets, OperationId: getAssets
-           <pre>
+```
+4. Path level parameters ignored
+    * Priority 1
+    * In the OpenAPI specification, parameters can be defined at the path level and apply to multiple HTTP methods.
+    * Example API: Xero Assets, OperationId: getAssets
+```
 paths:
   /Assets:
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
     get:
-         </pre>
-4. Can't find schema reference type
-   1. Priority 2
-   2. References are not followed when validating parameter schema type. Presents as "Unsupported Parameter Type: null".
-   3. Example API: Twitter V2, OperationId: findTweetById<br>
-           <pre>
+```
+5. Can't find schema reference type
+    * Priority 2
+    * References are not followed when validating parameter schema type. Presents as "Unsupported Parameter Type: null".
+    * Example API: Twitter V2, OperationId: findTweetById
+```
 "parameters" : [ {
  "name" : "id",
  "in" : "path",
@@ -130,12 +144,12 @@ paths:
  "schema" : {
    "$ref" : "#/components/schemas/TweetID"
  }
-         </pre>
-5. Empty schemas are failing 
-   1. Priority 2
-   2. The path parameter has no type. It contains an empty schema. Presents as: "Unsupported Parameter Type: null".    
-   3. Example API: CircleCI, OperationId: getTests<br>
-            <pre>
+```
+6. Empty schemas are failing 
+    * Priority 2
+    * The path parameter has no type. It contains an empty schema. Presents as: "Unsupported Parameter Type: null".    
+    * Example API: CircleCI, OperationId: getTests
+```
 "parameters": [
  {
    "in": "path",
@@ -145,26 +159,26 @@ paths:
    "required": true,
    "example": "123"
  },
-         </pre>
+```
     
-6. Non JSON request bodies are not supported.
-   1. Priority 2
-   2. The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported. This errors as "Schema can't be null".
-   3. Example API: Apache Pulsar Functions, OperationId: registerFunction
-            <pre>
+7. Non JSON request bodies are not supported.
+    * Priority 2
+    * The request body has a content type of form-data or octet-stream. Only JSON request bodies are supported. This errors as "Schema can't be null".
+    * Example API: Apache Pulsar Functions, OperationId: registerFunction
+```
 requestBody:
   content:
     multipart/form-data:
       schema:
         $ref: '#/components/schemas/FunctionConfig'
   required: false
-         </pre>
+```
     
-7. Unsupported response type of string.
-   1. Priority 3
-   2. In the response, the JSON schema type is "string". Errors as "Unsupported type: STRING".
-   3. Example API: Twitter V2, OperationId: getOpenApiSpec<br>
-            <pre>
+8. Unsupported response type of string.
+    * Priority 3
+    * In the response, the JSON schema type is "string". Errors as "Unsupported type: STRING".
+    * Example API: Twitter V2, OperationId: getOpenApiSpec
+```
 "responses" : {
  "200" : {
    "description" : "The request was successful",
@@ -172,12 +186,12 @@ requestBody:
      "application/json" : {
        "schema" : {
          "type" : "string"
-         </pre>
-8. DELETE requests with a request body are not supported. 
-   1. Priority 3
-   2. According to OpenAPI specifications, GET, DELETE, and HEAD are no longer allowed to have a request body.
-   3. Example API: Quickbase, OperationId: deleteApp<br>
-            <pre>
+```
+9. DELETE requests with a request body are not supported. 
+    * Priority 3
+    * According to OpenAPI specifications, GET, DELETE, and HEAD are no longer allowed to have a request body.
+    * Example API: Quickbase, OperationId: deleteApp
+```
  delete:
    tags:
      \- Apps
@@ -200,16 +214,16 @@ requestBody:
            example:
              name: Name of an application to delete
      required: false
-         </pre>
-9. Status code ranges are not recognized
-   1. Priority 3 
-   2. 2XX is a valid range definition according to the OpenAPI specification. Boomi is not recognizing this 
-            status code as a successful response.
-   3. Example API: Ably, OperationId: getMessagesByChannel<br>
-            <pre>
+```
+10. Status code ranges are not recognized
+    * Priority 3 
+    * 2XX is a valid range definition according to the OpenAPI specification. Boomi is not recognizing this 
+             status code as a successful response.
+    * Example API: Ably, OperationId: getMessagesByChannel
+```
 responses:
-    '2XX':
-            </pre>
+     '2XX':
+```
 
 ---
 ### Skipped APIs
@@ -258,6 +272,14 @@ responses:
     * Stack overflow errors due to circular references
 * **Postman**
     * Endpoints failing due to issue: Parameters at path level are ignored.
+* **AWS APIs**
+    * Using XML rather than JSON for request/response bodies
+* **Zoom**
+    * Path level parameters
+* **Clever**
+    * Basic auth header for auth2 issue
+* **Firestore**
+    * Circular references
 
 ---
 <a name="pagerduty"></a>

@@ -8,7 +8,7 @@ Specification: https://api.getguru.com/api/v1/swagger.json
 ## Prerequisites
 
 + A Guru account on the Builder plan
-+ Generate either a USER or COLLECTION token in Settings > Apps and Integrations > API Access
++ In your Guru account, generate either a USER or COLLECTION token in Settings > Apps and Integrations > API Access
 
 ## Supported Operations
 **3 out of 54 endpoints are failing.**
