@@ -13,6 +13,12 @@ Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/goo
     + The issuer and subject should be the email address of the service account.
         + \############-compute@developer.gserviceaccount.com
     + The scope needs to be added in the "Extended JWT Claim" section
+      + Provide a one or a combination of the following scopes:
+        + https://www.googleapis.com/auth/calendar
+        + https://www.googleapis.com/auth/calendar.events
+        + https://www.googleapis.com/auth/calendar.events.readonly
+        + https://www.googleapis.com/auth/calendar.readonly
+        + https://www.googleapis.com/auth/calendar.settings.readonly
 
 ## Supported Operations
 **All 37 endpoints are passing.**

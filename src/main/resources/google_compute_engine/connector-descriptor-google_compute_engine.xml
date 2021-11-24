@@ -57,6 +57,10 @@
                     &lt;br/&gt;&lt;br/&gt;
                     https://www.googleapis.com/auth/compute
                     https://www.googleapis.com/auth/cloud-platform
+                    https://www.googleapis.com/auth/compute.readonly
+                    https://www.googleapis.com/auth/devstorage.full_control
+                    https://www.googleapis.com/auth/devstorage.read_only
+                    https://www.googleapis.com/auth/devstorage.read_write
                 </helpText>
                 <defaultValue>https://www.googleapis.com/auth/cloud-platform</defaultValue>
             </scope>
