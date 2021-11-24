@@ -55,6 +55,14 @@ See below for outstanding issues.
 
 * [Google Compute Engine](#google_compute_engine) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Google Cloud Scheduler](#google_cloud_scheduler) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Cloud Asset](#google_cloud_asset) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Cloud DNS](#google_cloud_dns) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google People](#google_people) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Guru](#guru)
 
 ---
@@ -654,6 +662,7 @@ Get Zip Code Detailed Info
 <a name="google_calendar"></a>
 ## Google Calendar API v3
 **All 37 endpoints are passing**
+
 ---
 
 <a name="google_compute_engine"></a>

@@ -1,11 +1,12 @@
-<GenericConnectorDescriptor requireConnectionForBrowse="true" >
-    <description>This connector provides access to the Google Drive API. For more information, click here: https://developers.google.com/drive/api</description>
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Google Cloud Asset API v1. For more information, click here: https://cloud.google.com/asset-inventory/docs/quickstart</description>
     <field id="url" label="Server" type="string">
-        <defaultValue>https://www.googleapis.com/drive/v3</defaultValue>
+        <defaultValue>https://cloudasset.googleapis.com</defaultValue>
     </field>
 
     <field id="spec" label="OpenAPI Spec" type="string">
-        <defaultValue>https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/drive/v3/openapi.yaml</defaultValue>
+        <helpText>If this is left blank, a spec packaged with the connector will be used.</helpText>
+        <defaultValue>https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/cloudasset/v1/openapi.yaml</defaultValue>
     </field>
 
 
@@ -54,16 +55,9 @@
                     When using the Authorization Code grant type, enter any applicable scopes and
                     verify that each entry is separated by a space:
                     &lt;br/&gt;&lt;br/&gt;
-                    https://www.googleapis.com/auth/drive
-                    https://www.googleapis.com/auth/drive.appdata
-                    https://www.googleapis.com/auth/drive.file
-                    https://www.googleapis.com/auth/drive.metadata
-                    https://www.googleapis.com/auth/drive.metadata.readonly
-                    https://www.googleapis.com/auth/drive.photos.readonly
-                    https://www.googleapis.com/auth/drive.readonly
-                    https://www.googleapis.com/auth/drive.scripts
+                    https://www.googleapis.com/auth/cloud-platform
                 </helpText>
-                <defaultValue>https://www.googleapis.com/auth/drive</defaultValue>
+                <defaultValue>https://www.googleapis.com/auth/cloud-platform</defaultValue>
             </scope>
             <grantType>
                 <helpText>
@@ -123,7 +117,7 @@
                 <extendedClaims>
                     <claim name="scope">
                         <value>
-                            <defaultValue>https://www.googleapis.com/auth/drive</defaultValue>
+                            <defaultValue>https://www.googleapis.com/auth/cloud-platform</defaultValue>
                         </value>
                     </claim>
                 </extendedClaims>
@@ -141,8 +135,8 @@
 
     <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
 
 
 </GenericConnectorDescriptor>

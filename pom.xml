@@ -119,7 +119,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>0.7-111720210410</version>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
