@@ -146,7 +146,8 @@
 
     <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
     <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
 
 </GenericConnectorDescriptor>

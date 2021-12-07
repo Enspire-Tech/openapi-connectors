@@ -288,6 +288,10 @@ responses:
     * Basic auth header for auth2 issue
 * **Firestore**
     * Circular references
+* **Dynamics 365 Business Central**
+    * Path level parameters
+* **Vonage SMS**
+    * Request body is form content.
 
 ---
 <a name="pagerduty"></a>
