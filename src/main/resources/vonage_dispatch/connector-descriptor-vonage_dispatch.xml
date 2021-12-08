@@ -1,7 +1,7 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
-    <description>This connector provides access to the Vonage Messages API. For more information, click here: https://developer.vonage.com/messages/overview</description>
+    <description>This connector provides access to the Vonage Dispatch API. For more information, click here: https://developer.vonage.com/dispatch/overview</description>
     <field id="url" label="Server" type="string">
-        <defaultValue>https://api.nexmo.com/v1/messages</defaultValue>
+        <defaultValue>https://api.nexmo.com/v0.1/dispatch</defaultValue>
     </field>
 
     <field id="spec" label="Override OpenAPI Spec" type="string">

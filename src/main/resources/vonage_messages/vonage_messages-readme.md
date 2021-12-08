@@ -1,5 +1,5 @@
 # Vonage Messages Connector
-The Messages API allows you to send and in some cases receive messages over SMS, MMS, Facebook Messenger, Viber, and WhatsApp. Further channels may be supported in the future.
+The Dispatch API enables the developer to specify a multiple message workflow.
 
 Documentation: https://developer.vonage.com/messages/overview
 

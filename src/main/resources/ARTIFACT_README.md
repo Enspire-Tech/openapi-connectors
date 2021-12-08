@@ -292,6 +292,8 @@ responses:
     * Path level parameters
 * **Vonage SMS**
     * Request body is form content.
+* **Vonage Verify**
+    * Request body is form content.
 
 ---
 <a name="pagerduty"></a>
