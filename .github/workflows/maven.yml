@@ -19,7 +19,8 @@ jobs:
                            'docusign_click', 'docusign_rooms', 'xero_assets', 'xero_files', 'xero_projects',
                            'xero_payroll_nz', 'xero_payroll_uk', 'ably_control', 'ebay', 'interzoid', 'google_drive',
                            'google_analytics_v3', 'google_healthcare', 'google_calendar', 'google_compute_engine',
-                           'google_cloud_asset', 'google_cloud_dns', 'google_cloud_scheduler', 'google_people', 'guru']
+                           'google_cloud_asset', 'google_cloud_dns', 'google_cloud_scheduler', 'google_people', 'guru',
+                           'vonage_messages', 'vonage_dispatch']
     
     steps:
     - uses: actions/checkout@v2

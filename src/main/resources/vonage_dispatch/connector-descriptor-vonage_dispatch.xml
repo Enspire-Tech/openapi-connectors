@@ -1,0 +1,27 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Vonage Dispatch API. For more information, click here: https://developer.vonage.com/dispatch/overview</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.nexmo.com/v0.1/dispatch</defaultValue>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>This will override the custom specification included with the connector.</helpText>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="Basic">
+            <value>BASIC</value>
+        </allowedValue>
+    </field>
+
+    <field id="username" label="API Key" type="string"/>
+    <field id="password" label="API Secret" type="password"/>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="POST" />
+
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>

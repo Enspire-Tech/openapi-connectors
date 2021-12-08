@@ -63,11 +63,21 @@ See below for outstanding issues.
 
 * [Google People](#google_people) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Guru](#guru)
+* [Guru](#guru) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Vonage Messages](#vonage_messages) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Vonage Dispatch](#vonage_dispatch) **(ALL ENDPOINTS OPERATIONAL)**
 
 ---
 
 ## Summary of Issues
+
+#### Attempted: 52
+#### Skipped: 19
+#### Partially functional: 15
+#### Fully functional: 18
+
 
 1. Unable to create profiles for XML
     * Priority 1
@@ -288,6 +298,12 @@ responses:
     * Basic auth header for auth2 issue
 * **Firestore**
     * Circular references
+* **Dynamics 365 Business Central**
+    * Path level parameters
+* **Vonage SMS**
+    * Request body is form content.
+* **Vonage Verify**
+    * Request body is form content.
 
 ---
 <a name="pagerduty"></a>

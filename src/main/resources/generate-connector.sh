@@ -121,6 +121,11 @@ public class CustomOperationConnection extends OpenAPIOperationConnection {
     public CustomOperationConnection(OperationContext context) {
         super(context);
     }
+
+    public boolean getPreemptive() {
+        return true;
+    }
+
 }
 EOM
 
