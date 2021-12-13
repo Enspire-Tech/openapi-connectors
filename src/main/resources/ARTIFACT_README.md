@@ -45,7 +45,7 @@ See below for outstanding issues.
 
 * [Interzoid](#interzoid) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Drive](#google_drive) **(ALL ENDPOINTS OPERATIONAL)**
+* [Google Drive](#google_drive) *vim*(ALL ENDPOINTS OPERATIONAL)**
 
 * [Google Analytics v3](#google_analytics_v3) **(ALL ENDPOINTS OPERATIONAL)**
 
@@ -265,10 +265,6 @@ responses:
     * https://pulsar.apache.org/swagger/master//swagger.json
     * 131 out of 413 endpoints failing
     * Various errors
-* **Guru**
-    * https://api.getguru.com/api/v1/swagger.json
-    * 22 out of 54 endpoints failing
-    * Mostly "Unsupported type: ARRAY" errors
 * **Xero Accounting**
     * https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero_accounting.yaml
     * 83 out of 226 endpoints failing
@@ -295,14 +291,14 @@ responses:
 * **Zoom**
     * Path level parameters
 * **Clever**
-    * Basic auth header for auth2 issue
+    * Basic auth header for auth2 issu[e
 * **Firestore**
     * Circular references
 * **Dynamics 365 Business Central**
     * Path level parameters
 * **Vonage SMS**
     * Request body is form content.
-* **Vonage Verify**
+* **Vonage Verify**]()
     * Request body is form content.
 
 ---
@@ -396,7 +392,7 @@ responses:
 
 ### Issues
 1. Unsupported type: STRING
-   + The response content type is string, which is not a supported response type.
+   + The response con`tent type is string, which is not a supported response type.
    + Affected operations:
       * listFunctions
 2. Schema can't be null
@@ -404,7 +400,7 @@ responses:
    + Affected operations:
      * registerFunction
      * triggerFunction
-     * updateFunction
+     * updateFunction`
 
 ---   
 
@@ -583,12 +579,6 @@ responses:
 
 **All endpoints are working.**
 
-### Issues
-1. Unsupported type:ARRAY
-   + Responses with a schema type of array are not supported.
-   + Affected operations:
-      + createEmployeeOpeningBalances
-      + createMultipleEmployeeEarningsTemplate
 ---
 
 <a name="xero_payroll_uk"></a>

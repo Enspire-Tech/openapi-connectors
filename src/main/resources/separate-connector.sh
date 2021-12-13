@@ -93,8 +93,8 @@ cp -R "$base_dir"/src/test/java/com/boomi/connector/"$target" "$working_dir"/src
 echo Copying test resources: "$working_dir"/src/test/resources
 cp -R "$base_dir"/src/test/resources "$working_dir"/src/test/
 
-echo Copying root level files: "$base_dir"/.gitignore "$base_dir"/pom.xml
-cp "$base_dir"/.gitignore "$base_dir"/pom.xml "$working_dir"
+echo Copying root level files: .gitignore, pom.xml, LICENSE
+cp "$base_dir"/.gitignore "$base_dir"/pom.xml "$base_dir"/LICENSE "$working_dir"
 
 echo Moving readme to "$working_dir"/README.md
 mv "$working_dir"/src/main/resources/"$target"/"$target"-readme.md "$working_dir"/README.md
@@ -116,7 +116,8 @@ if [ -z "$message" ]
     message="Automated update"
 fi
 
-git commit -am "$message"
+git add .
+git commit -m "$message"
 git push origin master
 
 popd
