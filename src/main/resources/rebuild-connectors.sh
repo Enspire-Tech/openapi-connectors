@@ -31,6 +31,11 @@ connectors=(
   "google_cloud_asset"
   "google_cloud_dns"
   "google_people"
+  'google_admob'
+  'google_android_management'
+  'google_app_engine_admin'
+  'google_artifact_registry'
+  'google_cloud_build'
   "guru"
   "vonage_messages"
   "vonage_dispatch"

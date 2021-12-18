@@ -45,7 +45,7 @@ See below for outstanding issues.
 
 * [Interzoid](#interzoid) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Google Drive](#google_drive) *vim*(ALL ENDPOINTS OPERATIONAL)**
+* [Google Drive](#google_drive) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Google Analytics v3](#google_analytics_v3) **(ALL ENDPOINTS OPERATIONAL)**
 
@@ -63,6 +63,16 @@ See below for outstanding issues.
 
 * [Google People](#google_people) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Google AdMob](#google_admob) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Android Management](#google_android_management) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google App Engine Admin](#google_app_engine_admin) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Artifact Registry](#google_artifact_registry) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Cloud Build](#google_cloud_build) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Guru](#guru) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Vonage Messages](#vonage_messages) **(ALL ENDPOINTS OPERATIONAL)**
@@ -76,7 +86,7 @@ See below for outstanding issues.
 #### Attempted: 52
 #### Skipped: 19
 #### Partially functional: 15
-#### Fully functional: 18
+#### Fully functional: 23
 
 
 1. Unable to create profiles for XML
