@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_PATH="/Users/jacobmortelliti/IdeaProjects/openapi-connectors/src/main/resources/separate-connector.sh"
+REPO_DIR="/Users/jacobmortelliti/boomi/openapi_connector_repos/"
+
 connectors=(
   "pagerduty"
   "twitter_v2"
@@ -52,7 +55,7 @@ connectors=(
 )
 
 for c in ${connectors[@]}; do
-  /Users/jacobmortelliti/IdeaProjects/openapi-connectors/src/main/resources/separate-connector.sh \
-  -o /Users/jacobmortelliti/boomi/openapi_connector_repos \
+  "$SCRIPT_PATH" \
+  -o "$REPO_DIR" \
   -t $c
 done
