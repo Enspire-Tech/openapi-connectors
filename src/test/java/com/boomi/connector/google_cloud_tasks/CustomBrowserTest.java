@@ -1,4 +1,4 @@
-package com.boomi.connector.google_admob;
+package com.boomi.connector.google_cloud_tasks;
 
 import com.boomi.connector.api.*;
 import com.boomi.connector.openapi.OpenAPIBrowser;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
-    private static final String SPEC = "custom-specification-google_admob.yaml";
+    private static final String SPEC = "custom-specification-google_cloud_tasks.yaml";
     final Map<String, Object> connProps = new HashMap<String, Object>() {{
         put("spec", SPEC);
     }};

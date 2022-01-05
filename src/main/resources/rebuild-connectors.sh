@@ -36,6 +36,16 @@ connectors=(
   'google_app_engine_admin'
   'google_artifact_registry'
   'google_cloud_build'
+  "google_admob"
+  "google_app_engine_admin"
+  "google_android_management"
+  "google_artifact_registry"
+  "google_cloud_build"
+  "google_classroom"
+  "google_cloud_tasks"
+  "google_data_fusion"
+  "google_data_pipelines"
+  "google_language"
   "guru"
   "vonage_messages"
   "vonage_dispatch"

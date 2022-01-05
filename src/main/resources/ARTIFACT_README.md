@@ -73,6 +73,16 @@ See below for outstanding issues.
 
 * [Google Cloud Build](#google_cloud_build) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Google Classroom](#google_classroom) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Cloud Tasks](#google_cloud_tasks) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Data Fusion](#google_data_fusion) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Data Pipelines](#google_data_pipelines) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Google Language](#google_language) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Guru](#guru) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Vonage Messages](#vonage_messages) **(ALL ENDPOINTS OPERATIONAL)**

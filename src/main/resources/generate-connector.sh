@@ -167,6 +167,8 @@ EOM
 
 if [ -n "$2" ]; then
   cat ${SPEC_PATH} >../resources/${CONNECTOR_NAME}/custom-specification-${CONNECTOR_NAME}.yaml
+else
+  touch ../resources/${CONNECTOR_NAME}/custom-specification-${CONNECTOR_NAME}.yaml
 fi
 
 
@@ -194,7 +196,7 @@ import java.util.logging.Logger;
 public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
-    private static final String SPEC = "";
+    private static final String SPEC = "custom-specification-${CONNECTOR_NAME}.yaml";
     final Map<String, Object> connProps = new HashMap<String, Object>() {{
         put("spec", SPEC);
     }};
@@ -383,7 +385,7 @@ public class CustomSpecificationTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomSpecificationTest.class);
 
-    private final String SPEC = "";
+    private final String SPEC = "custom-specification-${CONNECTOR_NAME}.yaml";
 
 
     @Test

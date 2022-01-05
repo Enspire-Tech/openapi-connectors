@@ -1,4 +1,4 @@
-package com.boomi.connector.google_admob;
+package com.boomi.connector.google_classroom;
 
 import com.boomi.util.LogUtil;
 import io.swagger.parser.OpenAPIParser;
@@ -16,7 +16,7 @@ public class CustomSpecificationTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomSpecificationTest.class);
 
-    private final String SPEC = "custom-specification-google_admob.yaml";
+    private final String SPEC = "custom-specification-google_classroom.yaml";
 
 
     @Test
