@@ -61,6 +61,8 @@ See below for outstanding issues.
 
 * [Google Cloud DNS](#google_cloud_dns) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Google Datastore](#google_datastore) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Google People](#google_people) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Google AdMob](#google_admob) **(ALL ENDPOINTS OPERATIONAL)**
