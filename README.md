@@ -93,10 +93,10 @@ See below for outstanding issues.
 
 ## Summary of Issues
 
-#### Attempted: 52
+#### Attempted: 71
 #### Skipped: 19
 #### Partially functional: 15
-#### Fully functional: 23
+#### Fully functional: 30
 
 
 1. Unable to create profiles for XML
