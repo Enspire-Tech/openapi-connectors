@@ -62,7 +62,7 @@ jobs:
         path: staging/
 
     - name: Stage artifact README.md
-      run: cp $GITHUB_WORKSPACE/src/main/resources/ARTIFACT_README.md staging/README.md
+      run: cp $GITHUB_WORKSPACE/README.md staging/README.md
 
     - name: Stage openapi document
       run: cp $GITHUB_WORKSPACE/src/main/resources/"OpenAPI Connector Factory.docx" staging/"OpenAPI Connector Factory.docx"
