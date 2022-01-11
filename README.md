@@ -97,7 +97,7 @@ See below for outstanding issues.
 
 #### Attempted: 71
 #### Skipped: 19
-#### Partially functional: 15
+#### Partially functional: 13
 #### Fully functional: 31
 
 
