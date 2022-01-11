@@ -11,10 +11,9 @@ Specification: https://github.com/Enspire-Tech/openapi-connector-artifacts/blob/
 
 ## Supported Operations
 
-**5 out of 19 endpoints are failing.**
+**4 out of 19 endpoints are failing.**
 
 The following operations are **not** supported at this time:
-* getConnectorsList
 * listFunctions
 * registerFunction
 * triggerFunction

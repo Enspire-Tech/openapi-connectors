@@ -12,17 +12,10 @@ Specification: https://github.com/Enspire-Tech/openapi-connector-artifacts/blob/
 
 ## Supported Operations
 
-**9 out of 35 endpoints failing.**
+**3 out of 35 endpoints failing.**
 
 The following operations are **not** supported at this time:
-* getAppEvents
-* getAppTables
-* getTableReports
-* getFields
-* getFieldsUsage
-* getFieldUsage
 * deleteApp
 * deleteFields
 * deleteRecords
-
 

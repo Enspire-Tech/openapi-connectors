@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.boomi.connsdk</groupId>
+  <artifactId>connector-sdk-rest</artifactId>
+  <versioning>
+    <versions>
+      <version>0.7-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20211102200149</lastUpdated>
+  </versioning>
+</metadata>

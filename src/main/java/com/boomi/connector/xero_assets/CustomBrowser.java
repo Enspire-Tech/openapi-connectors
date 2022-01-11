@@ -5,7 +5,6 @@ import com.boomi.connector.api.ObjectDefinitions;
 import com.boomi.connector.api.ui.AllowedValue;
 import com.boomi.connector.api.ui.BrowseField;
 import com.boomi.connector.api.ui.DataType;
-import com.boomi.connector.blackboard.CustomOperationConnection;
 import com.boomi.connector.openapi.OpenAPIBrowser;
 import com.boomi.util.LogUtil;
 

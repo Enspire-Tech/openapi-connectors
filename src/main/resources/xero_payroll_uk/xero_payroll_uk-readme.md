@@ -14,7 +14,4 @@ Specification: https://github.com/XeroAPI/Xero-OpenAPI/blob/master/xero-payroll-
 1. Xero-Tenant-Id should be automatically populated when importing the operation. For this to work, generate the OAuth2 token in the connection before importing the operation.
 
 ## Supported Operations
-**1 out of 70 endpoints are failing.**
-
-The following operations are not supported at this time:
-* createMultipleEmployeeEarningsTemplate
+**0 out of 70 endpoints are failing.**

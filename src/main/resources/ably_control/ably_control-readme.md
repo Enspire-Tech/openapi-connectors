@@ -12,12 +12,7 @@ Specification: https://github.com/ably/open-specs/blob/main/definitions/control-
 
 ## Supported Operations
 
-**6 out of 22 endpoints are failing.**
+**1 out of 22 endpoints are failing.**
 
 The following endpoints are not supported at this time:
-* /accounts/{account_id}/apps
-* /apps/{app_id}/keys
-* /apps/{app_id}/namespaces
-* /apps/{app_id}/queues
-* /apps/{app_id}/rules
 * /apps/{id}/pkcs12
