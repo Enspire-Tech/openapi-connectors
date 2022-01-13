@@ -2,6 +2,7 @@
 "Integrates text translation into your website or application."
 
 Documentation: https://cloud.google.com/translate/docs/quickstarts
+
 Specification: https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/translate/v3/openapi.yaml
 
 ## Prerequisites

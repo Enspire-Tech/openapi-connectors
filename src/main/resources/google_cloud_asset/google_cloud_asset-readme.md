@@ -2,6 +2,7 @@
 A metadata inventory service that allows you to view, monitor, and analyze all your GCP and Anthos assets across projects and services.
 
 Documentation: https://cloud.google.com/asset-inventory/docs/quickstart
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/cloudasset/v1/openapi.yaml
 
 ## Prerequisites

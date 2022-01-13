@@ -2,6 +2,7 @@
 Fully managed cron job service.
 
 Documentation: https://cloud.google.com/scheduler/docs/quickstart
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/cloudscheduler/v1/openapi.yaml
 
 ## Prerequisites

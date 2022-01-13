@@ -2,6 +2,7 @@
 "Reads and writes Google Slides presentations."
 
 Documentation: https://developers.google.com/slides/
+
 Specification: https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/slides/v1/openapi.yaml
 
 ## Prerequisites

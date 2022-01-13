@@ -2,6 +2,7 @@
 "Manages and executes Google Apps Script projects."
 
 Documentation: https://developers.google.com/apps-script/api/
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/script/v1/openapi.yaml
 
 ## Prerequisites

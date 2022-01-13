@@ -2,6 +2,7 @@
 "Publish your domain names by using Google's infrastructure for production-quality, high-volume DNS services. Google's global network of anycast name servers provides reliable, low-latency, authoritative name lookups for your domains from anywhere in the world."
 
 Documentation: https://cloud.google.com/dns/docs
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/dns/v1/openapi.yaml
 
 ## Prerequisites

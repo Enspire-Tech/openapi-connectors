@@ -2,6 +2,7 @@
 "Reads and writes Google Sheets."
 
 Documentation: https://developers.google.com/sheets/
+
 Specification: https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/sheets/v4/openapi.yaml
 
 ## Prerequisites

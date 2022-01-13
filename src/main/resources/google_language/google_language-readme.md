@@ -2,6 +2,7 @@
 "Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations, to developers."
 
 Documentation: https://cloud.google.com/natural-language/
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/language/v1/openapi.yaml
 
 ## Prerequisites

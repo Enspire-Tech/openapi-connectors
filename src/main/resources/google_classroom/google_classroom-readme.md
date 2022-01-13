@@ -2,6 +2,7 @@
 "Manages classes, rosters, and invitations in Google Classroom."
 
 Documentation: https://developers.google.com/classroom/
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/classroom/v1/openapi.yaml
 
 ## Prerequisites

@@ -2,6 +2,7 @@
 "Manages your Cloud Monitoring data and configurations."
 
 Documentation: https://cloud.google.com/monitoring/api/
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/monitoring/v3/openapi.yaml
 
 ## Prerequisites

@@ -85,6 +85,18 @@ See below for outstanding issues.
 
 * [Google Language](#google_language) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Google Apps Script](#google_apps_script) **(ALL ENDPOINTS OPERATIONAL)**
+* 
+* [Google Cloud Monitoring](#google_cloud_monitoring) **(ALL ENDPOINTS OPERATIONAL)**
+* 
+* [Google Cloud Logging](#google_cloud_logging) **(ALL ENDPOINTS OPERATIONAL)**
+* 
+* [Google Translate](#google_translate) **(ALL ENDPOINTS OPERATIONAL)**
+* 
+* [Google Slides](#google_slides) **(ALL ENDPOINTS OPERATIONAL)**
+* 
+* [Google Sheets](#google_sheets) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Guru](#guru) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Vonage Messages](#vonage_messages) **(ALL ENDPOINTS OPERATIONAL)**
@@ -95,10 +107,10 @@ See below for outstanding issues.
 
 ## Summary of Issues
 
-#### Attempted: 71
+#### Attempted: 77
 #### Skipped: 19
 #### Partially functional: 13
-#### Fully functional: 31
+#### Fully functional: 37
 
 
 1. Unable to create profiles for XML

@@ -2,6 +2,7 @@
 "Writes log entries and manages your Cloud Logging configuration."
 
 Documentation: https://cloud.google.com/logging/docs/
+
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/logging/v2/openapi.yaml
 
 ## Prerequisites
