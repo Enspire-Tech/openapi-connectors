@@ -53,7 +53,7 @@ connectors=(
   "google_cloud_logging"
   "google_cloud_monitoring"
   "google_translate"
-  "google_slides"
+  "google_cloud_shell"
   "google_sheets"
   "guru"
   "vonage_messages"

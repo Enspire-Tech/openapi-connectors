@@ -1,4 +1,4 @@
-# Google People API v1 Connector
+# Google AdMob API v1 Connector
 "The AdMob API allows publishers to programmatically get information about their AdMob account."
 
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/admob/v1/openapi.yaml

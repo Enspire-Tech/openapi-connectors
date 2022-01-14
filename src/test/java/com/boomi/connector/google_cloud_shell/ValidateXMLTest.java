@@ -1,4 +1,4 @@
-package com.boomi.connector.google_slides;
+package com.boomi.connector.google_cloud_shell;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class ValidateXMLTest {
 
     @Test
     public void validateConnectorConfig() {
-        String xml = "/connector-config-google_slides.xml";
+        String xml = "/connector-config-google_cloud_shell.xml";
         String xsd = "/genericconnector.xsd";
         try {
             validateAgainstXSD(xml, xsd);
@@ -28,7 +28,7 @@ public class ValidateXMLTest {
 
     @Test
     public void validateConnectorDescriptor() {
-        String xml = "/connector-descriptor-google_slides.xml";
+        String xml = "/connector-descriptor-google_cloud_shell.xml";
         String xsd = "/genericconnectordesc.xsd";
         try {
             validateAgainstXSD(xml, xsd);

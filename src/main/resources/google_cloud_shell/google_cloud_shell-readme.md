@@ -1,9 +1,9 @@
-# Google Slides API v1 Connector
-"Reads and writes Google Slides presentations."
+# Google Cloud Shell API v1 Connector
+"Allows users to start, configure, and connect to interactive shell sessions running in the cloud."
 
-Documentation: https://developers.google.com/slides/
+Documentation: https://cloud.google.com/shell/docs/
 
-Specification: https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/slides/v1/openapi.yaml
+Specification: https://raw.githubusercontent.com/APIs-guru/openapi-directory/main/APIs/googleapis.com/cloudshell/v1/openapi.yaml
 
 ## Prerequisites
 + Google Cloud Platform Account with this API enabled

@@ -1,4 +1,4 @@
-package com.boomi.connector.google_slides;
+package com.boomi.connector.google_cloud_shell;
 
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.api.Browser;

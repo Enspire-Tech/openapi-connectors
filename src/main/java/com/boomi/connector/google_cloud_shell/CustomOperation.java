@@ -1,4 +1,4 @@
-package com.boomi.connector.google_slides;
+package com.boomi.connector.google_cloud_shell;
 
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;

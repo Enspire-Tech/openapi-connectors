@@ -86,15 +86,15 @@ See below for outstanding issues.
 * [Google Language](#google_language) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Google Apps Script](#google_apps_script) **(ALL ENDPOINTS OPERATIONAL)**
-* 
+
 * [Google Cloud Monitoring](#google_cloud_monitoring) **(ALL ENDPOINTS OPERATIONAL)**
-* 
+
 * [Google Cloud Logging](#google_cloud_logging) **(ALL ENDPOINTS OPERATIONAL)**
-* 
+
 * [Google Translate](#google_translate) **(ALL ENDPOINTS OPERATIONAL)**
-* 
-* [Google Slides](#google_slides) **(ALL ENDPOINTS OPERATIONAL)**
-* 
+
+* [Google Cloud Shell](#google_cloud_shell) **(ALL ENDPOINTS OPERATIONAL)**
+
 * [Google Sheets](#google_sheets) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Guru](#guru) **(ALL ENDPOINTS OPERATIONAL)**
@@ -107,8 +107,8 @@ See below for outstanding issues.
 
 ## Summary of Issues
 
-#### Attempted: 77
-#### Skipped: 19
+#### Attempted: 78
+#### Skipped: 20
 #### Partially functional: 13
 #### Fully functional: 37
 
@@ -317,6 +317,8 @@ responses:
 * **Google Analytics Data**
     * https://github.com/APIs-guru/openapi-directory/blob/main/APIs/googleapis.com/analyticsdata/v1beta/openapi.yaml
     * 6 out of 7 endpoints failing
+    * Stack overflow errors due to circular references
+* **Google Slides**
     * Stack overflow errors due to circular references
 * **Postman**
     * Endpoints failing due to issue: Parameters at path level are ignored.

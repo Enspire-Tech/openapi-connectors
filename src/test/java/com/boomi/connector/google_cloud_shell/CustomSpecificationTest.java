@@ -1,4 +1,4 @@
-package com.boomi.connector.google_slides;
+package com.boomi.connector.google_cloud_shell;
 
 import com.boomi.util.LogUtil;
 import io.swagger.parser.OpenAPIParser;
@@ -16,7 +16,7 @@ public class CustomSpecificationTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomSpecificationTest.class);
 
-    private final String SPEC = "custom-specification-google_slides.yaml";
+    private final String SPEC = "custom-specification-google_cloud_shell.yaml";
 
 
     @Test
