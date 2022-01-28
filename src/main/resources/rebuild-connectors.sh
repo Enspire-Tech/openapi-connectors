@@ -58,6 +58,9 @@ connectors=(
   "guru"
   "vonage_messages"
   "vonage_dispatch"
+  "amazon_kinesis"
+  "amazon_kinesis_analytics"
+  "amazon_kinesis_firehose"
 )
 
 for c in ${connectors[@]}; do

@@ -1,0 +1,24 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Amazon Kinesis Firehose API. For more information, click here: https://docs.aws.amazon.com/firehose/</description>
+    <field id="url" label="Server" type="string">
+        <helpText>Follows the pattern: https://firehose.{region}.{domain}</helpText>
+        <defaultValue>https://firehose.us-east-1.amazonaws.com</defaultValue>
+    </field>
+
+    <field id="awsAccessKey" label="AWS Access Key" type="string">
+        <defaultValue></defaultValue>
+    </field>
+
+    <field id="awsSecretKey" label="AWS Secret Key" type="password">
+        <defaultValue></defaultValue>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>This will override the custom specification included with the connector.</helpText>
+    </field>
+
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="POST" />
+
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>

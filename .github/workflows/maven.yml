@@ -24,7 +24,8 @@ jobs:
                            'google_artifact_registry', 'google_cloud_build', 'google_classroom', 'google_cloud_tasks',
                            'google_data_fusion', 'google_data_pipelines', 'google_language', "google_apps_script",
                            "google_cloud_logging", "google_cloud_monitoring", "google_translate", "google_cloud_shell",
-                           "google_sheets", 'guru', 'vonage_messages', 'vonage_dispatch']
+                           "google_sheets", 'guru', 'vonage_messages', 'vonage_dispatch', 'amazon_kinesis',
+                           'amazon_kinesis_analytics', 'amazon_kinesis_firehose']
     
     steps:
     - uses: actions/checkout@v2

@@ -103,6 +103,12 @@ See below for outstanding issues.
 
 * [Vonage Dispatch](#vonage_dispatch) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Amazon Kinesis](#amazon_kinesis) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon_Kinesis Analytics](#amazon_kinesis_analytics) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Kinesis Firehose](#amazon_kinesis_firehose) **(ALL ENDPOINTS OPERATIONAL)**
+
 ---
 
 ## Summary of Issues
