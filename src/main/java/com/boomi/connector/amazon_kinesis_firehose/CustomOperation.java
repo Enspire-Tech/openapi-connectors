@@ -1,6 +1,5 @@
 package com.boomi.connector.amazon_kinesis_firehose;
 
-import com.boomi.connector.amazon_kinesis.CustomOperationConnection;
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;
 import com.boomi.util.CollectionUtil;
