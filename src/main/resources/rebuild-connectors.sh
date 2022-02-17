@@ -48,6 +48,7 @@ connectors=(
   "google_cloud_tasks"
   "google_data_fusion"
   "google_data_pipelines"
+  "google_datastore"
   "google_language"
   "google_apps_script"
   "google_cloud_logging"
@@ -61,6 +62,12 @@ connectors=(
   "amazon_kinesis"
   "amazon_kinesis_analytics"
   "amazon_kinesis_firehose"
+  "amazon_chime"
+  "amazon_cloudwatch"
+  "amazon_dynamodb"
+  "aws_amplify"
+  "aws_amplify_backend"
+  "aws_rds_dataservice"
 )
 
 for c in ${connectors[@]}; do

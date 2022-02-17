@@ -68,10 +68,6 @@ rm -Rf "$working_dir"/src
 echo Creating working directory: "$working_dir"
 mkdir -p "$working_dir"
 
-echo Copying lib: "$working_dir"/lib
-cp -R "$base_dir"/lib "$working_dir"/lib
-
-
 
 echo Copying assembly dir: "$working_dir"/src/assembly
 mkdir -p "$working_dir"/src/main/java/com/boomi/connector/

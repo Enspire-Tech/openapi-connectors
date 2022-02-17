@@ -15,17 +15,12 @@
             <name>Connector SDK Repository</name>
             <url>https://boomisdk.s3.amazonaws.com/releases</url>
         </repository>
-
-        <repository>
-            <id>local-repo</id>
-            <url>file://${project.basedir}/lib</url>
-        </repository>
     </repositories>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.sdk.version>2.11.2</connector.sdk.version>
+        <connector.sdk.version>2.12.1</connector.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -38,61 +33,17 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--SNAPSNOT JARS-->
-        <dependency>
-            <groupId>com.boomi.common</groupId>
-            <artifactId>common-apache-http</artifactId>
-            <version>0.6-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.boomi.util</groupId>
             <artifactId>boomi-json-util</artifactId>
-            <version>1.1.11-SNAPSHOT</version>
+            <version>1.1.10</version>
             <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.boomi.connsdk</groupId>
-            <artifactId>connector-sdk-rest</artifactId>
-            <version>0.7-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.13</version>
-        </dependency>
-
-        <!--OLD JARS-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.boomi.connsdk</groupId>-->
-<!--            <artifactId>connector-sdk-rest</artifactId>-->
-<!--            <version>0.3</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.boomi.util</groupId>-->
-<!--            <artifactId>boomi-json-util</artifactId>-->
-<!--            <version>1.1.10</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
-
-        <!--OLD JARS END-->
 
         <dependency>
             <groupId>com.boomi.util</groupId>
             <artifactId>boomi-util</artifactId>
-            <version>2.3.8</version>
+            <version>2.3.12</version>
             <scope>compile</scope>
         </dependency>
 
@@ -119,7 +70,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.7-111720210410</version>
+            <version>0.8</version>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
@@ -145,6 +96,13 @@
             </exclusions>
         </dependency>
 
+        <!--Amazon Depedencies -->
+        <dependency>
+            <groupId>com.boomi.common</groupId>
+            <artifactId>common-aws</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
@@ -163,7 +121,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-model</artifactId>
-            <version>2.11.0</version>
+            <version>${connector.sdk.version}</version>
             <scope>test</scope>
         </dependency>
 

@@ -25,7 +25,9 @@ jobs:
                            'google_data_fusion', 'google_data_pipelines', 'google_language', "google_apps_script",
                            "google_cloud_logging", "google_cloud_monitoring", "google_translate", "google_cloud_shell",
                            "google_sheets", 'guru', 'vonage_messages', 'vonage_dispatch', 'amazon_kinesis',
-                           'amazon_kinesis_analytics', 'amazon_kinesis_firehose']
+                           'amazon_kinesis_analytics', 'amazon_kinesis_firehose', "amazon_chime", "amazon_cloudwatch",
+                           "amazon_dynamodb", "aws_amplify", "aws_amplify_backend", "aws_rds_dataservice"
+        ]
     
     steps:
     - uses: actions/checkout@v2
