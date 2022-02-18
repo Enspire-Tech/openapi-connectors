@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.connector.api.*;
 import com.boomi.connector.openapi.OpenAPIBrowser;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class CustomBrowserTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomBrowserTest.class);
-    private static final String SPEC = "custom-specification-aws_rds_dataservice.yaml";
+    private static final String SPEC = "custom-specification-amazon_aurora.yaml";
     final Map<String, Object> connProps = new HashMap<String, Object>() {{
         put("spec", SPEC);
     }};

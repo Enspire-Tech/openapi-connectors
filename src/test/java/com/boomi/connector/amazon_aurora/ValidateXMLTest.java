@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class ValidateXMLTest {
 
     @Test
     public void validateConnectorConfig() {
-        String xml = "/connector-config-aws_rds_dataservice.xml";
+        String xml = "/connector-config-amazon_aurora.xml";
         String xsd = "/genericconnector.xsd";
         try {
             validateAgainstXSD(xml, xsd);
@@ -28,7 +28,7 @@ public class ValidateXMLTest {
 
     @Test
     public void validateConnectorDescriptor() {
-        String xml = "/connector-descriptor-aws_rds_dataservice.xml";
+        String xml = "/connector-descriptor-amazon_aurora.xml";
         String xsd = "/genericconnectordesc.xsd";
         try {
             validateAgainstXSD(xml, xsd);

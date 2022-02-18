@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.openapi.OpenAPIConnection;
@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CustomConnection extends OpenAPIConnection {
 
     private static final String PROPERTY_SPEC  = "spec";
-    private static final String CUSTOM_SPEC = "custom-specification-aws_rds_dataservice.yaml";
+    private static final String CUSTOM_SPEC = "custom-specification-amazon_aurora.yaml";
 
     public CustomConnection(BrowseContext context) {
         super(context);

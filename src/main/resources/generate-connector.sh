@@ -149,7 +149,7 @@ cat <<EOM >../resources/${CONNECTOR_NAME}/connector-descriptor-${CONNECTOR_NAME}
     </field>
 
     <field id="spec" label="Override OpenAPI Spec" type="string">
-        <helpText>This will override the custom specification included with the connector.</helpText>
+        <helpText>To override the specification included with the connector, enter a URL pointing to a JSON or YAML specification. Example: https://exampledocumentation.com/spec.yaml</helpText>
     </field>
 
 

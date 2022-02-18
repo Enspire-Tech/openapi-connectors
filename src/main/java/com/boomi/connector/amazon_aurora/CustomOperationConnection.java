@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.common.rest.authentication.AuthenticationType;
 import com.boomi.connector.api.OperationContext;

@@ -1,12 +1,12 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the AWS RDS Data API. For more information, click here: https://docs.aws.amazon.com/rds-data/</description>
+    <description>This connector provides access to the Amazon Aurora API. For more information, click here: https://docs.aws.amazon.com/rds-data/</description>
     <field id="url" label="Server" type="string">
         <helpText>Follows the pattern: https://rds-data.{region}.amazonaws.com</helpText>
         <defaultValue>https://rds-data.us-east-1.amazonaws.com</defaultValue>
     </field>
 
     <field id="spec" label="Override OpenAPI Spec" type="string">
-        <helpText>This will override the custom specification included with the connector.</helpText>
+        <helpText>To override the specification included with the connector, enter a URL pointing to a JSON or YAML specification. Example: https://exampledocumentation.com/spec.yaml</helpText>
     </field>
 
     <field type="string" id="awsAccessKey" label="Amazon AWS Access Key"/>

@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.api.Browser;

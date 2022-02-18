@@ -67,7 +67,7 @@ connectors=(
   "amazon_dynamodb"
   "aws_amplify"
   "aws_amplify_backend"
-  "aws_rds_dataservice"
+  "amazon_aurora"
 )
 
 for c in ${connectors[@]}; do

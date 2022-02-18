@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.util.LogUtil;
 import io.swagger.parser.OpenAPIParser;
@@ -16,7 +16,7 @@ public class CustomSpecificationTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomSpecificationTest.class);
 
-    private final String SPEC = "custom-specification-aws_rds_dataservice.yaml";
+    private final String SPEC = "custom-specification-amazon_aurora.yaml";
 
 
     @Test

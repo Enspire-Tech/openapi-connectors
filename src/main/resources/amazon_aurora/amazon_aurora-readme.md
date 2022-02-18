@@ -1,5 +1,5 @@
-# AWS RDS Data Connector
-Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless DB cluster.
+# Amazon Aurora Connector
+The Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless DB cluster.
 
 Documentation: https://docs.aws.amazon.com/rds-data/
 

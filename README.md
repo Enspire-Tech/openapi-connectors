@@ -105,7 +105,7 @@ See below for outstanding issues.
 
 * [AWS Amplify Backend](#aws_amplify_backend) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [AWS RDS Dataservice](#aws_rds_dataservice) **(ALL ENDPOINTS OPERATIONAL)**
+* [Amazon Aurora](#amazon_aurora) **(ALL ENDPOINTS OPERATIONAL)**
 
 
 ---

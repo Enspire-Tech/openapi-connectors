@@ -1,4 +1,4 @@
-package com.boomi.connector.aws_rds_dataservice;
+package com.boomi.connector.amazon_aurora;
 
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;
