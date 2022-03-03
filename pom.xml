@@ -20,7 +20,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <connector.sdk.version>2.12.1</connector.sdk.version>
+        <connector.sdk.version>2.13.1</connector.sdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>com.boomi.util</groupId>
             <artifactId>boomi-json-util</artifactId>
-            <version>1.1.10</version>
+            <version>1.1.11</version>
             <scope>compile</scope>
         </dependency>
 
