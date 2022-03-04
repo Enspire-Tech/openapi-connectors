@@ -12,7 +12,7 @@ import java.util.Map;
 public class CustomOperation extends OpenAPIOperation {
 
     private static final String CUSTOM_HEADERS_PROPERTY = "customHeaders";
-    private static final String VERSION_DATE = "2021-06-01";
+    private static final String VERSION_DATE = "2012-06-01";
 
     protected CustomOperation(CustomOperationConnection connection) {
         super(connection);
