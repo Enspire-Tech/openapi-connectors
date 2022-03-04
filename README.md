@@ -105,7 +105,20 @@ See below for outstanding issues.
 
 * [AWS Amplify Backend](#aws_amplify_backend) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Amazon Aurora](#amazon_aurora) **(ALL ENDPOINTS OPERATIONAL)**
+* [Amazon RDS](#amazon_rds) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Lightsail](#amazon_lightsail) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Lookout Equipment](#amazon_lookout_equipment) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Lookout Metrics](#amazon_lookout_metrics) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [AWS Lambda](#aws_lambda) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [AWS RDS Data Service](#aws_rds_data_service) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Glacier](#amazon_glacier) **(ALL ENDPOINTS OPERATIONAL)**
+
 
 
 ---

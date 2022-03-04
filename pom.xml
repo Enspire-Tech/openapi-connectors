@@ -70,7 +70,7 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-openapi</artifactId>
-            <version>0.8</version>
+            <version>${connector.sdk.version}</version>
             <!-- exclusions that are not needed or included by the atom-->
             <exclusions>
                 <exclusion>
