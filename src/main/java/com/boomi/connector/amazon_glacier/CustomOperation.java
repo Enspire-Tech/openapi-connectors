@@ -32,7 +32,7 @@ public class CustomOperation extends OpenAPIOperation {
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<>();
 
-        headerList.add(new AbstractMap.SimpleEntry<>("x-amz-glacier-version", VERSION_DATE);
+        headerList.add(new AbstractMap.SimpleEntry<>("x-amz-glacier-version", VERSION_DATE));
 
         //add other custom headers
         while (originalHeaderIterator.hasNext()) {
