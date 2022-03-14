@@ -70,7 +70,6 @@ connectors=(
   "amazon_rds"
   "amazon_glacier"
   "amazon_lightsail"
-  "amazon_lookout_equipment"
   "amazon_lookout_metrics"
   "aws_lambda"
   "aws_rds_data_service"

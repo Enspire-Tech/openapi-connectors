@@ -109,8 +109,6 @@ See below for outstanding issues.
 
 * [Amazon Lightsail](#amazon_lightsail) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Amazon Lookout Equipment](#amazon_lookout_equipment) **(ALL ENDPOINTS OPERATIONAL)**
-
 * [Amazon Lookout Metrics](#amazon_lookout_metrics) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [AWS Lambda](#aws_lambda) **(ALL ENDPOINTS OPERATIONAL)**

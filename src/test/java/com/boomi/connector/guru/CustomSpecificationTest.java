@@ -16,7 +16,7 @@ public class CustomSpecificationTest {
 
     private static final Logger LOG = LogUtil.getLogger(CustomSpecificationTest.class);
 
-    private final String SPEC = "custom-specification-guru.yaml";
+    private final String SPEC = "https://api.getguru.com/api/v1/openapi.json";
 
 
     @Test
