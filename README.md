@@ -117,6 +117,30 @@ See below for outstanding issues.
 
 * [Amazon Glacier](#amazon_glacier) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Amazon Lookout Vision](#amazon_lookout_vision) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Machine Learning](#amazon_machine_learning) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Mechanical Turk](#amazon_mechanical_turk) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon MemoryDB](#amazon_memorydb) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Polly](#amazon_polly) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Rekognition](#amazon_rekognition) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Route53 Recovery Cluster](#amazon_route53_recovery_cluster) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Route53 Recovery Control Configuration](#amazon_route53_recovery_control_configuration) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Sagemaker Edge Manager](#amazon_sagemaker_edge_manager) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Sagemaker Feature Store Runtime](#amazon_sagemaker_feature_store_runtime) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Transcribe](#amazon_transcribe) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Translate](#amazon_translate) **(ALL ENDPOINTS OPERATIONAL)**
+
 
 
 ---

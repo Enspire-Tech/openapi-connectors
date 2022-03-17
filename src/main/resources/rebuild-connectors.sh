@@ -73,6 +73,18 @@ connectors=(
   "amazon_lookout_metrics"
   "aws_lambda"
   "aws_rds_data_service"
+  "amazon_lookout_vision"
+  "amazon_machine_learning"
+  "amazon_mechanical_turk"
+  "amazon_memorydb"
+  "amazon_polly"
+  "amazon_rekognition"
+  "amazon_route53_recovery_cluster"
+  "amazon_route53_recovery_control_configuration"
+  "amazon_sagemaker_edge_manager"
+  "amazon_sagemaker_feature_store_runtime"
+  "amazon_transcribe"
+  "amazon_translate"
 )
 
 for c in ${connectors[@]}; do

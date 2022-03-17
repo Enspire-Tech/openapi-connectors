@@ -3,7 +3,7 @@
 
 Documentation: https://developer.getguru.com/reference
 
-Specification: https://api.getguru.com/api/v1/swagger.json
+Specification: https://api.getguru.com/api/v1/openapi.json
 
 ## Prerequisites
 
