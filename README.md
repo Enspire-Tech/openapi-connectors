@@ -141,7 +141,23 @@ See below for outstanding issues.
 
 * [Amazon Translate](#amazon_translate) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Amazon CloudDirectory](#amazon_clouddirectory) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [Amazon Cognito Identity](#amazon_cognito_identity) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Cognito Identity Provider](#amazon_cognito_identity_provider) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Cognito Sync](#amazon_cognito_sync) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Elastic Block Store](#amazon_elastic_block_store) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Elastic File Store](#amazon_elastic_file_system) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Inspector](#amazon_inspector) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [Amazon Redshift Data](#amazon_redshift_data) **(ALL ENDPOINTS OPERATIONAL)**
+
+* [AWS Auto Scaling Plans](#aws_auto_scaling_plans) **(ALL ENDPOINTS OPERATIONAL)**
 
 ---
 

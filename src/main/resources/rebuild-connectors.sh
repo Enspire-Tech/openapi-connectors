@@ -85,6 +85,15 @@ connectors=(
   "amazon_sagemaker_feature_store_runtime"
   "amazon_transcribe"
   "amazon_translate"
+  "amazon_clouddirectory"
+  "amazon_cognito_identity"
+  "amazon_cognito_identity_provider"
+  "amazon_cognito_sync"
+  "amazon_elastic_block_store"
+  "amazon_elastic_file_system"
+  "amazon_inspector"
+  "amazon_redshift_data"
+  "aws_auto_scaling_plans"
 )
 
 for c in ${connectors[@]}; do
