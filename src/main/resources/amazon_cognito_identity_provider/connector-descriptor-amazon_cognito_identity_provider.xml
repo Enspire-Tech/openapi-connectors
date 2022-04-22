@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the Amazon Cognito Provider API. For more information, click here: https://docs.aws.amazon.com/cognito-idp/</description>
+    <description>This connector provides access to the Amazon Cognito Provider API. For more information, click here: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html/</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://cognito-idp.us-east-1.amazonaws.com</defaultValue>
     </field>

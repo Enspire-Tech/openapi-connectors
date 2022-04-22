@@ -12,6 +12,7 @@ import java.util.Map;
 public class CustomOperation extends OpenAPIOperation {
 
     private static final String CUSTOM_HEADERS_PROPERTY = "customHeaders";
+    private static final String CONTENT_TYPE = "application/x-amz-json-1.1";
 
     protected CustomOperation(CustomOperationConnection connection) {
         super(connection);
@@ -30,6 +31,8 @@ public class CustomOperation extends OpenAPIOperation {
         Map<String, String> customHeaders = getConnection().getContext().getConnectionProperties().getCustomProperties(CUSTOM_HEADERS_PROPERTY);
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<>();
+
+        headerList.add(new AbstractMap.SimpleEntry<>("Content-Type", CONTENT_TYPE));
 
         //add other custom headers
         while (originalHeaderIterator.hasNext()) {

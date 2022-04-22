@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the Amazon Elastic File System API. For more information, click here: https://docs.aws.amazon.com/elasticfilesystem/</description>
+    <description>This connector provides access to the Amazon Elastic File System API. For more information, click here: https://docs.aws.amazon.com/efs/latest/ug/api-reference.html/</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://elasticfilesystem.us-east-1.amazonaws.com</defaultValue>
     </field>

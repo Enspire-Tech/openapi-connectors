@@ -1,7 +1,7 @@
 # Amazon CloudDirectory Connector
 Amazon CloudDirectory is a component of the AWS Directory Service that simplifies the development and management of cloud-scale web, mobile, and IoT applications.
 
-Documentation: https://docs.aws.amazon.com/clouddirectory
+Documentation: https://docs.aws.amazon.com/clouddirectory/latest/APIReference/welcome.html
 
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/amazonaws.com/clouddirectory/2017-01-11/openapi.yaml
 

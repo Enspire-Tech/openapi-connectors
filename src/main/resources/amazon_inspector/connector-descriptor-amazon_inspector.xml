@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the Amazon Inspector API. For more information, click here: https://docs.aws.amazon.com/inspector/</description>
+    <description>This connector provides access to the Amazon Inspector API. For more information, click here: https://docs.aws.amazon.com/inspector/v1/APIReference/Welcome.html</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://inspector.us-east-1.amazonaws.com</defaultValue>
     </field>

@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the Amazon Elastic Block Store API. For more information, click here: https://docs.aws.amazon.com/ebs/</description>
+    <description>This connector provides access to the Amazon Elastic Block Store API. For more information, click here: https://docs.aws.amazon.com/ebs/latest/APIReference/Welcome.html</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://ebs.us-east-1.amazonaws.com</defaultValue>
     </field>

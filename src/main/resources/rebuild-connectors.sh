@@ -88,7 +88,6 @@ connectors=(
   "amazon_clouddirectory"
   "amazon_cognito_identity"
   "amazon_cognito_identity_provider"
-  "amazon_cognito_sync"
   "amazon_elastic_block_store"
   "amazon_elastic_file_system"
   "amazon_inspector"

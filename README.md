@@ -147,8 +147,6 @@ See below for outstanding issues.
 
 * [Amazon Cognito Identity Provider](#amazon_cognito_identity_provider) **(ALL ENDPOINTS OPERATIONAL)**
 
-* [Amazon Cognito Sync](#amazon_cognito_sync) **(ALL ENDPOINTS OPERATIONAL)**
-
 * [Amazon Elastic Block Store](#amazon_elastic_block_store) **(ALL ENDPOINTS OPERATIONAL)**
 
 * [Amazon Elastic File Store](#amazon_elastic_file_system) **(ALL ENDPOINTS OPERATIONAL)**

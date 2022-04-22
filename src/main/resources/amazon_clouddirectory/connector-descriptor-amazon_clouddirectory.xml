@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any">
-    <description>This connector provides access to the Amazon CloudDirectory API. For more information, click here: https://docs.aws.amazon.com/clouddirectory/</description>
+    <description>This connector provides access to the Amazon CloudDirectory API. For more information, click here: https://docs.aws.amazon.com/clouddirectory/latest/APIReference/welcome.html/</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://clouddirectory.us-east-1.amazonaws.com</defaultValue>
     </field>

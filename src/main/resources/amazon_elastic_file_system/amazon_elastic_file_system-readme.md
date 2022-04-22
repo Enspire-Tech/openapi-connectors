@@ -1,7 +1,7 @@
 # Amazon Elastic File System Connector
 Amazon Elastic File System (Amazon EFS) provides simple, scalable file storage for use with Amazon EC2 instances in the Amazon Web Services Cloud.
 
-Documentation: https://docs.aws.amazon.com/elasticfilesystem/
+Documentation: https://docs.aws.amazon.com/efs/latest/ug/api-reference.html
 
 Specification: https://github.com/APIs-guru/openapi-directory/blob/main/APIs/amazonaws.com/elasticfilesystem/2015-02-01/openapi.yaml
 
