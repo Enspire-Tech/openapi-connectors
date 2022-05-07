@@ -1,0 +1,272 @@
+openapi: 3.0.1
+info:
+  title: defaultTitle
+  description: defaultDescription
+  version: '0.1'
+servers:
+  - url: https://api.abuseipdb.com/api/v2/
+paths:
+  /check:
+    get:
+      operationId: check
+      parameters:
+        - name: ipAddress
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: maxAgeInDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/data'
+  /blacklist:
+    get:
+      operationId: blacklist
+      parameters:
+        - name: confidenceMinimum
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: onlyCountries
+          in: query
+          schema:
+            type: string
+        - name: exceptCountries
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/data'
+  /report:
+    post:
+      operationId: report
+      parameters:
+        - name: ip
+          in: query
+          description: A valid IPv4 or IPv6 address.
+          schema:
+            type: string
+        - name: categories
+          in: query
+          description: Comma separated values
+          schema:
+            type: string
+        - name: comments
+          in: query
+          description: Related information (server logs, timestamps, etc.)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/data'
+  /check-block:
+    get:
+      operationId: check-block
+      parameters:
+        - name: network
+          in: query
+          schema:
+            type: string
+        - name: maxAgeInDays
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/check-block'
+  /bulk-report:
+    post:
+      operationId: bulk-report
+      requestBody:
+        description: A CSV file of IPs to be reported in one shot
+        content:
+          text/csv: {}
+      responses:
+        '200':
+          description: operation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/bulk-report'
+  /clear-address:
+    delete:
+      operationId: clear-address
+      parameters:
+        - name: ipAddress
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      numReportsDeleted:
+                        type: integer
+                        format: int32
+components:
+  schemas:
+    meta:
+      type: object
+      properties:
+        generatedAt:
+          type: string
+    check-block:
+      type: object
+      properties:
+        networkAddress:
+          type: string
+        netmask:
+          type: string
+        minAddress:
+          type: string
+        maxAddress:
+          type: string
+        numPossibleHosts:
+          type: integer
+          format: int32
+        addressSpaceDesc:
+          type: string
+        reportedAddress:
+          type: array
+          items:
+            $ref: '#/components/schemas/data'
+    bulk-report:
+      type: object
+      properties:
+        savedReports:
+          type: integer
+          format: int32
+        invalidReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/invalidReport'
+    invalidReport:
+      type: object
+      properties:
+        error:
+          type: string
+        input:
+          type: string
+        rowNumber:
+          type: integer
+          format: int32
+    data:
+      type: object
+      properties:
+        ipAddress:
+          type: string
+        isPublic:
+          type: boolean
+        ipVersion:
+          type: integer
+          format: int32
+        isWhitelisted:
+          type: boolean
+        abuseConfidenceScore:
+          type: integer
+          format: int32
+        countryCode:
+          type: string
+        countryName:
+          type: string
+        usageType:
+          type: string
+        isp:
+          type: string
+        domain:
+          type: string
+        hostnames:
+          type: array
+          items:
+            type: string
+        totalReports:
+          type: integer
+          format: int32
+        numDistinctUsers:
+          type: integer
+          format: int32
+        lastReportedAt:
+          type: string
+          format: date-time
+        mostRecentReport:
+          type: string
+          format: date-time
+        numReports:
+          type: integer
+          format: int32
+        reports:
+          type: array
+          items:
+            type: object
+            properties:
+              reportedAt:
+                type: string
+                format: date-time
+              comment:
+                type: string
+              categories:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+              reporterId:
+                type: integer
+                format: int32
+              reporterCountryCode:
+                type: string
+              reporterCountryName:
+                type: string

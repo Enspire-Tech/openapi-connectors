@@ -157,6 +157,8 @@ See below for outstanding issues.
 
 * [AWS Auto Scaling Plans](#aws_auto_scaling_plans) **(ALL ENDPOINTS OPERATIONAL)**
 
+* [AbuseIPDB](#abuseipdb)
+
 ---
 
 ## Summary of Issues

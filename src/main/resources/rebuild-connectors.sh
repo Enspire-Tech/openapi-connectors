@@ -93,6 +93,7 @@ connectors=(
   "amazon_inspector"
   "amazon_redshift_data"
   "aws_auto_scaling_plans"
+  "abuseipdb"
 )
 
 for c in ${connectors[@]}; do
