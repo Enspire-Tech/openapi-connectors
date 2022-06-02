@@ -94,6 +94,9 @@ connectors=(
   "amazon_redshift_data"
   "aws_auto_scaling_plans"
   "abuseipdb"
+  "opsgenie"
+  "parsehub"
+  "pandadoc"
 )
 
 for c in ${connectors[@]}; do

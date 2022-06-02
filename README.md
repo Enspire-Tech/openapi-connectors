@@ -159,6 +159,13 @@ See below for outstanding issues.
 
 * [AbuseIPDB](#abuseipdb)
 
+* [Opsgenie](#opsgenie)
+
+* [PandaDoc](#pandadoc)
+
+* [ParseHub](#ParseHub)
+
+
 ---
 
 ## Summary of Issues
