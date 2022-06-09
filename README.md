@@ -163,8 +163,11 @@ See below for outstanding issues.
 
 * [PandaDoc](#pandadoc)
 
-* [ParseHub](#ParseHub)
+* [ParseHub](#parseHub)
 
+* [Pipedrive](#pipedrive)
+
+* [Pingdom](#pingdom)
 
 ---
 
@@ -246,20 +249,7 @@ paths:
       - $ref: '#/components/parameters/requiredHeader'
     get:
 ```
-5. Can't find schema reference type
-    * Priority 2
-    * References are not followed when validating parameter schema type. Presents as "Unsupported Parameter Type: null".
-    * Example API: Twitter V2, OperationId: findTweetById
-```
-"parameters" : [ {
- "name" : "id",
- "in" : "path",
- "description" : "A single Tweet ID.",
- "required" : true,
- "schema" : {
-   "$ref" : "#/components/schemas/TweetID"
- }
-```
+
 6. Empty schemas are failing
     * Priority 2
     * The path parameter has no type. It contains an empty schema. Presents as: "Unsupported Parameter Type: null".

@@ -97,6 +97,8 @@ connectors=(
   "opsgenie"
   "parsehub"
   "pandadoc"
+  "pipedrive"
+  "pingdom"
 )
 
 for c in ${connectors[@]}; do
