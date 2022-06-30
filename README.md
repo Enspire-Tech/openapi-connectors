@@ -169,6 +169,8 @@ See below for outstanding issues.
 
 * [Pingdom](#pingdom)
 
+* [Uservoice](#uservoice)
+
 ---
 
 ## Summary of Issues

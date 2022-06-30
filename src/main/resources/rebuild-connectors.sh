@@ -99,6 +99,7 @@ connectors=(
   "pandadoc"
   "pipedrive"
   "pingdom"
+  "uservoice"
 )
 
 for c in ${connectors[@]}; do

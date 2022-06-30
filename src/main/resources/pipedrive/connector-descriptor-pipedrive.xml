@@ -1,7 +1,7 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
     <description>This connector provides access to the Pipedrive API. For more information, click here: https://developers.pipedrive.com/docs/api/v1</description>
     <field id="url" label="Server" type="string">
-        <defaultValue></defaultValue>
+        <defaultValue>https://api.pipedrive.com/v1</defaultValue>
     </field>
 
     <field id="spec" label="Override OpenAPI Spec" type="string">

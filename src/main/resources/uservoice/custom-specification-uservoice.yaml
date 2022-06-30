@@ -3032,6 +3032,8 @@ paths:
               - -has_internal_flag
               - updated_at
               - -updated_at
+              - importance
+              - -importance
         - name: external_id
           in: query
           style: form
@@ -3058,6 +3060,14 @@ paths:
             items:
               type: integer
               format: int64
+        - name: association
+          in: query
+          schema:
+            type: string
+            default: supported
+            enum:
+              - supported
+              - engaged
         - name: q
           in: query
           description: A query string to search
@@ -3157,7 +3167,7 @@ paths:
           -d page=1 \\\n\t-d per_page=20 \\\n\t-d cursor=foo \\\n\t-d updated_before=2016-12-25T17:01:47.138Z\
           \ \\\n\t-d updated_after=2016-12-25T17:01:47.138Z \\\n\t-d sort=-last_active_at\
           \ \\\n\t-d external_id=foo,bar,baz \\\n\t-d suggestion=1,2,3 \\\n\t-d feature=1,2,3\
-          \ \\\n\t-d q=foo"
+          \ \\\n\t-d association=supported \\\n\t-d q=foo"
   /admin/external_accounts/bulk_delete:
     post:
       tags:
@@ -13009,8 +13019,8 @@ paths:
               - -search_order
               - importance_negative
               - -importance_negative
-              - importance_total
-              - -importance_total
+              - importance
+              - -importance
               - importance_neutral
               - -importance_neutral
               - importance_critical
@@ -14283,8 +14293,8 @@ paths:
               - -search_order
               - importance_negative
               - -importance_negative
-              - importance_total
-              - -importance_total
+              - importance
+              - -importance
               - importance_neutral
               - -importance_neutral
               - importance_critical
@@ -19272,6 +19282,8 @@ paths:
               - -country
               - account
               - -account
+              - importance
+              - -importance
         - name: q
           in: query
           schema:
@@ -19369,6 +19381,7 @@ paths:
             enum:
               - supported
               - contributed
+              - engaged
         - name: subscribed
           in: query
           schema:
@@ -22390,6 +22403,11 @@ components:
         id:
           type: integer
           format: int64
+        importance_score_average:
+          type: string
+        importance_score_count:
+          type: integer
+          format: int64
         last_active_at:
           type: string
           format: date-time
@@ -24942,6 +24960,8 @@ components:
         id:
           type: integer
           format: int64
+        importance_score:
+          type: string
         is_admin:
           type: boolean
         is_owner:
