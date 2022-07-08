@@ -171,6 +171,8 @@ See below for outstanding issues.
 
 * [Uservoice](#uservoice)
 
+* [Splunk On-Call](#splunk_on_call)
+
 ---
 
 ## Summary of Issues

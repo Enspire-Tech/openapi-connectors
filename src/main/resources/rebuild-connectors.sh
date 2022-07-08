@@ -100,6 +100,7 @@ connectors=(
   "pipedrive"
   "pingdom"
   "uservoice"
+  "splunk_on_call"
 )
 
 for c in ${connectors[@]}; do
