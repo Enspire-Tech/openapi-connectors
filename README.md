@@ -173,6 +173,12 @@ See below for outstanding issues.
 
 * [Splunk On-Call](#splunk_on_call)
 
+* [Docker Engine](#docker_engine)
+
+* [DigitalOcean](#digitalocean)
+
+* [GitHub](#github)
+
 ---
 
 ## Summary of Issues

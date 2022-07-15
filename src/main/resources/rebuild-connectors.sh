@@ -101,6 +101,9 @@ connectors=(
   "pingdom"
   "uservoice"
   "splunk_on_call"
+  "docker_engine"
+  "digitalocean"
+  "github"
 )
 
 for c in ${connectors[@]}; do
