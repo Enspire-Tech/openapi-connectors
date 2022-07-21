@@ -104,6 +104,8 @@ connectors=(
   "docker_engine"
   "digitalocean"
   "github"
+  "postmark_server"
+  "postmark_account"
 )
 
 for c in ${connectors[@]}; do

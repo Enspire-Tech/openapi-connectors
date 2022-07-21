@@ -1,0 +1,19 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Postmark Account API. For more information, click here: https://postmarkapp.com/developer</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.postmarkapp.com</defaultValue>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>To override the specification included with the connector, enter a URL pointing to a JSON or YAML specification. Example: https://exampledocumentation.com/spec.yaml</helpText>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
+
+    <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+</GenericConnectorDescriptor>
