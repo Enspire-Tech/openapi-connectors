@@ -183,6 +183,12 @@ See below for outstanding issues.
 
 * [Postmark Account](#postmark_account)
 
+* [HubSpot CMS](#hubspot_cms)
+
+* [HubSpot CRM](#hubspot_crm)
+
+* [HubSpot Marketing](#hubspot_marketing)
+
 ---
 
 ## Summary of Issues

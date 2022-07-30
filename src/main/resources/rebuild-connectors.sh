@@ -106,6 +106,9 @@ connectors=(
   "github"
   "postmark_server"
   "postmark_account"
+  "hubspot_crm"
+  "hubspot_cms"
+  "hubspot_marketing"
 )
 
 for c in ${connectors[@]}; do
