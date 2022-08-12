@@ -32,6 +32,12 @@ public class CustomOperation extends OpenAPIOperation {
         Iterator<Map.Entry<String ,String>> originalHeaderIterator = originalHeaders.iterator();
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<>();
 
+        //add api key header
+        String apiKey = getContext().getConnectionProperties().getProperty("apiToken");
+        if (StringUtil.isNotBlank(apiKey)) {
+            headerList.add(new AbstractMap.SimpleEntry<>("Authorization","Bearer " + apiKey));
+        }
+
         //add other custom headers
         while (originalHeaderIterator.hasNext()) {
             headerList.add(originalHeaderIterator.next());

@@ -109,6 +109,9 @@ connectors=(
   "hubspot_crm"
   "hubspot_cms"
   "hubspot_marketing"
+  "hubspot_events"
+  "gitlab"
+  "square_connect"
 )
 
 for c in ${connectors[@]}; do

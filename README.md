@@ -189,6 +189,12 @@ See below for outstanding issues.
 
 * [HubSpot Marketing](#hubspot_marketing)
 
+* [HubSpot Events]
+
+* [Gitlab]
+
+* [Square Connect]
+
 ---
 
 ## Summary of Issues

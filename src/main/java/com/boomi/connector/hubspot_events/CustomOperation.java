@@ -1,4 +1,4 @@
-package com.boomi.connector.hubspot_marketing;
+package com.boomi.connector.hubspot_events;
 
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;

@@ -1,5 +1,5 @@
 <GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
-    <description>This connector provides access to the Hubspot CRM API. For more information, click here: https://developers.hubspot.com/docs/api/crm/understanding-the-crm</description>
+    <description>This connector provides access to the Hubspot Events API.</description>
     <field id="url" label="Server" type="string">
         <defaultValue>https://api.hubapi.com</defaultValue>
     </field>
@@ -52,9 +52,5 @@
     <testConnection method="GET_OBJECT_TYPES" customOperationType="GET" />
 
     <operation customTypeId="GET" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="PATCH" supportsBrowse="true" types="EXECUTE"/>
-    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
 
 </GenericConnectorDescriptor>

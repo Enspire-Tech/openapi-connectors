@@ -1,4 +1,4 @@
-package com.boomi.connector.hubspot_marketing;
+package com.boomi.connector.gitlab;
 
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.openapi.OpenAPIOperation;
@@ -33,7 +33,7 @@ public class CustomOperation extends OpenAPIOperation {
         ArrayList<Map.Entry<String, String>> headerList = new ArrayList<>();
 
         //add api key header
-        String apiKey = getContext().getConnectionProperties().getProperty("apiToken");
+        String apiKey = getContext().getConnectionProperties().getProperty("apiKey");
         if (StringUtil.isNotBlank(apiKey)) {
             headerList.add(new AbstractMap.SimpleEntry<>("Authorization","Bearer " + apiKey));
         }
