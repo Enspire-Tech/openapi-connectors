@@ -195,6 +195,14 @@ See below for outstanding issues.
 
 * [Square Connect]
 
+* [Mailchimp Transactional]
+
+* [Healthcare.gov]
+
+* [Zoom Meeting]
+
+* [Zoom Marketplace]
+
 ---
 
 ## Summary of Issues

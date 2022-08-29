@@ -112,6 +112,10 @@ connectors=(
   "hubspot_events"
   "gitlab"
   "square_connect"
+  "mailchimp_transactional"
+  "healthcaredotgov"
+  "zoom_meeting"
+  "zoom_marketplace"
 )
 
 for c in ${connectors[@]}; do

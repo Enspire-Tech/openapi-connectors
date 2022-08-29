@@ -1,0 +1,864 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Zoom Marketplace API",
+    "description": "The Zoom Marketplace APIs allow developers to access information from the Zoom platform. You can use this API to build private or public applications on the [Zoom App Marketplace](http://marketplace.zoom.us). For more information about getting credentials and creating private or public applications, read our [OAuth](https://marketplace.zoom.us/docs/docs/guides/auth/oauth) and [JWT](https://marketplace.zoom.us/docs/guides/auth/jwt) documentation. Note: All endpoints are available via `https` and are located at `api.zoom.us/v2/`.",
+    "contact": {
+      "name": "Zoom Developers",
+      "url": "https://developer.zoom.us/"
+    },
+    "version": "2.0.0",
+    "termsOfService": "https://zoom.us/docs/en-us/zoom_api_license_and_tou.html"
+  },
+  "servers": [
+    {
+      "url": "https://api.zoom.us/v2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "App",
+      "description": "App"
+    }
+  ],
+  "paths": {
+    "/marketplace/users/{userId}/apps": {
+      "get": {
+        "summary": "Get a user's app requests",
+        "description": "Use this API to get all of a user's app requests. \n\n**Scopes:** `marketplace_app:read`,`marketplace_app:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` ",
+        "operationId": "getUserAppRequests",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageSize"
+          },
+          {
+            "$ref": "#/components/parameters/NextPageToken"
+          },
+          {
+            "$ref": "#/components/parameters/userId"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The type of app request to query: \n* `active_requests` — All active app requests. \n* `past_requests` - All past app requests.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active_requests",
+                "past_requests"
+              ],
+              "example": "active_requests",
+              "default": "active_requests"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nUser app requests returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UserRequisitionInfo"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\nNot Found \n\n**Error Code:** `1001` <br>\nUser ID does not exist: {$userId}"
+          }
+        }
+      }
+    },
+    "/marketplace/apps": {
+      "get": {
+        "summary": "List apps",
+        "description": "Use this API to list all active and past app requests, or list all public and private apps. \n\n**Scopes:** `marketplace_app:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` ",
+        "operationId": "ListApps",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageSize"
+          },
+          {
+            "$ref": "#/components/parameters/NextPageToken"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Types of app requests to query: \n* `active_requests` — All active app requests. \n* `past_requests` - All past app requests. \n* `public` - All public apps. \n* `account_created` - All apps created by this account. ",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active_requests",
+                "past_requests",
+                "public",
+                "account_created"
+              ],
+              "example": "active_requests",
+              "default": "active_requests"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nApp requests returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AdminRequisitionInfo"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/marketplace/apps/{appId}/requests": {
+      "get": {
+        "summary": "Get an app's user requests",
+        "description": "Use this API to get an app's user requests and the status of their approval. \n\n**Scopes:** `marketplace_app:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`.",
+        "operationId": "getAppUserRequests",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageSize"
+          },
+          {
+            "$ref": "#/components/parameters/NextPageToken"
+          },
+          {
+            "$ref": "#/components/parameters/appId"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "The type of app request to query: \n* `pending` — Only pending app requests. \n* `approved` — Only approved app requests. \n* `rejected` — Only rejected app requests.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "rejected"
+              ],
+              "example": "pending",
+              "default": "pending"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nApp user requests returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/UserInfo"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\nNot Found \n\n**Error Code:** `1401` <br>\nApp ID does not exist: {$appId}"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update app's request status",
+        "description": "Use this API to update an app's request status. \n\n **Scopes:** `marketplace_app:write:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "operationId": "updateAppRequestStatus",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "description": "The app's ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "nqSreNVsQ2eGzUMGnA8AHA"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "description": "The app's action: \n* `approve_all` — Approve all user requests for the app. \n* `approve` — Partially approve user requests the app. \n* `decline_all` — Reject all user requests for the app. \n* `decline` — Partially reject user requests for app.",
+                    "enum": [
+                      "approve_all",
+                      "approve",
+                      "decline_all",
+                      "decline"
+                    ],
+                    "example": "approve_all"
+                  },
+                  "request_user_ids": {
+                    "type": "array",
+                    "description": "If the `action` value is `approve` or `decline`, the user IDs to reject or approve.",
+                    "items": {
+                      "type": "string",
+                      "example": "f1sTWCMaTmOIZxLMlmHvEQ"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` <br>\nApp request status updated."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\nNot Found \n\n**Error Code:** `1401` <br>\nApp ID does not exist: {$appId}"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add app allow requests for users",
+        "description": "Use this API to add app allow requests for all users, groups of users, or specific users. \n\n **Scopes:** `marketplace_app:write:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`",
+        "operationId": "AddAppAllowRequestsForUsers",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "description": "The app's ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "nqSreNVsQ2eGzUMGnA8AHA"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "description": "The action with which to take with the app: \n* `add_all` — Add all user for the app. \n* `add_user` — Add specified user for the app. \n* `add_group` — Add specified group of user for the app.  ",
+                    "enum": [
+                      "add_all",
+                      "add_user",
+                      "add_group"
+                    ],
+                    "example": "add_all"
+                  },
+                  "user_ids": {
+                    "type": "array",
+                    "description": "If the `action` value is `add_user`, the user IDs to add",
+                    "items": {
+                      "type": "string",
+                      "example": "f1sTWCMaTmOIZxLMlmHvEQ"
+                    }
+                  },
+                  "group_ids": {
+                    "type": "array",
+                    "description": "If the `action` value is `add_group`, the group IDs to add",
+                    "items": {
+                      "type": "string",
+                      "example": "t-_-d56CSWG-7BF15LLrOw"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "**HTTP Status Code:** `201` <br>\nApp added successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddUserResInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\nNot Found \n\n**Error Code:** `1401` <br>\nApp ID does not exist: {$appId}"
+          }
+        }
+      }
+    },
+    "/marketplace/apps/{appId}": {
+      "get": {
+        "summary": "Get information about an app",
+        "description": "Use this API to get app information. \n\n**Scopes:** `marketplace_app:read`,`marketplace_app:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` ",
+        "operationId": "getAppInfo",
+        "tags": [
+          "App"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/appId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nApp information returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\nNot Found \n\n**Error Code:** `1401` <br>\nAPP ID does not exist: {$appId}"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "NextPageToken": {
+        "description": "The next page token is used to paginate through large result sets. The API returns a next page token whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+        "in": "query",
+        "name": "next_page_token",
+        "schema": {
+          "type": "string",
+          "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+        }
+      },
+      "PageSize": {
+        "name": "page_size",
+        "in": "query",
+        "description": "The number of records returned within a single API call.",
+        "schema": {
+          "type": "integer",
+          "maximum": 300,
+          "default": 30,
+          "example": 30
+        }
+      },
+      "userId": {
+        "name": "userId",
+        "in": "path",
+        "description": "The user's ID.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "f1sTWCMaTmOIZxLMlmHvEQ"
+        }
+      },
+      "appId": {
+        "name": "appId",
+        "in": "path",
+        "description": "The app's ID.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "nqSreNVsQ2eGzUMGnA8AHA"
+        }
+      }
+    },
+    "schemas": {
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "next_page_token": {
+            "type": "string",
+            "description": "The next page token is used to paginate through large result sets. The API returns a next page token whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "example": "w7587w4eiyfsudgf"
+          },
+          "page_size": {
+            "type": "integer",
+            "maximum": 300,
+            "default": 30,
+            "description": "The number of records returned with a single API call.",
+            "example": 30
+          }
+        }
+      },
+      "PaginationToken": {
+        "type": "object",
+        "properties": {
+          "next_page_token": {
+            "type": "string",
+            "description": "The next page token is used to paginate through large result sets. The API returns a next page token whenever the set of the available result list exceeds the page size. The expiration period is 15 minutes.",
+            "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+          },
+          "page_size": {
+            "type": "integer",
+            "maximum": 300,
+            "default": 30,
+            "description": "The number of records returned in a single API call.",
+            "example": 30
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "requests": {
+            "type": "array",
+            "description": "Information about the users who have applied for app approval.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "request_user_id": {
+                  "type": "string",
+                  "description": "The user's ID.",
+                  "example": "f1sTWCMaTmOIZxLMlmHvEQ"
+                },
+                "request_user_name": {
+                  "type": "string",
+                  "description": "The user's name.",
+                  "example": "Jill Chill"
+                },
+                "request_user_email": {
+                  "type": "string",
+                  "format": "email",
+                  "description": "The user's email address.",
+                  "example": "jchill@example.com"
+                },
+                "request_user_department": {
+                  "type": "string",
+                  "format": "email",
+                  "description": "The user's department.",
+                  "example": "department"
+                },
+                "request_date_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "The app request's creation date and time.",
+                  "example": "2021-07-21T17:32:28Z"
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "The reason for the app request.",
+                  "example": "I want to use this app."
+                },
+                "status": {
+                  "type": "string",
+                  "default": "pending",
+                  "description": "The status of the user's app request: \n* `pending` — The request is pending approval. \n* `approved` - The request is approved. \n* `rejected` - The request is rejected.",
+                  "enum": [
+                    "pending",
+                    "approved",
+                    "rejected"
+                  ],
+                  "example": "pending"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AdminRequisitionInfo": {
+        "type": "object",
+        "properties": {
+          "apps": {
+            "type": "array",
+            "description": "Information about the app's user requests.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "app_id": {
+                  "type": "string",
+                  "description": "The app's ID.",
+                  "example": "nqSreNVsQ2eGzUMGnA8AHA"
+                },
+                "app_name": {
+                  "type": "string",
+                  "description": "The app's name.",
+                  "example": "Example App"
+                },
+                "app_type": {
+                  "$ref": "#/components/schemas/AppType"
+                },
+                "app_usage": {
+                  "type": "integer",
+                  "default": 1,
+                  "description": "The app's usage categorization: \n* `1` — The app is under admin management. \n* `2` — Users have access to the app.",
+                  "enum": [
+                    1,
+                    2
+                  ],
+                  "example": 1
+                },
+                "app_status": {
+                  "type": "string",
+                  "default": "PUBLISHED",
+                  "description": "The app's publication status: \n* `PUBLISHED` — The app is published. \n* `UNPUBLISHED` — The app is not published.",
+                  "enum": [
+                    "PUBLISHED",
+                    "UNPUBLISHED"
+                  ],
+                  "example": "PUBLISHED"
+                },
+                "request_id": {
+                  "type": "string",
+                  "description": "The app request ID.",
+                  "example": "zZLSQoL6S0OB6asaZ3zAOQ"
+                },
+                "request_total_number": {
+                  "type": "integer",
+                  "description": "The total number of app requests.",
+                  "example": 8
+                },
+                "request_pending_number": {
+                  "type": "integer",
+                  "description": "The total number of pending app requests.",
+                  "example": 4
+                },
+                "request_approved_number": {
+                  "type": "integer",
+                  "description": "The total number of approved app requests. This field only returns when the `type` value is `past`.",
+                  "example": 2
+                },
+                "request_declined_number": {
+                  "type": "integer",
+                  "description": "The total number of declined app requests. This field only returns when the `type` value is `past`.",
+                  "example": 2
+                },
+                "latest_request_date_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "The latest app request's creation date and time. This field only returns when the `type` value is 'active'.",
+                  "example": "2021-07-21T17:32:28Z"
+                },
+                "reviewer_name": {
+                  "type": "string",
+                  "description": "The user who reviewed the app request. This field only returns when the `type` value is `past`.",
+                  "example": "Jill Chill"
+                },
+                "review_date_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "The time at which the user reviewed the app request. This field only returns when the `type` value is `past`.",
+                  "example": "2021-07-21T17:32:28Z"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserRequisitionInfo": {
+        "type": "object",
+        "description": "Information about the user's app request status.",
+        "properties": {
+          "apps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "app_id": {
+                  "type": "string",
+                  "description": "The app's ID.",
+                  "example": "nqSreNVsQ2eGzUMGnA8AHA"
+                },
+                "app_name": {
+                  "type": "string",
+                  "description": "The app's name.",
+                  "example": "Example App"
+                },
+                "app_type": {
+                  "$ref": "#/components/schemas/AppType"
+                },
+                "app_usage": {
+                  "type": "integer",
+                  "default": 1,
+                  "description": "The app's usage categorization: \n* `1` — The app is under admin management. \n* `2` — Users have access to the app.",
+                  "enum": [
+                    1,
+                    2
+                  ],
+                  "example": 1
+                },
+                "app_status": {
+                  "type": "string",
+                  "default": "PUBLISHED",
+                  "description": "The app's publication status: \n* `PUBLISHED` — The app is published. \n* `UNPUBLISHED` — The app is not published.",
+                  "enum": [
+                    "PUBLISHED",
+                    "UNPUBLISHED"
+                  ],
+                  "example": "PUBLISHED"
+                },
+                "request_id": {
+                  "type": "string",
+                  "description": "The app request ID.",
+                  "example": "zZLSQoL6S0OB6asaZ3zAOQ"
+                },
+                "request_date_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "The app request's creation date and time. This field only returns when the `type` value is 'active'.",
+                  "example": "2021-07-21T17:32:28Z"
+                },
+                "request_status": {
+                  "type": "string",
+                  "default": "pending",
+                  "description": "The status of the user's app request: \n* `pending` — The request is pending approval. \n* `approved` - The request is approved. \n* `rejected` - The request is rejected.",
+                  "enum": [
+                    "pending",
+                    "approved",
+                    "rejected"
+                  ],
+                  "example": "pending"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AppInfo": {
+        "type": "object",
+        "properties": {
+          "app_id": {
+            "type": "string",
+            "description": "The app's ID.",
+            "example": "nqSreNVsQ2eGzUMGnA8AHA"
+          },
+          "app_name": {
+            "type": "string",
+            "description": "The app's name.",
+            "example": "Example App"
+          },
+          "app_description": {
+            "type": "string",
+            "description": "The app's description.",
+            "example": "Example App description"
+          },
+          "app_type": {
+            "$ref": "#/components/schemas/AppType"
+          },
+          "app_usage": {
+            "type": "integer",
+            "default": 1,
+            "description": "The app's usage categorization: \n* `1` — The app is under admin management. \n* `2` — Users have access to the app.",
+            "enum": [
+              1,
+              2
+            ],
+            "example": 1
+          },
+          "app_status": {
+            "type": "string",
+            "default": "PUBLISHED",
+            "description": "The app's publication status: \n* `PUBLISHED` — The app is published. \n* `UNPUBLISHED` — The app is not published.",
+            "enum": [
+              "PUBLISHED",
+              "UNPUBLISHED"
+            ],
+            "example": "PUBLISHED"
+          },
+          "app_links": {
+            "type": "object",
+            "properties": {
+              "documentation_url": {
+                "type": "string",
+                "description": "The app's documentation link.",
+                "example": "https://xxxx"
+              },
+              "privacy_policy_url": {
+                "type": "string",
+                "description": "The app's privacy policy link.",
+                "example": "https://xxxx"
+              },
+              "support_url": {
+                "type": "string",
+                "description": "The app's support link.",
+                "example": "https://xxxx"
+              },
+              "terms_of_use_url": {
+                "type": "string",
+                "description": "The app's terms of use link.",
+                "example": "https://xxxx"
+              }
+            }
+          },
+          "app_permissions": {
+            "type": "array",
+            "description": "The app's permissions.",
+            "items": {
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "description": "The app's permission group.",
+                  "example": "View"
+                },
+                "group_message": {
+                  "type": "string",
+                  "description": "The app's permission group message.",
+                  "example": "App can view information"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "The app's group title.",
+                  "example": "Associated with you"
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "The group payload's name.",
+                        "example": "Devices"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "app_requirements": {
+            "description": "The app requirements.",
+            "type": "object",
+            "properties": {
+              "user_role": {
+                "type": "string",
+                "description": "The user roles required to authorize or add the app: \n* `admin` — The user needs to have the ADMIN_MANAGEMENT role. \n* `user` — Every user can add this app.",
+                "example": "admin",
+                "enum": [
+                  "admin",
+                  "user"
+                ]
+              },
+              "min_client_version": {
+                "type": "string",
+                "description": "The minimum client version required for the app.",
+                "example": "5.7.3"
+              },
+              "account_eligibility": {
+                "type": "object",
+                "description": "Eligibility requirements for app.",
+                "properties": {
+                  "account_types": {
+                    "type": "array",
+                    "description": "The account types.",
+                    "items": {
+                      "type": "string",
+                      "description": "The account type name.",
+                      "example": "Free"
+                    }
+                  },
+                  "premium_events": {
+                    "type": "array",
+                    "description": "The premium events.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "event_name": {
+                          "type": "string",
+                          "description": "The premium event name.",
+                          "example": "Meeting participant data"
+                        },
+                        "event": {
+                          "type": "string",
+                          "description": "The premium event ID.",
+                          "example": "meeting.participant_qos_summary"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "app_scopes": {
+            "type": "array",
+            "description": "The app scopes.",
+            "items": {
+              "type": "string",
+              "description": "The app scope.",
+              "example": "meeting:read"
+            }
+          }
+        }
+      },
+      "AddUserResInfo": {
+        "type": "object",
+        "properties": {
+          "added_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time this app was added.",
+            "example": "2021-07-21T17:32:28Z"
+          },
+          "user_ids": {
+            "type": "array",
+            "description": "If the `action` value is `add_user`, the user IDs to add.",
+            "items": {
+              "type": "string",
+              "example": "f1sTWCMaTmOIZxLMlmHvEQ"
+            }
+          },
+          "group_ids": {
+            "type": "array",
+            "description": "If the `action` value is `add_group`, the group IDs to add.",
+            "items": {
+              "type": "string",
+              "example": "t-_-d56CSWG-7BF15LLrOw"
+            }
+          }
+        }
+      },
+      "AppType": {
+        "type": "string",
+        "default": "OAuthApp",
+        "description": "The type of app: \n* `ZoomApp` — A Zoom app. \n* `ChatBotApp` — A ChatBot app. \n* `OAuthApp` — A OAuth app.",
+        "enum": [
+          "ZoomApp",
+          "ChatBotApp",
+          "OAuthApp"
+        ],
+        "example": "ZoomApp"
+      }
+    }
+  }
+}
