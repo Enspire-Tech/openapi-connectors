@@ -1,0 +1,1902 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SCIM2 API",
+    "description": "SCIM2 (System for Cross-domain Identity Management) is a specification designed to automate the provisioning of user identities across various cloud-based applications and services using SSO services and Identity Providers. The Zoom SCIM2 API provides support for user provisioning through the **User** resource. Each SCIM2 API endpoint has a rate limit of 1 request/second per account.\n\n SCIM uses HTTP methods that is compatible to REST architecture style. The payloads require schema definitions, attributes, and values for request. Also using the SCIM API, you can use additional features such as attribute filters and search criteria. \n\n While using the SCIM APIs, set the value of the Accept header as `application/scim+json`. \n\n **Prerequisites** \n* Zoom Owner or Admin privileges. \n* Business or Education account with approved [Vanity URL](https://support.zoom.us/hc/en-us/articles/215062646-Guidelines-for-Vanity-URL-Requests). \n* [Single Sign-On](https://support.zoom.us/hc/en-us/articles/201363003-Getting-Started-with-SSO) enabled. \n\n ## Authentication \n\n The SCIM2 API supports both JWT and OAuth authentication paradigms. \n ### JWT \n\n To use JWT, create a [JWT app](https://marketplace.zoom.us/docs/guides/build/jwt-app) on the Zoom App Marketplace and use the generated token. \n\n ### OAuth 2.0 \n To use Oauth 2.0, create an [OAuth app](https://marketplace.zoom.us/docs/guides/build/oauth-app) on the Zoom App Marketplace and select `SCIM2` as the scope for your app. Next, [generate an OAuth token](https://marketplace.zoom.us/docs/guides/auth/oauth) for your app and start making SCIM2 API calls.",
+    "termsOfService": "https://zoom.us/docs/en-us/zoom_api_license_and_tou.html",
+    "contact": {
+      "name": "Zoom Developers",
+      "url": "https://developer.zoom.us"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.zoom.us"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "User operations."
+    }
+  ],
+  "paths": {
+    "/scim2/Users": {
+      "get": {
+        "summary": "List users",
+        "description": "Use this API to list all users. You can include additional query parameters to filter the response. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userSCIM2List",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "startIndex",
+            "in": "query",
+            "description": "The start index of records to be returned.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of records returned in a single API call.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 0,
+              "maximum": 100,
+              "example": 1
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "The type of query: \n* `userName eq {userEmail}` — Provide the user's email address to filter the response to a specific user. \n* `license type` — Filter the response by license type. \n* `externalId eq {userId}` — Filter the response by the user's ID (`userId`).",
+            "schema": {
+              "type": "string",
+              "example": "externalId eq ABCD1345"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nUser information returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "schemas": {
+                      "type": "array",
+                      "description": "A list of schemas.",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "totalResults": {
+                      "type": "integer",
+                      "description": "The total number of all records across pages.",
+                      "example": 20
+                    },
+                    "startIndex": {
+                      "type": "integer",
+                      "description": "The start index for the records.",
+                      "example": 1
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "description": "The number of records returned with a single API call.",
+                      "example": 10
+                    },
+                    "Resources": {
+                      "type": "array",
+                      "description": "The user's resource information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "The user's ID.",
+                            "example": "k&KdKr6TLWuxdDtk0hjSzL"
+                          },
+                          "meta": {
+                            "type": "object",
+                            "description": "The user's resource metadata.",
+                            "properties": {
+                              "resourceType": {
+                                "type": "string",
+                                "description": "The type of resource. The value is always `User` for the User resource type.",
+                                "example": "User"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "The resource's URI, in `https://api.zoom.us/scim2/Users/{userId}` format.",
+                                "example": "https://api.zoom.us/scim2/Users/k&KdKr6TLWuxdDtk0hjSzL"
+                              },
+                              "version": {
+                                "type": "string",
+                                "description": "The resource version number.",
+                                "example": "1.0.0"
+                              }
+                            }
+                          },
+                          "schemas": {
+                            "type": "array",
+                            "description": "A list of schemas.",
+                            "items": {
+                              "type": "string",
+                              "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                            }
+                          },
+                          "name": {
+                            "type": "object",
+                            "description": "Information about the user's name.",
+                            "properties": {
+                              "givenName": {
+                                "type": "string",
+                                "description": "The user's first name.",
+                                "example": "Jill"
+                              },
+                              "familyName": {
+                                "type": "string",
+                                "description": "The user's last name.",
+                                "example": "Chill"
+                              }
+                            }
+                          },
+                          "emails": {
+                            "type": "array",
+                            "description": "The user's email information.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "description": "The type of email address.",
+                                  "example": "work"
+                                },
+                                "value": {
+                                  "type": "string",
+                                  "format": "email",
+                                  "description": "The user's email address.",
+                                  "example": "jchill@example.com"
+                                },
+                                "primary": {
+                                  "type": "boolean",
+                                  "description": "Whether the email address is the user's primary email address.",
+                                  "example": true
+                                }
+                              }
+                            }
+                          },
+                          "displayName": {
+                            "type": "string",
+                            "description": "The user's display name.",
+                            "example": "Jill Chill"
+                          },
+                          "userName": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "The user's username.",
+                            "example": "jchill@example.com"
+                          },
+                          "active": {
+                            "type": "boolean",
+                            "description": "Whether the user is active.",
+                            "example": true
+                          },
+                          "userType": {
+                            "type": "string",
+                            "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                            "enum": [
+                              "Basic",
+                              "Licensed",
+                              "On-Prem"
+                            ],
+                            "example": "On-Prem"
+                          },
+                          "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                            "type": "object",
+                            "properties": {
+                              "department": {
+                                "type": "string",
+                                "description": "The user's department.",
+                                "example": "Development"
+                              }
+                            }
+                          },
+                          "urn:us:zoom:scim:schemas:extension:1.0:ZoomUser": {
+                            "type": "object",
+                            "properties": {
+                              "loginType": {
+                                "type": "object",
+                                "description": "The user's login method information.",
+                                "properties": {
+                                  "workEmail": {
+                                    "type": "boolean",
+                                    "description": "Whether login using work email address is enabled.",
+                                    "example": true
+                                  },
+                                  "sso": {
+                                    "type": "boolean",
+                                    "description": "Whether Single Sign On (SSO) login is enabled.",
+                                    "example": true
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` \n* Account has not enabled Single Sign-On. \n* The current filter does not support the filter name: {filter} \n* User \"{email}\" not exist or not belong to this account. \n* User does not belong to this account: {email}"
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` \n* The current login user does not have the \"User:Read\" permission."
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a user",
+        "description": "Use this API to create a new user. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userScim2Create",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "description": "A list of schemas, in `urn:ietf:params:scim:api:messages:2.0:{operation}` format.",
+                    "items": {
+                      "type": "string",
+                      "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                    }
+                  },
+                  "userName": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "The user's email address.",
+                    "example": "jchill@example.com"
+                  },
+                  "userType": {
+                    "type": "string",
+                    "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                    "enum": [
+                      "Basic",
+                      "Licensed",
+                      "On-Prem"
+                    ],
+                    "example": "On-Prem"
+                  },
+                  "name": {
+                    "type": "object",
+                    "description": "Information about the user's name.",
+                    "properties": {
+                      "givenName": {
+                        "type": "string",
+                        "description": "The user's first name.",
+                        "example": "Jill"
+                      },
+                      "familyName": {
+                        "type": "string",
+                        "description": "The user's last name.",
+                        "example": "Chill"
+                      }
+                    }
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "The user's job title.",
+                    "example": "Developer"
+                  },
+                  "locale": {
+                    "type": "string",
+                    "description": "The user's location.",
+                    "example": "San Jose"
+                  },
+                  "phoneNumbers": {
+                    "type": "array",
+                    "description": "A list of the user's assigned phone numbers.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "default": "work",
+                          "description": "The phone number's label: \n* `mobile` \n* `office` \n* `home` \n* `fax` \n* `work` \n\nThis value defaults to `work`.",
+                          "enum": [
+                            "mobile",
+                            "office",
+                            "home",
+                            "fax",
+                            "work"
+                          ],
+                          "example": "work"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The phone number.",
+                          "example": "+015550100"
+                        }
+                      }
+                    }
+                  },
+                  "roles": {
+                    "type": "array",
+                    "description": "The user's assigned [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "display": {
+                          "type": "string",
+                          "description": "The role's display name.",
+                          "example": "Developer"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The role name.",
+                          "example": "Developer"
+                        },
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Whether the role is the user's primary role.",
+                          "example": true
+                        }
+                      }
+                    }
+                  },
+                  "groups": {
+                    "type": "array",
+                    "description": "The user's assigned [groups](https://support.zoom.us/hc/en-us/articles/204519819-Managing-user-groups-and-settings) information.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "display": {
+                          "type": "string",
+                          "description": "The group's display name.",
+                          "example": "Developers"
+                        },
+                        "type": {
+                          "type": "string",
+                          "default": "direct",
+                          "description": "The type of group. This value defaults to `direct`.",
+                          "example": "direct"
+                        },
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Whether the group is the user's primary group.",
+                          "example": true
+                        }
+                      }
+                    }
+                  },
+                  "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                    "type": "object",
+                    "properties": {
+                      "department": {
+                        "type": "string",
+                        "description": "The user's department.",
+                        "example": "Development"
+                      },
+                      "organization": {
+                        "type": "string",
+                        "description": "The user's organization.",
+                        "example": "Example"
+                      },
+                      "costCenter": {
+                        "type": "string",
+                        "description": "The user's cost center.",
+                        "example": "US01"
+                      },
+                      "employeeNumber": {
+                        "type": "string",
+                        "description": "The user's employee ID.",
+                        "example": "123"
+                      },
+                      "manager": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The email address of the user's manager.",
+                        "example": "thill@example.com"
+                      }
+                    }
+                  },
+                  "urn:ietf:params:scim:schemas:extension:zoom:1.0:User": {
+                    "type": "object",
+                    "properties": {
+                      "zoomPhoneExtNumber": {
+                        "type": "string",
+                        "description": "The user's Zoom Phone extension number. To automatically assign an extension number, set this field's value `0`.",
+                        "example": "0"
+                      },
+                      "zoomPhoneNumber": {
+                        "type": "string",
+                        "description": "The user's assigned Zoom Phone number. This value be an unassigned number in the Zoom account.",
+                        "example": "5550100"
+                      },
+                      "zoomPhoneSite": {
+                        "type": "string",
+                        "description": "The Zoom Phone site to assign the user to. If you do not provide this value, the user will be assigned to the main site.",
+                        "example": "main"
+                      },
+                      "zoomPhoneCallingPlan": {
+                        "type": "string",
+                        "description": "The user's assigned [Zoom Phone calling plan number](https://marketplace.zoom.us/docs/api-reference/other-references/plans#zoom-phone-calling-plans).",
+                        "example": "phone_calling_usca_monthly_unlimited"
+                      },
+                      "{customAttribute}": {
+                        "type": "string",
+                        "maxItems": 5,
+                        "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                        "example": "\"Custom attribute name\" : \"custom attribute value\""
+                      },
+                      "personalLinkName": {
+                        "type": "string",
+                        "description": "The user's customized [personal link](https://support.zoom.us/hc/en-us/articles/201362843-Personal-meeting-ID-PMI-and-personal-link#h_08f381ef-1e88-417c-b014-a2b9ad4abbda).",
+                        "example": "user001"
+                      },
+                      "pronouns": {
+                        "type": "string",
+                        "description": "The user's pronouns.",
+                        "example": "They/Them/Their"
+                      },
+                      "zoomUnited": {
+                        "type": "string",
+                        "description": "The user's number of [Zoom United licenses](https://zoom.us/pricing/zoom-bundles).",
+                        "example": "16"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "**HTTP Status Code:** `201` <br>\nUser created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The user's ID.",
+                      "example": "k&KdKr6TLWuxdDtk0hjSzL"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "The user's resource metadata.",
+                      "properties": {
+                        "resourceType": {
+                          "type": "string",
+                          "description": "The type of resource. The value is always `User` for the User resource type.",
+                          "example": "User"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "The resource's URI, in `https://api.zoom.us/scim2/Users/{userId}` format.",
+                          "example": "https://api.zoom.us/scim2/Users/k&KdKr6TLWuxdDtk0hjSzL"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "The resource version number.",
+                          "example": "1.0.0"
+                        }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "description": "A list of schemas.",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "name": {
+                      "type": "object",
+                      "description": "Information about the user's name.",
+                      "properties": {
+                        "givenName": {
+                          "type": "string",
+                          "description": "The user's first name.",
+                          "example": "Jill"
+                        },
+                        "familyName": {
+                          "type": "string",
+                          "description": "The user's last name.",
+                          "example": "Chill"
+                        }
+                      }
+                    },
+                    "emails": {
+                      "type": "array",
+                      "description": "The user's email information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "default": "work",
+                            "description": "The type of email address.",
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "The user's email address.",
+                            "example": "jchill@example.com"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the email address is the user's primary email address.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "description": "The user's display name.",
+                      "example": "Jill Chill"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "The user's email address.",
+                      "example": "jchill@example.com"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "description": "Whether the user is active.",
+                      "example": true
+                    },
+                    "userType": {
+                      "type": "string",
+                      "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                      "enum": [
+                        "Basic",
+                        "Licensed",
+                        "On-Prem"
+                      ],
+                      "example": "On-Prem"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "The user's job title.",
+                      "example": "Developer"
+                    },
+                    "locale": {
+                      "type": "string",
+                      "description": "The user's location.",
+                      "example": "San Jose"
+                    },
+                    "phoneNumbers": {
+                      "type": "array",
+                      "description": "A list of the user's assigned phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "default": "work",
+                            "description": "The phone number's label: \n* `mobile` \n* `office` \n* `home` \n* `fax` \n* `work` \n\nThis value defaults to `work`.",
+                            "enum": [
+                              "mobile",
+                              "office",
+                              "home",
+                              "fax",
+                              "work"
+                            ],
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The phone number.",
+                            "example": "+015550100"
+                          }
+                        }
+                      }
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "The user's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The role's display name.",
+                            "example": "Developer"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The role name.",
+                            "example": "Developer"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the role is the user's primary role.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "groups": {
+                      "type": "array",
+                      "description": "The user's [groups](https://support.zoom.us/hc/en-us/articles/204519819-Managing-user-groups-and-settings) information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The group's display name.",
+                            "example": "Developers"
+                          },
+                          "type": {
+                            "type": "string",
+                            "default": "direct",
+                            "description": "The type of group.",
+                            "example": "direct"
+                          },
+                          "primary": {
+                            "type": "string",
+                            "description": "Whether the group is the user's primary group.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                      "type": "object",
+                      "properties": {
+                        "department": {
+                          "type": "string",
+                          "description": "The user's department.",
+                          "example": "Development"
+                        },
+                        "organization": {
+                          "type": "string",
+                          "description": "The user's organization.",
+                          "example": "Example"
+                        },
+                        "costCenter": {
+                          "type": "string",
+                          "description": "The user's assigned cost center.",
+                          "example": "US01"
+                        },
+                        "employeeNumber": {
+                          "type": "string",
+                          "description": "The user's employee ID.",
+                          "example": "ABCDE12345"
+                        },
+                        "manager": {
+                          "type": "string",
+                          "format": "email",
+                          "description": "The email address of the user's manager.",
+                          "example": "thill@example.com"
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:zoom:1.0:User": {
+                      "type": "object",
+                      "properties": {
+                        "{customAttribute}": {
+                          "type": "string",
+                          "maxItems": 5,
+                          "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                          "example": "\"Custom attribute name\" : \"custom attribute value\""
+                        },
+                        "personalLinkName": {
+                          "type": "string",
+                          "description": "The user's customized [personal link](https://support.zoom.us/hc/en-us/articles/201362843-Personal-meeting-ID-PMI-and-personal-link#h_08f381ef-1e88-417c-b014-a2b9ad4abbda).",
+                          "example": "user001"
+                        },
+                        "pronouns": {
+                          "type": "string",
+                          "description": "The user's pronouns.",
+                          "example": "They/Them/Their"
+                        },
+                        "zoomUnited": {
+                          "type": "string",
+                          "description": "The user's number of [Zoom United licenses](https://zoom.us/pricing/zoom-bundles).",
+                          "example": "16"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` \n* Account has not enabled Single Sign-On. \n* The Request JSON is empty. \n* \"userName\" is invalid email. \n* The user type permission check failed. \n* The email \"{email}\" is already in use."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>\nThe current login user does not have the \"User:Edit\" permission."
+          },
+          "409": {
+            "description": "**HTTP Status Code:** `409` \n* You cannot add paid users. \n* The Zoom United Plan is invalid. \n* Cannot create more users with Zoom United Plan."
+          }
+        }
+      }
+    },
+    "/scim2/Users/{userId}": {
+      "get": {
+        "summary": "Get a user",
+        "description": "Use this API to return information about a specific user. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userSCIM2Get",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user's Zoom ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "k&KdKr6TLWuxdDtk0hjSzL"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\n User object returned.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The user's ID.",
+                      "example": "k&KdKr6TLWuxdDtk0hjSzL"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "The user's resource metadata.",
+                      "properties": {
+                        "resourceType": {
+                          "type": "string",
+                          "description": "The type of resource. The value is always `User` for the User resource type.",
+                          "example": "User"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "The resource's URI, in `https://api.zoom.us/scim2/Users/{userId}` format.",
+                          "example": "https://api.zoom.us/scim2/Users/k&KdKr6TLWuxdDtk0hjSzL"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "The resource version number.",
+                          "example": "1.0.0"
+                        }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "description": "A list of schemas.",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "name": {
+                      "type": "object",
+                      "description": "Information about the user's name.",
+                      "properties": {
+                        "givenName": {
+                          "type": "string",
+                          "description": "The user's first name.",
+                          "example": "Jill"
+                        },
+                        "familyName": {
+                          "type": "string",
+                          "description": "The user's last name.",
+                          "example": "Chill"
+                        }
+                      }
+                    },
+                    "emails": {
+                      "type": "array",
+                      "description": "The user's email information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "default": "work",
+                            "description": "The type of email address.",
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "The user's email address.",
+                            "example": "jchill@example.com"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the email address is the user's primary email address.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "description": "The user's display name.",
+                      "example": "Jill Chill"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "The user's email address.",
+                      "example": "jchill@example.com"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "description": "Whether the user is active.",
+                      "example": true
+                    },
+                    "userType": {
+                      "type": "string",
+                      "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                      "enum": [
+                        "Basic",
+                        "Licensed",
+                        "On-Prem"
+                      ],
+                      "example": "On-Prem"
+                    },
+                    "phoneNumbers": {
+                      "type": "array",
+                      "description": "A list of the user's assigned phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "default": "work",
+                            "description": "The phone number's label: \n* `mobile` \n* `office` \n* `home` \n* `fax` \n* `work` \n\nThis value defaults to `work`.",
+                            "enum": [
+                              "mobile",
+                              "office",
+                              "home",
+                              "fax",
+                              "work"
+                            ],
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The phone number.",
+                            "example": "+015550100"
+                          }
+                        }
+                      }
+                    },
+                    "roles": {
+                      "type": "object",
+                      "description": "The user's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                      "properties": {
+                        "display": {
+                          "type": "string",
+                          "description": "The role's display name.",
+                          "example": "Developer"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The role name.",
+                          "example": "Developer"
+                        },
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Whether the role is the user's primary role.",
+                          "example": true
+                        }
+                      }
+                    },
+                    "groups": {
+                      "type": "object",
+                      "description": "The user's [groups](https://support.zoom.us/hc/en-us/articles/204519819-Managing-user-groups-and-settings) information.",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "The type of group.",
+                          "example": "direct"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The group's name.",
+                          "example": "Developers"
+                        },
+                        "display": {
+                          "type": "string",
+                          "description": "The group's display name.",
+                          "example": "Developers"
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                      "type": "object",
+                      "properties": {
+                        "department": {
+                          "type": "string",
+                          "description": "The user's department.",
+                          "example": "Development"
+                        }
+                      }
+                    },
+                    "urn:us:zoom:scim:schemas:extension:1.0:ZoomUser": {
+                      "type": "object",
+                      "properties": {
+                        "loginType": {
+                          "type": "object",
+                          "description": "The user's login method information.",
+                          "properties": {
+                            "workEmail": {
+                              "type": "boolean",
+                              "description": "Whether login using work email address is enabled.",
+                              "example": true
+                            },
+                            "sso": {
+                              "type": "boolean",
+                              "description": "Whether Single Sign On (SSO) login is enabled.",
+                              "example": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nAccount has not enabled Single Sign-On."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>\nCurrent login user does not have the \"User:Read\" permission."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` \n* User does not exist. \n* User does not belong to this account."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a user",
+        "description": "Use this API to update a user's information. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userSCIM2Update",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The user's Zoom ID.",
+            "schema": {
+              "type": "string",
+              "example": "k&KdKr6TLWuxdDtk0hjSzL"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The following schema displays a list of properties that you can update. When you make an update request, include **only** the parameters that you want to update and the `schemas` parameter in the RequestBody.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "description": "A list of schemas, in `urn:ietf:params:scim:api:messages:2.0:{operation}` format.",
+                    "items": {
+                      "type": "string",
+                      "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                    }
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "Whether to activate the user: \n* `true` — Activate user. \n* `false` — Deactivate user.",
+                    "example": true
+                  },
+                  "userType": {
+                    "type": "string",
+                    "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                    "enum": [
+                      "Basic",
+                      "Licensed",
+                      "On-Prem"
+                    ],
+                    "example": "On-Prem"
+                  },
+                  "name": {
+                    "type": "object",
+                    "description": "Information about the user's name.",
+                    "properties": {
+                      "givenName": {
+                        "type": "string",
+                        "description": "The user's first name.",
+                        "example": "Jill"
+                      },
+                      "familyName": {
+                        "type": "string",
+                        "description": "The user's last name.",
+                        "example": "Chill"
+                      }
+                    }
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "The user's job title.",
+                    "example": "Developer"
+                  },
+                  "locale": {
+                    "type": "string",
+                    "description": "The user's location.",
+                    "example": "San Jose"
+                  },
+                  "phoneNumbers": {
+                    "type": "array",
+                    "description": "A list of the user's assigned phone numbers.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "default": "work",
+                          "description": "The label of phone number: 'Mobile', 'Office', 'Home', 'Fax'. The value of no-labeled phone number to `work`.",
+                          "example": "work"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The phone number.",
+                          "example": "+015550100"
+                        }
+                      }
+                    }
+                  },
+                  "roles": {
+                    "type": "array",
+                    "description": "The user's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "display": {
+                          "type": "string",
+                          "description": "The role's display name.",
+                          "example": "Developer"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The role name.",
+                          "example": "Developer"
+                        },
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Whether the role is the user's primary role.",
+                          "example": true
+                        }
+                      }
+                    }
+                  },
+                  "groups": {
+                    "type": "array",
+                    "description": "The user's [groups](https://support.zoom.us/hc/en-us/articles/204519819-Managing-user-groups-and-settings) information.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "display": {
+                          "type": "string",
+                          "description": "The group's display name.",
+                          "example": "Developers"
+                        },
+                        "type": {
+                          "type": "string",
+                          "default": "direct",
+                          "description": "The type of group. This value defaults to `direct`.",
+                          "example": "direct"
+                        },
+                        "primary": {
+                          "type": "boolean",
+                          "description": "Whether the group is the user's primary group.",
+                          "example": true
+                        }
+                      }
+                    }
+                  },
+                  "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                    "type": "object",
+                    "properties": {
+                      "department": {
+                        "type": "string",
+                        "description": "The user's department.",
+                        "example": "Development"
+                      },
+                      "organization": {
+                        "type": "string",
+                        "description": "The user's organization.",
+                        "example": "Example"
+                      },
+                      "costCenter": {
+                        "type": "string",
+                        "description": "The user's cost center.",
+                        "example": "US01"
+                      },
+                      "employeeNumber": {
+                        "type": "string",
+                        "description": "The user's employee ID.",
+                        "example": "123"
+                      },
+                      "manager": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The email address of the user's manager.",
+                        "example": "thill@example.com"
+                      }
+                    }
+                  },
+                  "urn:ietf:params:scim:schemas:extension:zoom:1.0:User": {
+                    "type": "object",
+                    "properties": {
+                      "zoomPhoneExtNumber": {
+                        "type": "string",
+                        "description": "The user's Zoom Phone extension number. To automatically assign an extension number, set this field's value `0`.",
+                        "example": "0"
+                      },
+                      "zoomPhoneNumber": {
+                        "type": "string",
+                        "description": "The user's assigned Zoom Phone number. This value must be an unassigned number in the Zoom account.",
+                        "example": "5550100"
+                      },
+                      "zoomPhoneSite": {
+                        "type": "string",
+                        "description": "The Zoom Phone site to assign the user to. If you do not provide this value, the user will be assigned to the main site.",
+                        "example": "main"
+                      },
+                      "zoomPhoneCallingPlan": {
+                        "type": "string",
+                        "description": "The user's assigned [Zoom Phone calling plan number](https://marketplace.zoom.us/docs/api-reference/other-references/plans#zoom-phone-calling-plans). To remove all calling plans, set the value of `zoomPhoneCallingPlan` to -1. ",
+                        "example": "phone_calling_usca_monthly_unlimited"
+                      },
+                      "{customAttribute}": {
+                        "type": "string",
+                        "maxItems": 5,
+                        "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                        "example": "\"Custom attribute name\" : \"custom attribute value\""
+                      },
+                      "personalLinkName": {
+                        "type": "string",
+                        "description": "The user's customized [personal link](https://support.zoom.us/hc/en-us/articles/201362843-Personal-meeting-ID-PMI-and-personal-link#h_08f381ef-1e88-417c-b014-a2b9ad4abbda).",
+                        "example": "customLinkName"
+                      },
+                      "pronouns": {
+                        "type": "string",
+                        "description": "The user's pronouns.",
+                        "example": "They/Them/Their"
+                      },
+                      "zoomUnited": {
+                        "type": "string",
+                        "description": "The user's number of [Zoom United licenses](https://zoom.us/pricing/zoom-bundles).",
+                        "example": "16"
+                      }
+                    }
+                  },
+                  "emails": {
+                    "type": "object",
+                    "description": "The user's email information.",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "default": "work",
+                        "description": "The type of email address. This value defaults to `work`.",
+                        "example": "work"
+                      },
+                      "value": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "The user's email address.",
+                        "example": "jchill@example.com"
+                      },
+                      "primary": {
+                        "type": "boolean",
+                        "description": "Whether the email address is the user's primary email address.",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nUser updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The user's ID.",
+                      "example": "k&KdKr6TLWuxdDtk0hjSzL"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "The user's resource metadata.",
+                      "properties": {
+                        "resourceType": {
+                          "type": "string",
+                          "description": "The type of resource. The value is always `User` for the User resource type.",
+                          "example": "User"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "The resource's URI, in `https://api.zoom.us/scim2/Users/{userId}` format.",
+                          "example": "https://api.zoom.us/scim2/Users/k&KdKr6TLWuxdDtk0hjSzL"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "The resource version number.",
+                          "example": "1.0.0"
+                        }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "description": "A list of schemas.",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "name": {
+                      "type": "object",
+                      "description": "Information about the user's name.",
+                      "properties": {
+                        "givenName": {
+                          "type": "string",
+                          "description": "The user's first name.",
+                          "example": "Jill"
+                        },
+                        "familyName": {
+                          "type": "string",
+                          "description": "The user's last name.",
+                          "example": "Chill"
+                        }
+                      }
+                    },
+                    "emails": {
+                      "type": "array",
+                      "description": "The user's email information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The type of email address.",
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "The user's email address.",
+                            "example": "jchill@example.com"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the email address is the user's primary email address.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "description": "The user's display name.",
+                      "example": "Jill Chill"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "The user's email address.",
+                      "example": "jchill@example.com"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "description": "Whether the user is active.",
+                      "example": true
+                    },
+                    "userType": {
+                      "type": "string",
+                      "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                      "enum": [
+                        "Basic",
+                        "Licensed",
+                        "On-Prem"
+                      ],
+                      "example": "On-Prem"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "The user's job title.",
+                      "example": "Developer"
+                    },
+                    "locale": {
+                      "type": "string",
+                      "description": "The user's location.",
+                      "example": "San Jose"
+                    },
+                    "phoneNumbers": {
+                      "type": "array",
+                      "description": "A list of the user's assigned phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The phone number's label: \n* `mobile` \n* `office` \n* `home` \n* `fax` \n* `work` \n\nThis value defaults to `work`.",
+                            "enum": [
+                              "mobile",
+                              "office",
+                              "home",
+                              "fax",
+                              "work"
+                            ],
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The phone number.",
+                            "example": "+015550100"
+                          }
+                        }
+                      }
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "The user's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The role's display name.",
+                            "example": "Developer"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The role name.",
+                            "example": "Developer"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the role is the user's primary role.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The group's display name.",
+                            "example": "Developers"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "The type of group.",
+                            "example": "direct"
+                          },
+                          "primary": {
+                            "type": "string",
+                            "description": "Whether the group is the user's primary group.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                      "type": "object",
+                      "properties": {
+                        "{customAttribute}": {
+                          "type": "string",
+                          "maxItems": 5,
+                          "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                          "example": "\"Custom attribute name\" : \"custom attribute value\""
+                        },
+                        "department": {
+                          "type": "string",
+                          "description": "The user's department.",
+                          "example": "Development"
+                        },
+                        "organization": {
+                          "type": "string",
+                          "description": "The user's organization.",
+                          "example": "Example"
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:zoom:1.0": {
+                      "type": "object",
+                      "properties": {
+                        "{customAttribute}": {
+                          "type": "string",
+                          "maxItems": 5,
+                          "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                          "example": "\"Custom attribute name\" : \"custom attribute value\""
+                        },
+                        "personalLinkName": {
+                          "type": "string",
+                          "description": "The user's customized [personal link](https://support.zoom.us/hc/en-us/articles/201362843-Personal-meeting-ID-PMI-and-personal-link#h_08f381ef-1e88-417c-b014-a2b9ad4abbda).",
+                          "example": "user001"
+                        },
+                        "pronouns": {
+                          "type": "string",
+                          "description": "The user's pronouns.",
+                          "example": "They/Them/Their"
+                        },
+                        "zoomUnited": {
+                          "type": "string",
+                          "description": "The user's number of [Zoom United licenses](https://zoom.us/pricing/zoom-bundles).",
+                          "example": "16"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` \n* Account has not enabled Single Sign-On. \n* Request JSON is empty. \n* Zoom Room and admin users cannot be activated or deactivated. \n* The user is inactive. \n* Cannot update Room user to Free. \n* User type permission check failed. \n* Cannot change an admin user's email address. \n* This user is locked or inactive. \n* The email domain does not match the associated domain of the account. Contact Zoom Customer Support for help."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>\nCurrent login user does not have the \"User:Edit\" permission."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` \n* User does not exist. \n* User does not belong to this account. \n* The user \"{email}\" does not exist or does not belong to this account."
+          },
+          "409": {
+            "description": "**HTTP Status Code:** `409` \n* The Zoom United Plan is invalid. \n* The email \"{email}\" is already in use."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a user",
+        "description": "Use this API to delete a user. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userSCIM2Delete",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user's Zoom ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "k&KdKr6TLWuxdDtk0hjSzL"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` <br>\nUser deleted."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nAccount has not enabled Single Sign-On."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>Current login user does not have the \"User:Edit\" permission."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` \n* User not found. \n* User does not belong to this account."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Deactivate a user",
+        "description": "Use this API to activate or deactivate a user. \n\n **OAuth Scope:** `scim2`",
+        "operationId": "userADSCIM2Deactivate",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The user's Zoom ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "k&KdKr6TLWuxdDtk0hjSzL"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "schemas": {
+                    "type": "array",
+                    "description": "A list of schemas, in `urn:ietf:params:scim:api:messages:2.0:{operation}` format.",
+                    "items": {
+                      "type": "string",
+                      "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                    }
+                  },
+                  "Operations": {
+                    "type": "array",
+                    "description": "Operations information.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "op": {
+                          "type": "string",
+                          "description": "The operation name. This value must be `replace`.",
+                          "enum": [
+                            "replace"
+                          ],
+                          "example": "replace"
+                        },
+                        "value": {
+                          "type": "object",
+                          "description": "The operation's value information.",
+                          "properties": {
+                            "active": {
+                              "type": "boolean",
+                              "description": "Whether the user is active. Set this value to `false` to deactivate the user.",
+                              "example": false
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\nUser deactivated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The user's ID.",
+                      "example": "k&KdKr6TLWuxdDtk0hjSzL"
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "The user's resource metadata.",
+                      "properties": {
+                        "resourceType": {
+                          "type": "string",
+                          "description": "The type of resource. The value is always `User` for the User resource type.",
+                          "example": "User"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "The resource's URI, in `https://api.zoom.us/scim2/Users/{userId}` format.",
+                          "example": "https://api.zoom.us/scim2/Users/k&KdKr6TLWuxdDtk0hjSzL"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "The resource version number.",
+                          "example": "1.0.0"
+                        }
+                      }
+                    },
+                    "schemas": {
+                      "type": "array",
+                      "description": "A list of schemas.",
+                      "items": {
+                        "type": "string",
+                        "example": "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+                      }
+                    },
+                    "name": {
+                      "type": "object",
+                      "description": "Information about the user's name.",
+                      "properties": {
+                        "givenName": {
+                          "type": "string",
+                          "description": "The user's first name.",
+                          "example": "Jill"
+                        },
+                        "familyName": {
+                          "type": "string",
+                          "description": "The user's last name.",
+                          "example": "Chill"
+                        }
+                      }
+                    },
+                    "emails": {
+                      "type": "array",
+                      "description": "The user's email information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The type of email address.",
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "email",
+                            "description": "The user's email address.",
+                            "example": "jillchill@example.com"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the email address is the user's primary email address.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "description": "The user's display name.",
+                      "example": "JillChill"
+                    },
+                    "userName": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "The user's email address.",
+                      "example": "jchill@example.com"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "description": "Whether the user is active.",
+                      "example": false
+                    },
+                    "userType": {
+                      "type": "string",
+                      "description": "The type of user: \n* `Basic` \n* `Licensed` \n* `On-Prem`",
+                      "enum": [
+                        "Basic",
+                        "Licensed",
+                        "On-Prem"
+                      ],
+                      "example": "On-Prem"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "The user's job title.",
+                      "example": "Developer"
+                    },
+                    "locale": {
+                      "type": "string",
+                      "description": "The user's location.",
+                      "example": "San Jose"
+                    },
+                    "phoneNumbers": {
+                      "type": "array",
+                      "description": "A list of the user's assigned phone numbers.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "description": "The phone number's label: \n* `mobile` \n* `office` \n* `home` \n* `fax` \n* `work` \n\nThis value defaults to `work`.",
+                            "enum": [
+                              "mobile",
+                              "office",
+                              "home",
+                              "fax",
+                              "work"
+                            ],
+                            "example": "work"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The phone number.",
+                            "example": "+015550100"
+                          }
+                        }
+                      }
+                    },
+                    "roles": {
+                      "type": "array",
+                      "description": "The user's [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) information.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The role's display name.",
+                            "example": "Developer"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "The role name.",
+                            "example": "Developer"
+                          },
+                          "primary": {
+                            "type": "boolean",
+                            "description": "Whether the role is the user's primary role.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "display": {
+                            "type": "string",
+                            "description": "The group's display name.",
+                            "example": "Developers"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "The type of group.",
+                            "example": "direct"
+                          },
+                          "primary": {
+                            "type": "string",
+                            "description": "Whether the group is the user's primary group.",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+                      "type": "object",
+                      "properties": {
+                        "{customAttribute}": {
+                          "type": "string",
+                          "maxItems": 5,
+                          "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                          "example": "\"Custom attribute name\" : \"custom attribute value\""
+                        },
+                        "department": {
+                          "type": "string",
+                          "description": "The user's department.",
+                          "example": "Development"
+                        },
+                        "organization": {
+                          "type": "string",
+                          "description": "The user's organization.",
+                          "example": "Example"
+                        }
+                      }
+                    },
+                    "urn:ietf:params:scim:schemas:extension:zoom:1.0": {
+                      "type": "object",
+                      "properties": {
+                        "{customAttribute}": {
+                          "type": "string",
+                          "maxItems": 5,
+                          "description": "A custom attribute and its value. This field returns as the custom attribute's name. For example, `currentState` and the `California` value.",
+                          "example": "\"Custom attribute name\" : \"custom attribute value\""
+                        },
+                        "personalLinkName": {
+                          "type": "string",
+                          "description": "The user's customized [personal link](https://support.zoom.us/hc/en-us/articles/201362843-Personal-meeting-ID-PMI-and-personal-link#h_08f381ef-1e88-417c-b014-a2b9ad4abbda).",
+                          "example": "user001"
+                        },
+                        "pronouns": {
+                          "type": "string",
+                          "description": "The user's pronouns.",
+                          "example": "They/Them/Their"
+                        },
+                        "zoomUnited": {
+                          "type": "string",
+                          "description": "The user's number of [Zoom United licenses](https://zoom.us/pricing/zoom-bundles).",
+                          "example": "16"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` \n* Account has not enabled Single Sign-On. \n* Request JSON did not contain an invalid active field. \n* Zoom Room and admin users cannot be activated or deactivated. \n* The The user is inactive."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>\nThe current login user does not have the \"User:Edit\" permission."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "userId": {
+        "name": "userId",
+        "in": "path",
+        "description": "The user's Zoom ID.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "k&KdKr6TLWuxdDtk0hjSzL"
+        }
+      }
+    },
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "OAuth": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://zoom.us/oauth/authorize",
+            "tokenUrl": "https://zoom.us/oauth/token",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  }
+}

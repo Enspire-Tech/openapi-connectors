@@ -1,0 +1,501 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Zoom Chatbot API",
+    "description": "The Zoom Chatbot API allows developers to access information from Zoom. You can use this API to build private services or public applications on the [Zoom App Marketplace](http://marketplace.zoom.us). To learn how to get your credentials and create private/public applications, read our [JWT](/guides/auth/jwt) and [OAuth](/guides/auth/oauth) documentation. All endpoints are available via `https` and are located at `api.zoom.us/v2/`.\n\nFor instance you can list all users on an account via `https://api.zoom.us/v2/users/`.",
+    "termsOfService": "https://zoom.us/docs/en-us/zoom_api_license_and_tou.html",
+    "contact": {
+      "name": "Zoom Developers",
+      "url": "https://developer.zoom.us/"
+    },
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.zoom.us/v2"
+    }
+  ],
+  "security": [
+    {
+      "OAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Chatbot Messages",
+      "description": "Chatbot message operations."
+    }
+  ],
+  "paths": {
+    "/im/chat/messages": {
+      "post": {
+        "summary": "Send Chatbot messages",
+        "description": "Use this API to send messages from your Marketplace Chatbot app. \n\n **Scopes:** `imchat:bot` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` \n\n **Authorization Flow:** Client Credentials Flow \n\n To authorize, make a POST request to the `/oauth/token` endpoint with the `client_credentials` grant type. Use the `https://api.zoom.us/oauth/token?grant_type=client_credentials` endpoint for the request. \n\n You will need to send your Client ID and Secret as a Basic Base64-encoded authorization header (for example, `Basic base64Encode({client_id}:{client_secret}`). Then, use the received `access_token` value as a Bearer token when you make the GET `/im/chat/users/{user_id}/messages/{message_id}` request. \n\n For more information about authorizing Chatbots, read the Chatbot [**Installation and Authentication**](https://marketplace.zoom.us/docs/guides/chatbots/authorization) documentation.",
+        "operationId": "sendChatbot",
+        "tags": [
+          "Chatbot Messages"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "account_id",
+                  "content",
+                  "robot_jid",
+                  "to_jid"
+                ],
+                "type": "object",
+                "properties": {
+                  "robot_jid": {
+                    "type": "string",
+                    "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                    "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                  },
+                  "to_jid": {
+                    "type": "string",
+                    "description": "The JID of the group channel or user to whom the message was sent.",
+                    "example": "xghfd@shj.zoom.us"
+                  },
+                  "account_id": {
+                    "type": "string",
+                    "description": "The authorized account's account ID.",
+                    "example": "ABCDE12345"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "A JSON-format template that describes how the edited message should be displayed for the user. For more information, read our Chatbot [Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages) documentation."
+                  },
+                  "visible_to_user": {
+                    "type": "string",
+                    "description": "The user ID of the user who will receive Chatbot messages in the group channel. Only this user will see the Chatbot's messages.",
+                    "example": "FGHIJ67890@xmpp.zoom.us"
+                  },
+                  "user_jid": {
+                    "type": "string",
+                    "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                    "example": "jnrgfjp6w@xmpp.zoom.us"
+                  },
+                  "is_markdown_support": {
+                    "type": "boolean",
+                    "description": "Whether to apply the [Markdown parser to your Chatbot message](https://marketplace.zoom.us/docs/guides/chatbots/customizing-messages/message-with-markdown).",
+                    "example": true
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "account_id",
+                  "content",
+                  "robot_jid",
+                  "to_jid"
+                ],
+                "type": "object",
+                "properties": {
+                  "robot_jid": {
+                    "type": "string",
+                    "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                    "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                  },
+                  "to_jid": {
+                    "type": "string",
+                    "description": "The JID of the group channel or user to whom the message was sent.",
+                    "example": "xghfd@shj.zoom.us"
+                  },
+                  "account_id": {
+                    "type": "string",
+                    "description": "The authorized account's account ID.",
+                    "example": "ABCDE12345"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "A JSON-format template that describes how the edited message should be displayed for the user. For more information, read our Chatbot [Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages) documentation."
+                  },
+                  "visible_to_user": {
+                    "type": "string",
+                    "description": "The user ID of the user who will receive Chatbot messages in the group channel. Only this user will see the Chatbot's messages.",
+                    "example": "FGHIJ67890@xmpp.zoom.us"
+                  },
+                  "user_jid": {
+                    "type": "string",
+                    "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                    "example": "jnrgfjp6w@xmpp.zoom.us"
+                  },
+                  "is_markdown_support": {
+                    "type": "boolean",
+                    "description": "Whether to apply the [Markdown parser to your Chatbot message](https://marketplace.zoom.us/docs/guides/chatbots/customizing-messages/message-with-markdown).",
+                    "example": true
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\n Message sent."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `7001` <br>\n Invalid Request Body format."
+          },
+          "401": {
+            "description": "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `7010` <br>\n* Missing Authorization header. \n* Invalid Authorization token."
+          },
+          "403": {
+            "description": "**HTTP Status Code:** `403` <br>\n Forbidden \n\n **Error Code:** `7003` <br>\n No Chatbot can be found with the given robot_jid value. \n\n **Error Code:** `7004` <br>\n* Not authorized. \n* No channel or user can be found with the given to_jid value."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `7002` <br>\n Invalid robot_jid value specified in the Request Body."
+          }
+        },
+        "security": [
+          {
+            "ClientCredentials": []
+          }
+        ]
+      }
+    },
+    "/im/chat/messages/{message_id}": {
+      "put": {
+        "summary": "Edit a Chatbot message",
+        "description": "Use this API to edit a message [sent](/api-reference/chatbot/methods#operation/sendChatbot) by your Chatbot app. \n\n After sending a message via the [**Send Chatbot message**](/api-reference/chatbot/methods#operation/sendChatbot) API, you must store the `messageId` value returned in the API response in order to make edits to the associated message using this API. \n\n **Scope:** `imchat:bot` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` \n\n **Authorization Flow:** Client Credentials Flow \n\n To authorize, make a POST request to the `/oauth/token` endpoint with the `client_credentials` grant type. Use the `https://api.zoom.us/oauth/token?grant_type=client_credentials` endpoint for the request. \n\n You will need to send your Client ID and Secret as a Basic Base64-encoded authorization header (for example, `Basic base64Encode({client_id}:{client_secret}`). Then, use the received `access_token` value as a Bearer token when you make the GET `/im/chat/users/{user_id}/messages/{message_id}` request. \n\n For more information about authorizing Chatbots, read the Chatbot [**Installation and Authentication**](https://marketplace.zoom.us/docs/guides/chatbots/authorization) documentation.",
+        "operationId": "editChatbotMessage",
+        "tags": [
+          "Chatbot Messages"
+        ],
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "description": "The message ID. You can get this value from the [**Send Chatbot message**](/api-reference/chatbot/methods#operation/sendChatbot) API.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "201910tryyRFjM_main"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "account_id",
+                  "content",
+                  "robot_jid"
+                ],
+                "type": "object",
+                "properties": {
+                  "robot_jid": {
+                    "type": "string",
+                    "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                    "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                  },
+                  "account_id": {
+                    "type": "string",
+                    "description": "The account ID to which the message was sent. You can get this value from the [Chatbot request sent to your server](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).",
+                    "example": "ABCDE12345"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "A JSON-format template that describes how the edited message should be displayed for the user. For more information, read our Chatbot [Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages) documentation."
+                  },
+                  "user_jid": {
+                    "type": "string",
+                    "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                    "example": "jnrgfjp6w@xmpp.zoom.us"
+                  },
+                  "is_markdown_support": {
+                    "type": "boolean",
+                    "description": "Whether to apply the [Markdown parser to your Chatbot message](https://marketplace.zoom.us/docs/guides/chatbots/customizing-messages/message-with-markdown).",
+                    "example": true
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "account_id",
+                  "content",
+                  "robot_jid"
+                ],
+                "type": "object",
+                "properties": {
+                  "robot_jid": {
+                    "type": "string",
+                    "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                    "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                  },
+                  "account_id": {
+                    "type": "string",
+                    "description": "The account ID to which the message was sent. You can get this value from the [Chatbot request sent to your server](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).",
+                    "example": "ABCDE12345"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "A JSON-format template that describes how the edited message should be displayed for the user. For more information, read our Chatbot [Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages) documentation."
+                  },
+                  "user_jid": {
+                    "type": "string",
+                    "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                    "example": "jnrgfjp6w@xmpp.zoom.us"
+                  },
+                  "is_markdown_support": {
+                    "type": "boolean",
+                    "description": "Whether to apply the [Markdown parser to your Chatbot message](https://marketplace.zoom.us/docs/guides/chatbots/customizing-messages/message-with-markdown).",
+                    "example": true
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\n Message updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message_id": {
+                      "type": "string",
+                      "description": "The updated message's ID.",
+                      "example": "201910tryyRFjM_main"
+                    },
+                    "robot_jid": {
+                      "type": "string",
+                      "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                      "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                    },
+                    "sent_time": {
+                      "type": "string",
+                      "description": "The date and time at which the message was sent.",
+                      "example": "2019-10-17 01:40:24 +0000"
+                    },
+                    "to_jid": {
+                      "type": "string",
+                      "description": "The JID of the group channel or user to whom the message was sent.",
+                      "example": "xghfd@shj.zoom.us"
+                    },
+                    "user_jid": {
+                      "type": "string",
+                      "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                      "example": "jnrgfjp6w@xmpp.zoom.us"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message_id": {
+                      "type": "string",
+                      "description": "The message ID.",
+                      "example": "201910tryyRFjM_main"
+                    },
+                    "robot_jid": {
+                      "type": "string",
+                      "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                      "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                    },
+                    "sent_time": {
+                      "type": "string",
+                      "description": "The date and time at which the message was sent.",
+                      "example": "2019-10-17 01:40:24 +0000"
+                    },
+                    "to_jid": {
+                      "type": "string",
+                      "description": "The JID of the group channel or user to whom the message was sent.",
+                      "example": "xghfd@shj.zoom.us"
+                    },
+                    "user_jid": {
+                      "type": "string",
+                      "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                      "example": "jnrgfjp6w@xmpp.zoom.us"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `8001` <br>\n Invalid message_id value."
+          }
+        },
+        "security": [
+          {
+            "ClientCredentials": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Chatbot message",
+        "description": "Use this API to delete a message sent by your Chatbot app. \n\n **Scopes:** `imchat:bot` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` \n\n **Authorization Flow:** Client Credentials Flow \n\n To authorize, make a POST request to the `/oauth/token` endpoint with the `client_credentials` grant type. Use the `https://api.zoom.us/oauth/token?grant_type=client_credentials` endpoint for the request. \n\n You will need to send your Client ID and Secret as a Basic Base64-encoded authorization header (for example, `Basic base64Encode({client_id}:{client_secret}`). Then, use the received `access_token` value as a Bearer token when you make the GET `/im/chat/users/{user_id}/messages/{message_id}` request. \n\n For more information about authorizing Chatbots, read the Chatbot [**Installation and Authentication**](https://marketplace.zoom.us/docs/guides/chatbots/authorization) documentation.",
+        "operationId": "deleteAChatbotMessage",
+        "tags": [
+          "Chatbot Messages"
+        ],
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "description": "The message ID. You can get this value from the [**Send Chatbot message**](/api-reference/chatbot/methods#operation/sendChatbot) API.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "201910tryyRFjM_main"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": true,
+            "description": "The account ID to which the message was sent. You can get this value from the [Chatbot request sent to your server](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages#send-messages).",
+            "schema": {
+              "type": "string",
+              "example": "ABCDE12345"
+            }
+          },
+          {
+            "name": "user_jid",
+            "in": "query",
+            "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+            "schema": {
+              "type": "string",
+              "example": "jnrgfjp6w@xmpp.zoom.us"
+            }
+          },
+          {
+            "name": "robot_jid",
+            "in": "query",
+            "required": true,
+            "description": "The robot JID. This is created when enabling Chatbot features on your Marketplace app.",
+            "schema": {
+              "type": "string",
+              "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "**HTTP Status Code:** `200` <br>\n Message deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message_id": {
+                      "type": "string",
+                      "description": "The deleted message's ID.",
+                      "example": "201910tryyRFjM_main"
+                    },
+                    "robot_jid": {
+                      "type": "string",
+                      "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                      "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                    },
+                    "sent_time": {
+                      "type": "string",
+                      "description": "The date and time at which the message was deleted.",
+                      "example": "2019-10-17 01:40:24 +0000"
+                    },
+                    "to_jid": {
+                      "type": "string",
+                      "description": "The JID of the group channel or user to whom the message was sent.",
+                      "example": "xghfd@shj.zoom.us"
+                    },
+                    "user_jid": {
+                      "type": "string",
+                      "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                      "example": "jnrgfjp6w@xmpp.zoom.us"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message_id": {
+                      "type": "string",
+                      "description": "The deleted message's ID.",
+                      "example": "201910tryyRFjM_main"
+                    },
+                    "robot_jid": {
+                      "type": "string",
+                      "description": "The Bot JID. You can find this value in the **Feature** tab's **Chat Subscription** section of your Marketplace Chatbot app.",
+                      "example": "v1pky3tyBBB5pl8q@xmpp.zoom.us"
+                    },
+                    "sent_time": {
+                      "type": "string",
+                      "description": "The date and time at which the message was deleted.",
+                      "example": "2019-10-17 01:40:24 +0000"
+                    },
+                    "to_jid": {
+                      "type": "string",
+                      "description": "The JID of the group channel or user to whom the message was sent.",
+                      "example": "xghfd@shj.zoom.us"
+                    },
+                    "user_jid": {
+                      "type": "string",
+                      "description": "The JID of the user on whose behalf the message is being sent. This is used to prevent members of a channel from getting notifications that were set up by a user who has left the channel.",
+                      "example": "jnrgfjp6w@xmpp.zoom.us"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `8001` <br>\n Invalid message_id."
+          }
+        },
+        "security": [
+          {
+            "ClientCredentials": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OAuth": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://zoom.us/oauth/authorize",
+            "tokenUrl": "https://zoom.us/oauth/token",
+            "scopes": {}
+          }
+        }
+      },
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      },
+      "ClientCredentials": {
+        "type": "oauth2",
+        "description": "Client Credentials Flow for ChatBots",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://api.zoom.us/oauth/token",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  }
+}

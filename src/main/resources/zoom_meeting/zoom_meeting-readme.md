@@ -5,25 +5,25 @@ Documentation: https://marketplace.zoom.us/docs/api-reference/zoom-api/methods/#
 ## Prerequisites
 
 + Setup OAUTH2
-  + Create an app for a client id and client secret.
+  + Create an app to obtain a client id and client secret.
   + Enter your boomi callback url into the Zoom App: https://platform.boomi.com/account/[YOUR-TENANT-ID]/oauth2/callback
 
 ## Supported Operations
 **15 out of 296 endpoints are failing.**
 
 The following operations are **not** supported at this time:
-accountSettingsRegistration
-groupSettingsRegistration
-dashboardWebinarParticipantsQOSSummary
-getRoomProfiles
-getRoomDevices
-getRoomProfile
-listCollaborationDevices
-getHotDeskUsage
-createRoomDeviceProfile
-createReservation
-deleteRoomProfile
-deleteReservation
-accountSettingsRegistrationUpdate
-updateDeviceProfile
-updateReservation
+* accountSettingsRegistration
+* groupSettingsRegistration
+* dashboardWebinarParticipantsQOSSummary
+* getRoomProfiles
+* getRoomDevices
+* getRoomProfile
+* listCollaborationDevices
+* getHotDeskUsage
+* createRoomDeviceProfile
+* createReservation
+* deleteRoomProfile
+* deleteReservation
+* accountSettingsRegistrationUpdate
+* updateDeviceProfile
+* updateReservation

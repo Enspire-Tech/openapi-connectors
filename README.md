@@ -203,6 +203,18 @@ See below for outstanding issues.
 
 * [Zoom Marketplace]
 
+* [Zoom Phone]
+
+* [Zoom Contact Center]
+
+* [Zoom Video SDK]
+
+* [Zoom Chat]
+
+* [Zoom SCIM2]
+
+* [Zoom Chatbot]
+
 ---
 
 ## Summary of Issues

@@ -186,10 +186,7 @@ import com.boomi.connector.testutil.SimpleBrowseContext;
 import com.boomi.util.LogUtil;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -245,6 +242,7 @@ public class CustomBrowserTest {
         int errorCount = 0;
         int stackoverflowCount = 0;
         int otherErrorCount = 0;
+        ArrayList<String> erroringOperationIds = new ArrayList<String>();
 
         CustomConnector connector = new CustomConnector();
 
@@ -290,6 +288,7 @@ public class CustomBrowserTest {
                         }
                     } catch (StackOverflowError e) {
                         System.err.println("Stackoverflow error for operationId " + operationId);
+                        erroringOperationIds.add(operationId);
                         errorCount++;
                         stackoverflowCount++;
                         continue;
@@ -299,6 +298,7 @@ public class CustomBrowserTest {
                             "Browser failing for path: %s, http method: %s, operation id: %s \n error: %s",
                             path, httpMethod, operationId, e.getMessage());
                     System.err.println(message);
+                    erroringOperationIds.add(operationId);
                     errorCount++;
                     otherErrorCount++;
                 }
@@ -307,6 +307,11 @@ public class CustomBrowserTest {
         LOG.log(Level.INFO, errorCount + " out of " + endPointCount + " endpoints failed.");
         LOG.log(Level.INFO, stackoverflowCount + " of those are stackoverflow errors.");
         LOG.log(Level.INFO, otherErrorCount + " of those are other errors.");
+
+        System.out.println("List of erroring operation ids:");
+        for (String erroringOperationId : erroringOperationIds) {
+            System.out.println(erroringOperationId);
+        }
     }
 
 }

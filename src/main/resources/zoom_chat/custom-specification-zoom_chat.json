@@ -1,0 +1,3662 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "contact": {
+      "name": "Zoom Developers",
+      "url": "https://developer.zoom.us/"
+    },
+    "description": "The Zoom Chat API allows developers to access information from Zoom. You can use this API to build private services or public applications on the [Zoom App Marketplace](http://marketplace.zoom.us). To learn how to get your credentials and create private/public applications, read our [OAuth](https://marketplace.zoom.us/docs/docs/guides/auth/oauth) and [JWT](https://marketplace.zoom.us/docs/guides/auth/jwt) documentation. All endpoints are available via `https` and are located at `api.zoom.us/v2/`.",
+    "termsOfService": "https://zoom.us/docs/en-us/zoom_api_license_and_tou.html",
+    "title": "Zoom Chat API",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.zoom.us/v2"
+    }
+  ],
+  "paths": {
+    "/chat/channels/{channelId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of a channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nChannel deleted."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad request.<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to delete this user's channel.<br>\n**Error Code:** `5301`<br> Request to delete a channel failed."
+          }
+        },
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "Zoom chat [channels](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) allow users to communicate via chat in private or public groups. Use this API to delete a specific channel. \n\n**Scope:** `chat_channel:write`<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p><br>\n\n\n ",
+        "operationId": "deleteUserLevelChannel",
+        "summary": "Delete a channel"
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of a channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "The information about the [chat channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-). ",
+                  "properties": {
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "channel_settings": {
+                          "type": "object",
+                          "properties": {
+                            "allow_to_add_external_users": {
+                              "type": "integer",
+                              "description": "Whether external users can be added to the channel: \n* `0` — Chat channel members cannot be added to the channel. \n* `1` — Chat channel members can add external users to the channel. \n* `2` — Only members within your organization can add external users to the channel.",
+                              "enum": [
+                                0,
+                                1,
+                                2
+                              ],
+                              "example": 2
+                            },
+                            "new_members_can_see_previous_messages_files": {
+                              "type": "boolean",
+                              "description": "Whether new channel members can view messages and files previously posted in the channel.",
+                              "example": true
+                            },
+                            "posting_permissions": {
+                              "type": "integer",
+                              "description": "The channel members' posting permissions: \n* `1` — All chat channel members can post to the channel. \n* `2` — Only the admin can post to the channel. \n* `3` — Only the admin and certain members can post to the channel.",
+                              "enum": [
+                                1,
+                                2,
+                                3
+                              ],
+                              "example": 3
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "The channel's ID.",
+                          "example": "cabc1234567defghijkl01234"
+                        },
+                        "jid": {
+                          "type": "string",
+                          "description": "The [Jabber ID (JID)](https://en.wikipedia.org/wiki/JID_(Jabber)) used to access the account.",
+                          "example": "cabc1234567defghijkl01234@conference.xmpp.zoom.us"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "The channel name.",
+                          "example": "Happiness Channel"
+                        },
+                        "type": {
+                          "type": "integer",
+                          "description": "The channel's type: \n* `0` — An unknown channel type. \n* `1` — A private channel. Members must be invited to join this channel. \n* `2` — A private channel with members that belong to a Zoom account. All members of this channel are from the same organization and must be invited to join. \n* `3` — A public channel. Anyone can search for and join this channel. \n* `4` — An instant channel. This type of channel is created by adding members to a new chat. \n* `5` — A public channel. Anyone can join this channel and invite members from other Zoom accounts.",
+                          "enum": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                          ],
+                          "example": 2
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nChannel returned.<br>\n\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBad Request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to access this user's channel information."
+          },
+          "404": {
+            "description": "**Status Code:** `404`<br>\nNot found.<br>\n**Error Code:** `4130`<br>\nChannel does not exist: $channelId."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "Zoom chat [channels](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) allow users to communicate via chat in private or public groups. Use this API to get information about a specific channel. \n\n**Scope:** `chat_channel:read`\t<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#000000; padding:8px\"> <b>Note: </b> This API supports only <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth apps</a>. If you use an Account-Level OAuth Access token, you can only retrieve the channel information for the authorized user. You can't retrieve the channel information of other account users. Use the [**Get a channel**](/api-reference/chat/methods#operation/getChannel) API to retrieve the channel information of other account users.",
+        "operationId": "getUserLevelChannel",
+        "summary": "Get a channel"
+      },
+      "patch": {
+        "parameters": [
+          {
+            "description": "Channel Id.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**Status Code:** `204`\nChannel updated."
+          },
+          "400": {
+            "description": "**Status Code:** `400`<br>\nBad request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to update a channel for this user.<br>\n**Error Code:** `5301`<br>\nRequest to update a channel failed."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "Zoom chat channels allow users to communicate via chat in private or public channels. Use this API to update the name of a specific channel that you created. \n\n**Scope:** `chat_channel:write`\t<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p><br>\n\n",
+        "operationId": "updateUserLevelChannel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "A new name for the channel.",
+                    "type": "string",
+                    "example": "Developers Channel"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Update a channel"
+      }
+    },
+    "/chat/channels/{channelId}/members/me": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of a channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nLeft channel successfully."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad Request.<br>\n**Error Code:** `5301`<br> Request to leave the channel failed."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "If you're no longer interested in being a member of an existing channel, you can leave the channel at any time. Use this API to leave a specific channel. After leaving the channel, you can no longer access information from that channel.\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b>This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p><br>\n\n**Scope:** `chat_channel:write`<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "leaveChannel",
+        "summary": "Leave a channel"
+      },
+      "post": {
+        "parameters": [
+          {
+            "description": "Channel Id.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "added_at": {
+                      "description": "The date and time at which a user joined the channel.",
+                      "format": "date-time",
+                      "type": "string",
+                      "example": "2020-02-10T21:39:50Z"
+                    },
+                    "id": {
+                      "description": "Member Id of the user who joined the public channel.",
+                      "type": "string",
+                      "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `201`\nSuccessfully joined the channel."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad request.<br>\n**Error Code:** `5301`<br> Request to join the channel failed."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "A [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) can have one or more members. Use this API to join a channel that is open for anyone in the same organization to join. You cannot use this API to join private channels that only allow invited members to be a part of them.\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b>This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth apps</a>.</p><br>\n\n**Scope:** `chat_channel:write`<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "joinChannel",
+        "summary": "Join a channel"
+      }
+    },
+    "/chat/channels/{channelId}/members/{memberId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Unique Identifier of the Channel from where you would like to remove a member. This can be retrieved from the [**List user's channels**](/api-reference/chat/methods#operation/getChannels) API.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "Email address of the member whom you would like to be remove from the channel.",
+            "in": "path",
+            "name": "memberId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` **No Content**<br>\nMember removed.\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to remove channel members on this user's behalf.<br>\n**Error Code:** `5301`<br>\nUnable to remove channel member.\n\n"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": " A [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) can have one or many members. Use this API to remove a member from a chat channel.<br><br>\n **Scopes:** `chat_channel:write`<br>\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n \n <p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth apps</a>.</p><br>\n\n\n",
+        "operationId": "removeAUserLevelChannelMember",
+        "summary": "Remove a member"
+      }
+    },
+    "/chat/channels/{channelId}/members": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Members' user ids. Use commas (,) to separate a maximum of 20 ids",
+            "in": "query",
+            "name": "member_ids",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "zqmgs2tmspguoqcxyahsya,qB1V0HKFQrGODVhJmqUEQw"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` **No Content**<br>\nMembers removed.\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request<br>\n**Error Code:** `200`<br>\nNo permission to remove channel members.<br>\n**Error Code:** `5301`<br>\nUnable to remove channel member.<br>\n**Error Code:** `300`<br>\nYou can not remove yourself.<br>\n**Error Code:** `300`<br>\nThe maximum number of members that can be removed at a time is 20.\n\n"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": " A [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) can have one or many members. Use this API to batch remove multiple members from a chat channel.<br><br>\n **Scopes:** `chat_channel:write`<br>\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n \n <p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth apps</a>.</p><br>\n\n\n",
+        "operationId": "batchRemoveChannelMembers",
+        "summary": "Batch remove members from a channel"
+      }
+    },
+    "/chat/channels": {
+      "get": {
+        "summary": "List account's public channels",
+        "description": "Use this API to list public chat channels created by an account's users. \n\n **Note:** This API only supports account-level apps. The user calling this API must have a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management) that has the **View** or **Edit** permission for the **Chat Channels** feature. \n\n **Scopes:** `chat_channel:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "getAccountChannels",
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "parameters": [
+          {
+            "description": "The number of records returned per page in a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "maximum": 20,
+              "example": 10
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "channels": {
+                          "type": "array",
+                          "description": "Information about the chat channels.",
+                          "items": {
+                            "allOf": [
+                              {
+                                "$ref": "#/paths/~1chat~1channels~1%7BchannelId%7D/get/responses/200/content/application~1json/schema"
+                              }
+                            ]
+                          }
+                        },
+                        "next_page_token": {
+                          "type": "string",
+                          "description": "The next page token. The token used to paginate through large result sets and returns when the available results exceed the current page size. The expiration period for this token is 15 minutes.",
+                          "example": "qUEQqB1V0HVhJmwKFQrGOD"
+                        },
+                        "page_size": {
+                          "type": "integer",
+                          "description": "The number of records returned per page in a single API call.",
+                          "example": 10
+                        },
+                        "total_records": {
+                          "type": "integer",
+                          "description": "The total number of records found.",
+                          "example": 2
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ],
+                  "description": "Chat Channel List",
+                  "title": "Chat Channel List",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**Status Code**: `200` <br>\nAccount's public channels returned."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request \n\n**Error Code:** `300` <br>\nThe next page token is either invalid or has expired."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      }
+    },
+    "/chat/users/me/contacts": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The type of contact. The value can be one of the following:\n`company`: Contacts from the user's organization.\n`external`: External contacts. ",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "default": "company",
+              "type": "string",
+              "example": "company"
+            }
+          },
+          {
+            "description": "The number of records returned with a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "contacts": {
+                      "description": "The contacts object.",
+                      "items": {
+                        "properties": {
+                          "email": {
+                            "description": "Contact's email address.",
+                            "format": "email",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "first_name": {
+                            "description": "Contact's first name.",
+                            "type": "string",
+                            "example": "Jill"
+                          },
+                          "id": {
+                            "description": "Contact Id.",
+                            "type": "string",
+                            "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                          },
+                          "last_name": {
+                            "description": "Contact's last name.",
+                            "type": "string",
+                            "example": "Chill"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "type": "string",
+                      "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+                    },
+                    "page_size": {
+                      "description": "The number of records returned with a single API call.\nDefault value: 30.",
+                      "maximum": 100,
+                      "type": "integer",
+                      "example": 10
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>List of user's contacts returned."
+          },
+          "300": {
+            "description": "**Error Code:** `300`<br>\nThe next page token is invalid or has expired."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Contacts"
+        ],
+        "description": "A user under an organization's Zoom account has internal users listed under Company Contacts in the Zoom Client. A Zoom user can also add another Zoom user as a [contact](https://support.zoom.us/hc/en-us/articles/115004055706-Managing-Contacts). Call this API to list all the contacts of a Zoom user. Zoom contacts are categorized into \"company contacts\" and \"external contacts\". You must specify the contact type in the `type` query parameter. If you do not specify, by default, the type will be set as company contact.\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p><br>\n\n**Scope**: `chat_contact:read`<br>\n\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "getUserContacts",
+        "summary": "List user's contacts"
+      }
+    },
+    "/chat/users/me/contacts/{contactId}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The user's contact Id or email address. The contact can be either a company contact or an external contact.",
+            "in": "path",
+            "name": "contactId",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "format": "email",
+                  "type": "string",
+                  "example": "jchill@example.com"
+                },
+                {
+                  "type": "string",
+                  "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                }
+              ]
+            }
+          },
+          {
+            "description": "The presence status of the contact. \nInclude this query parameter with a value of `true` to get the presence status of the contact in the response.",
+            "in": "query",
+            "name": "query_presence_status",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "direct_numbers": {
+                      "description": "Direct number(s) assigned to the contact.",
+                      "items": {
+                        "type": "string",
+                        "example": "111111"
+                      },
+                      "type": "array"
+                    },
+                    "email": {
+                      "description": "Contact's email address.",
+                      "format": "email",
+                      "type": "string",
+                      "example": "jchill@example.com"
+                    },
+                    "extension_number": {
+                      "description": "Extension number of the contact.",
+                      "type": "string",
+                      "example": "31"
+                    },
+                    "first_name": {
+                      "description": "Contact's first name",
+                      "type": "string",
+                      "example": "Jill"
+                    },
+                    "id": {
+                      "description": "User ID of the contact.",
+                      "type": "string",
+                      "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                    },
+                    "last_name": {
+                      "description": "Contact's last name",
+                      "type": "string",
+                      "example": "Chill"
+                    },
+                    "phone_number": {
+                      "description": "Phone number of the contact.",
+                      "type": "string",
+                      "example": "5550100"
+                    },
+                    "phone_numbers": {
+                      "items": {
+                        "properties": {
+                          "code": {
+                            "description": "The phone number's country code. For example, for United States phone numbers, this will be a `+1` value.",
+                            "type": "string",
+                            "example": "+1"
+                          },
+                          "country": {
+                            "description": "The phone number's [country ID](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries). For example, if the phone number provided in the `number` field is a Brazil-based number, this will be the `BR` value.",
+                            "type": "string",
+                            "example": "US"
+                          },
+                          "label": {
+                            "description": "The phone number's label:\n* `Mobile`\n* `Office`\n* `Home`\n * `Fax`",
+                            "enum": [
+                              "Mobile",
+                              "Office",
+                              "Home",
+                              "Fax"
+                            ],
+                            "type": "string",
+                            "example": "Mobile"
+                          },
+                          "number": {
+                            "description": "The user's phone number.",
+                            "type": "string",
+                            "example": "5550100"
+                          },
+                          "verified": {
+                            "description": "Whether Zoom has verified the phone number.",
+                            "type": "boolean",
+                            "example": true
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "presence_status": {
+                      "description": "Contact's Presence Status in the Zoom Chat Client. The status can be one of the following: <br> `Do_Not_Disturb`<br> `Away`<br> `Available`<br> `Offline`",
+                      "enum": [
+                        "Do_Not_Disturb",
+                        "Away",
+                        "Available",
+                        "Offline"
+                      ],
+                      "type": "string",
+                      "example": "Available"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nContact information returned.\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBad request<br>\n**Error Code:** `5301`<br>\nRequest to get the presence status of the chat contact failed."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $contactId"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Contacts"
+        ],
+        "description": "A user under an organization's Zoom account has internal users listed under Company Contacts in the Zoom Client. A Zoom user can also add another Zoom user as a [contact](https://support.zoom.us/hc/en-us/articles/115004055706-Managing-Contacts). Call this API to get information on a specific contact of the Zoom user.\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b>This API only supports <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p><br>\n\n**Scope**: `chat_contact:read`<br>\n\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "getUserContact",
+        "summary": "Get user's contact details"
+      }
+    },
+    "/chat/users/{userId}/channels": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The number of records returned from a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "type": "integer",
+              "example": 20
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          },
+          {
+            "description": "Unique identifier of the user.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1chat~1channels/get/responses/200/content/application~1json/schema"
+                }
+              }
+            },
+            "description": "**Status Code**: `200` <br>\nUser's channels returned."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad request.<br>\n**Error Code**: `300`<br>\nThe next page token is either invalid or has expired."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "Use this API to list a user's chat channels. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nZoom chat [channels](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) allow users to communicate via chat in private or public groups.\n\n**Scopes:** `chat_channel:read` or `chat_channel:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> This API supports both user-managed apps and account-level apps. However, in an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, to list channels of another user in the same Zoom account, the user calling this API must have a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\">role</a> that has the <b>View</b> or <b>Edit</b> permission for the <b>Chat channels</b> feature.</p>",
+        "operationId": "getChannels",
+        "summary": "List user's channels"
+      },
+      "post": {
+        "parameters": [
+          {
+            "description": "Unique identifier of the user.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "description": "Channel ID: Unique Identifier of the Channel.",
+                      "type": "string",
+                      "example": "825c9e31f1064c73b394c5e4557d3447"
+                    },
+                    "jid": {
+                      "description": "Channel JID. ",
+                      "type": "string",
+                      "example": "825c9e31f1064c73b394c5e4557d3447@conference.xmpp.zoom.us"
+                    },
+                    "name": {
+                      "description": "Channel name.",
+                      "type": "string",
+                      "example": "Developers"
+                    },
+                    "type": {
+                      "description": "The type of channel: \n* `1` — A private channel. Members must be invited to join the channel. \n* `2` — A private channel with members that belong to a Zoom account. Members must be invited and must be from the same organization.\n* `3` — A public channel. Anyone can search for and join this channel. \n* `4` — An instant channel. This type of channels is created when members are added to a chat.",
+                      "type": "integer",
+                      "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                      ],
+                      "example": 2
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**Status Code**: `201` <br>\nChannel created."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nNot found.<br>\n**Error Code**: `5301`<br>\nRequest to create a channel failed."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $userId."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels"
+        ],
+        "description": "Use this API to create a channel for a user. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nZoom chat channels allow users to communicate via chat in private or public groups.\n\n**Scopes:** `chat_channel:write` or `chat_channel:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> This API supports both user-managed apps and account-level apps. However, in an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, to create a channel on behalf of another user in the same Zoom account, the user calling this API must have a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\">role</a> that has the <b>Edit</b> permission for the <b>Chat channels</b> feature.</p>",
+        "operationId": "createChannel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "members": {
+                    "description": "Member(s) to include in the channel. A max of 5 members can be added to the channel at once with this API.",
+                    "items": {
+                      "properties": {
+                        "email": {
+                          "description": "Member's email address.",
+                          "format": "email",
+                          "type": "string",
+                          "example": "jchill@example.com"
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "name": {
+                    "description": "Name of the channel.",
+                    "maxLength": 128,
+                    "type": "string",
+                    "example": "Developers"
+                  },
+                  "type": {
+                    "description": "Type of the channel. The value can be one of the following:<br>\n`1`: Private channel. In this type of channel, members must be invited to join a channel.<br>\n`2`: Private channel with members that belong to one Zoom account. Members in this channel should be invited and the members should be from the same organization.<br>\n`3`: Public channel. Anyone can search for this channel and join the channel.<br>\n`4`: New chat. This is an instant channel which can be created by adding members to a new chat. ",
+                    "enum": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ],
+                    "type": "integer",
+                    "example": 2
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Create a channel"
+      }
+    },
+    "/chat/users/{userId}/channels/{channelId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of a channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nChannel deleted."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad request.<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to delete this user's channel.<br>\n**Error Code:** `5301`<br> Request to delete a channel failed."
+          }
+        },
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": "Use this API to delete a specific channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nZoom chat [channels](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) allow users to communicate via chat in private or public groups.\n\n**Scopes:** `chat_channel:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> This API only supports a <b>user-managed</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>.</p>",
+        "operationId": "deleteChannel",
+        "summary": "Delete a channel"
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of a channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "Unique identifier of the user who is the owner of the channel.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1chat~1channels~1%7BchannelId%7D/get/responses/200/content/application~1json/schema"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nChannel returned.<br>\n\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBad Request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to access this user's channel information."
+          },
+          "404": {
+            "description": "**Status Code:** `404`<br>\nNot found.<br>\n**Error Code:** `4130`<br>\nChannel does not exist: $channelId."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": "Use this API to get information about a specific channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nZoom chat [channels](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) allow users to communicate via chat in private or public groups.\n\n**Scopes:** `chat_channel:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a>  that has the <b>View</b> or <b>Edit</b> permission for <b>Chat Channels</b>.</p>",
+        "operationId": "getChannel",
+        "summary": "Get a channel"
+      },
+      "patch": {
+        "parameters": [
+          {
+            "description": "Channel Id.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "Unique Identifier of the Zoom user who is the owner of the channel.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**Status Code:** `204`\nChannel updated."
+          },
+          "400": {
+            "description": "**Status Code:** `400`<br>\nBad request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to update a channel for this user.<br>\n**Error Code:** `5301`<br>\nRequest to update a channel failed."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": "Use this API to update the name of a specific channel created by a user. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nZoom chat channels allow users to communicate via chat in private or public channels.\n\n**Scopes:** `chat_channel:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a> that has the <b>Edit</b> permission for <b>Chat Channel</b>.</p>",
+        "operationId": "updateChannel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "description": "A new name for the channel.",
+                    "type": "string",
+                    "example": "Developers Chat"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Update a channel"
+      }
+    },
+    "/chat/users/{userId}/channels/{channelId}/members": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Channel Id.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "The number of records returned with a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer",
+              "example": 20
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          },
+          {
+            "description": "Unique identifier of the user who is the owner of this channel.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "members": {
+                      "description": "Members in a channel.",
+                      "items": {
+                        "properties": {
+                          "email": {
+                            "description": "Email address of the member.",
+                            "format": "email",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "first_name": {
+                            "description": "Member's first name.",
+                            "type": "string",
+                            "example": "Jill"
+                          },
+                          "id": {
+                            "description": "Member ID: Unique Identifier of the member.",
+                            "type": "string",
+                            "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                          },
+                          "last_name": {
+                            "description": "Member's last name.",
+                            "type": "string",
+                            "example": "Chill"
+                          },
+                          "name": {
+                            "description": "The user's display name.",
+                            "type": "string",
+                            "example": "Jill Chill"
+                          },
+                          "role": {
+                            "description": "The role of the member. The value can be one of these: `owner`, `admin`, `member`. ",
+                            "enum": [
+                              "admin",
+                              "owner",
+                              "member"
+                            ],
+                            "type": "string",
+                            "example": "admin"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "type": "string",
+                      "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+                    },
+                    "page_size": {
+                      "default": 30,
+                      "description": "The number of records returned with a single API call. ",
+                      "maximum": 100,
+                      "type": "integer",
+                      "example": 50
+                    },
+                    "total_records": {
+                      "description": "The total number of records returned.",
+                      "type": "integer",
+                      "example": 100
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nList of channel members returned.\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad Request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to view channel members on this user's behalf..<br>\n**Error Code:** `300`<br>\nThe next page token is either invalid or has expired."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": "Use this API to list all members of a channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Scopes:** `chat_channel:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an<b> account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a> that has the <b>View</b> or <b>Edit</b> permission for <b>Chat Channels</b>.</p>",
+        "operationId": "listChannelMembers",
+        "summary": "List channel members"
+      },
+      "post": {
+        "parameters": [
+          {
+            "description": "Channel ID: Unique Identifier of the channel.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "Unique identifier of the user who is the owner of this channel.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "added_at": {
+                      "description": "The date and time at which the member(s) are added to the channel.",
+                      "format": "date-time",
+                      "type": "string",
+                      "example": "2020-02-10T21:39:50Z"
+                    },
+                    "ids": {
+                      "description": "Member Ids of the members.",
+                      "items": {
+                        "type": "string",
+                        "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `201`<br>\nMembers invited to the channel."
+          },
+          "400": {
+            "description": "**Status Code:** `400`<br>\nBad request.<br>\n**Error Code:** `5301`<br>\nRequest to invite channel members failed.<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to invite channel members on this user's behalf."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": "Use this API to invite members that are in a user's contact list to a channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Scopes:** `chat_channel:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a> that has the <b>Edit</b> permission for <b>Chat Channels</b>.</p>",
+        "operationId": "inviteChannelMembers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "members": {
+                    "description": "Members of a channel. You can invite up to a max number of 5 members with a single API call.",
+                    "items": {
+                      "properties": {
+                        "email": {
+                          "description": "Email address of the member.",
+                          "format": "email",
+                          "type": "string",
+                          "example": "jchill@example.com"
+                        }
+                      },
+                      "required": [
+                        "email"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Invite channel members"
+      }
+    },
+    "/chat/users/{userId}/channels/{channelId}/members/{memberId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Unique Identifier of the Channel from where you would like to remove a member. This can be retrieved from the [**List user's channels**](/api-reference/chat/methods#operation/getChannels) API.",
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "Email address of the member whom you would like to be remove from the channel.",
+            "in": "path",
+            "name": "memberId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          },
+          {
+            "description": "Unique identifier of the channel owner.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` **No Content**<br>\nMember removed.\n\n\n"
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request<br>\n**Error Code:** `200`<br>\nUnauthorized request. You do not have permission to remove channel members on this user's behalf.<br>\n**Error Code:** `5301`<br>\nUnable to remove channel member.\n\n"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Channels (Account-level)"
+        ],
+        "description": " A [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) can have one or many members. Use this API to remove a member from a chat channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Scopes:** `chat_channel:write:admin`<br>\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` <br>\n \n \n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note: </b> For an<b> account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <b><a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\">role</a> that has Edit permission for Chat Channels</b>.</p>",
+        "operationId": "removeAChannelMember",
+        "summary": "Remove a member"
+      }
+    },
+    "/chat/users/{userId}/messages": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Query by the email address of a chat contact with whom the user communicated. The API only returns messages sent and/or received between the user and the queried contact. \n\n**Note:** \n* You must provide either the `to_contact` or the `to_channel` query parameter. \n* When you call the `search_key` and `search_type` query parameters, this query parameter is optional and **not** required.",
+            "in": "query",
+            "name": "to_contact",
+            "schema": {
+              "type": "string",
+              "example": "jchill@example.com"
+            }
+          },
+          {
+            "description": "Query by the channel ID of a channel in which the user had chat conversations. The API only returns messages sent and/or received by the user in the queried channel. \n\n**Note:** \n* You must provide either the `to_contact` or the `to_channel` query parameter. \n* When you call the `search_key` and `search_type` query parameters, this query parameter is optional and **not** required.",
+            "in": "query",
+            "name": "to_channel",
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "The query date from which to retrieve the chat messages. This value defaults to the current date. \n\n **Note:** If you do not provide the `date` or `from` query parameters, the API defaults to the `date` query parameter.",
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "format": "date",
+              "type": "string",
+              "example": "2020-03-01"
+            }
+          },
+          {
+            "description": "The query start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. This only supports a date range within the past six months. The `from` and `to` values must be within the same month, for example, `2022-06-01 - 2022-06-30` is valid, while `2022-06-01 - 2022-07-01` is invalid.\n\n **Note:** If you provide both the `date` and `from` query parameters, the API queries using the `from` and `to` values.",
+            "in": "query",
+            "name": "from",
+            "schema": {
+              "format": "date-time",
+              "type": "string",
+              "example": "2020-02-10T21:39:50Z"
+            }
+          },
+          {
+            "description": "The query end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` format. This value defaults to the current date.",
+            "in": "query",
+            "name": "to",
+            "schema": {
+              "format": "date-time",
+              "type": "string",
+              "example": "2020-02-15T12:00:00Z"
+            }
+          },
+          {
+            "description": "The number of records returned with a single API call. ",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          },
+          {
+            "description": "**Optional** <br>\nSet the value of this field to `true` to include edited and deleted messages in the response.",
+            "in": "query",
+            "name": "include_deleted_and_edited_message",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "description": "The type of search: \n* `message` — Search messages. \n* `file` — Search files. \n\n**Note:** \n* If you use this query parameter, you must also include a `search_key` query parameter value. \n* The `to_contact` and the `to_channel` query parameters are **not** required when you query this parameter. If you do not call them, the API returns **all** contact and channel messages that match the `search_type` query. \n* If you query this parameter, you **cannot** also query the `include_deleted_and_edited_message` parameter. This query parameter does not support the return of deleted or updated messages.",
+            "in": "query",
+            "name": "search_type",
+            "schema": {
+              "enum": [
+                "message",
+                "file"
+              ],
+              "type": "string",
+              "example": "message"
+            }
+          },
+          {
+            "description": "The messages or files query string, up to 256 characters. \n\n**Note:** \n* If you use this query parameter, you must also include a `search_type` query parameter value. \n* The `to_contact` and the `to_channel` query parameters are **not** required when you query this parameter. If you do not call them, the API returns **all** contact and channel messages that match the `search_key` query. \n* If you query this parameter, you **cannot** also query the `include_deleted_and_edited_message` parameter. This query parameter does not support the return of deleted or updated messages.",
+            "in": "query",
+            "name": "search_key",
+            "schema": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string",
+              "example": "hello"
+            }
+          },
+          {
+            "description": "This parameter is used to exclude returning all child messages in a chat, leaving only the parent messages.",
+            "in": "query",
+            "name": "exclude_child_message",
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Chat message object.",
+                  "properties": {
+                    "date": {
+                      "description": "The queried `date` value.",
+                      "format": "date",
+                      "type": "string",
+                      "example": "2020-03-01"
+                    },
+                    "from": {
+                      "description": "The queried `from` value. The API only returns this value if you call the `from` query parameter.",
+                      "format": "date-time",
+                      "type": "string",
+                      "example": "2020-02-10T21:39:50Z"
+                    },
+                    "messages": {
+                      "description": "Information about the received messages and files.",
+                      "items": {
+                        "properties": {
+                          "bot_message": {
+                            "description": "The Chatbot's message, in JSON format. For more information, read the [Chatbots: Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages) documentation.",
+                            "type": "object"
+                          },
+                          "date_time": {
+                            "description": "The date-time at which the message was sent.",
+                            "type": "string",
+                            "example": "2020-02-10T21:39:50Z"
+                          },
+                          "files": {
+                            "type": "array",
+                            "description": "Information about all the chat files (if there are multiple files).",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "download_url": {
+                                  "type": "string",
+                                  "description": "The chat file's download URL.",
+                                  "example": "https://zoom.us/file/download/xBvggqyjQUal6TecwMlYwQ?filename=example.jpg&jwt=eyJhbGciOiJIUzI1NiJ9.eyJkaWciOiI3Yzg5YzBhYjIzYmZmMjdjNzE3NTQ4YzdjMTc0Njk3MWYzYjNmNjFjMzU5OTliNjE1ZjdjMWJmMzc5YTJiZThlIiwiYXVkIjoiZmlsZSIsImlzcyI6ImNyb3NzZmlsZSIsImV4cCI6MTY0ODI2NDY5N30.2fQxw3F1cEhvFJmnE2zPOdkHnPeZUktv_P0M--e-Tg8"
+                                },
+                                "file_id": {
+                                  "type": "string",
+                                  "description": "The chat file's unique ID.",
+                                  "example": "xBvggqyjQUal6TecwMlYwQ"
+                                },
+                                "file_name": {
+                                  "type": "string",
+                                  "description": "The chat file's name and file extension.",
+                                  "example": "example.jpg"
+                                },
+                                "file_size": {
+                                  "type": "integer",
+                                  "description": "The chat file's size, in bytes.",
+                                  "example": 3966
+                                }
+                              }
+                            }
+                          },
+                          "download_url": {
+                            "type": "string",
+                            "description": "The first file's download URL.",
+                            "example": "https://zoom.us/file/download/xBvggqyjQUal6TecwMlYwQ?filename=example.jpg&jwt=eyJhbGciOiJIUzI1NiJ9.eyJkaWciOiI3Yzg5YzBhYjIzYmZmMjdjNzE3NTQ4YzdjMTc0Njk3MWYzYjNmNjFjMzU5OTliNjE1ZjdjMWJmMzc5YTJiZThlIiwiYXVkIjoiZmlsZSIsImlzcyI6ImNyb3NzZmlsZSIsImV4cCI6MTY0ODI2NDY5N30.2fQxw3F1cEhvFJmnE2zPOdkHnPeZUktv_P0M--e-Tg8"
+                          },
+                          "file_id": {
+                            "type": "string",
+                            "description": "The first file's unique ID.",
+                            "example": "xBvggqyjQUal6TecwMlYwQ"
+                          },
+                          "file_name": {
+                            "type": "string",
+                            "description": "The first file's name.",
+                            "example": "example.jpg"
+                          },
+                          "file_size": {
+                            "type": "integer",
+                            "description": "The first file's size, in bytes.",
+                            "example": 3966
+                          },
+                          "id": {
+                            "description": "Message ID: Unique Identifier of the message.",
+                            "type": "string",
+                            "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+                          },
+                          "message": {
+                            "description": "The message content.",
+                            "type": "string",
+                            "example": "hello world!"
+                          },
+                          "reply_main_message_id": {
+                            "description": "Unique identifier of a reply. This field will only be returned if the message is a reply message.",
+                            "type": "string",
+                            "example": "{27ED2949-6457-417C-83EA-72515DAF00BD}"
+                          },
+                          "reply_main_message_timestamp": {
+                            "description": "Timestamp of when the reply message was sent. This field will only be returned if the message is a reply message.\n\nThe value of this field will be in **long** format(int64). ",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1646640346767
+                          },
+                          "sender": {
+                            "description": "The email address of the sender of the message.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "status": {
+                            "description": "This field indicates whether a message is an original message(unedited), an edited message or a deleted message.\n\nThis field is only returned if you set the value of `for include_deleted_and_edited_message` query parameter to `true`.",
+                            "enum": [
+                              "Deleted",
+                              "Edited",
+                              "Normal"
+                            ],
+                            "type": "string",
+                            "example": "Edited"
+                          },
+                          "timestamp": {
+                            "description": "The timestamp of the message in microseconds.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1581370790388
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.\n",
+                      "type": "string",
+                      "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+                    },
+                    "page_size": {
+                      "default": 10,
+                      "description": "The number of records returned with a single API call.",
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "to": {
+                      "description": "The queried `to` date. The API only returns this value if you call the `to` query parameter.",
+                      "format": "date-time",
+                      "type": "string",
+                      "example": "2020-04-01T21:39:50Z"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:**`200`<br>\nList of chat messages returned."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br> Bad request.<br>\n**Error Code:** `200`<br>Unauthorized request. You do not have permission to access this user's chat messages.<br>\n**Error Code:** `300` <br>The next page token is invalid or expired.<br>\n**Error Code:** `300` <br>Must provide either contact or channel parameter.<br>\n**Error Code:** `300` <br>Only provide past chat messages in recent 6 months.<br>\n"
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Messages"
+        ],
+        "description": "Use this API to search chat messages and/or shared files between a user and an individual contact or a chat channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter. \n\n <p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\">role</a> that has the <b>View</b> or <b>Edit</b> permission for <b>Chat Messages</b>.</p> \n\n**Scopes:** `chat_message:read`, `chat_message:read:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "getChatMessages",
+        "summary": "List user's chat messages"
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "description": "Message ID: Unique Identifier of the message.",
+                      "type": "string",
+                      "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**Status Code:** `201`<br>\nMessage sent."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBad request.<br>\n**Error Code:** `5301`<br>\nMessage sending failed.<br>\n**Error Code:** `5402`<br>\nThis only supports replies to a main message.<br>\n**Error Code:** `5403`<br>\nAccount settings do not allow files to be sent."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Messages"
+        ],
+        "description": "Send chat messages on Zoom to either an individual user who is in your contact list or to a [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) of which you are a member. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nTo send a message to a contact, provide the contact's email address in the `to_contact` field. To send a message to a channel, provide the channel's ID in `to_channel` parameter\n\n**Scopes:** `chat_message:write`, `chat_message:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n <p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a> that has the <b>Edit</b> permission for <b>Chat Messages</b>.</p>",
+        "operationId": "sendaChatMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "at_items": {
+                    "description": "[Chat mentions](https://support.zoom.us/hc/en-us/articles/360037567431-Using-chat-mentions-and-slash-commands) object. Use this object to include mentions in the message that will be sent to  a channel. ",
+                    "items": {
+                      "properties": {
+                        "at_contact": {
+                          "description": "This field is required if the value of `at_type` field is set to 1. \n\nEmail address of the contact. \n\n",
+                          "type": "string",
+                          "example": "jchill@example.com"
+                        },
+                        "at_type": {
+                          "description": "Type of mention. You can use one of the following values:<br>\n* `1`: Mention a contact. \n\n* `2`: Mention \"all\" to notify everyone in the channel.",
+                          "enum": [
+                            1,
+                            2
+                          ],
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "end_position": {
+                          "description": "End position of the mention.\n\nExample message: \"@Shrijana How are you?\"\nIn this case, the end position of the mention \"@Shrijana\" is 8. Hence, the value of this field will be 8.",
+                          "type": "integer",
+                          "example": 8
+                        },
+                        "start_position": {
+                          "description": "Start position of the mention(\"@\") in the message string. \n\nFor example if you want to include the mention at the beginning of the message, the value for this field will be 0. \n\nExample message: \"@Shrijana How are you?\"\n\n",
+                          "type": "integer",
+                          "example": 0
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "rich_text": {
+                    "description": "[Rich text formatting](https://support.zoom.us/hc/en-us/articles/115004789183-Replying-to-and-managing-chat-messages) object. Use this object to include rich text in the message that will be sent. Use `\\n` as newline char.  ",
+                    "items": {
+                      "properties": {
+                        "start_position": {
+                          "type": "integer",
+                          "description": "Start position of the rich text in the message string. \n\nFor example if you want to bold the first character at the beginning of the message, the value for this field will be 0. \n\nExample message: \"Hello\"",
+                          "example": 0
+                        },
+                        "end_position": {
+                          "type": "integer",
+                          "description": "End position of the rich text.\n\nExample message: \"Hello\"\nIn this case, we only want to bold the first character and its end position is 1. Hence, the value of this field will be 1.",
+                          "example": 1
+                        },
+                        "format_type": {
+                          "type": "string",
+                          "description": "Type of rich text, There is some special logic which is the same as on the Zoom client. \n\n1. `AddLink`'s position can not cross multi lines. \n\n2. A `BulletedList` will clear the formatting of a `NumberedList`, `Quote`, or `LeftIndent` after it. \n\n3. Likewise, a `NumberedList` will clear the formatting of a `BulletedList`, `Quote`, or `LeftIndent` after it. \n\n4. Only `AddLink`, `NumberedList` and `BulletedList` can apply to a message which already applied a `Quote`.  \n\n5. A `Quote` will clear the formatting of all styles after it except `AddLink`, `NumberedList`, `BulletedList`, or `italic`. \n\n6. An `AddLink` will clear the formatting of `BackgroundColor`, `FontColor`, or `Underline` after it.  \n\n7. `BackgroundColor`, `FontColor` and `Underline` can not apply to a message which already applied `AddLink`. \n\n8. `BulletedList`, `NumberedList`, `LeftIndent`, `Paragraph`, and `Quote` will automatically expand to apply to the whole line.",
+                          "enum": [
+                            "bold",
+                            "italic",
+                            "Strikethrough",
+                            "BulletedList",
+                            "NumberedList",
+                            "Underline",
+                            "FontSize",
+                            "FontColor",
+                            "BackgroundColor",
+                            "LeftIndent",
+                            "Paragraph",
+                            "Quote",
+                            "AddLink"
+                          ],
+                          "example": "Paragraph"
+                        },
+                        "format_attr": {
+                          "type": "string",
+                          "description": "This field is required if the value of the `format_type` field is listed below:\n\n1.`FontSize` value: `s` for small, `m` for medium, or `l` for large font size. \n\n2.`FontColor` and `BackgroundColor` value: only supports RGB value. For example: `FFC0CB` \n\n3.`LeftIndent` value: a positive pixel length.  \n\n4.`Paragraph` value: `h1` for Heading 1, `h2` for Heading 2, or `h3` for Heading 3. \n\n5.`AddLink` value: must be a valid URL, with an `http` or `https` prefix. For example: `https://example.com`",
+                          "example": "h1"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "message": {
+                    "description": "The message to be sent.",
+                    "maxLength": 1024,
+                    "type": "string",
+                    "example": "Hello"
+                  },
+                  "file_ids": {
+                    "type": "array",
+                    "maxItems": 6,
+                    "description": "A list of the file IDs to send. This field only accepts a maximum of six file IDs.",
+                    "items": {
+                      "type": "string",
+                      "example": "M87v-bbmRGKCtl8nGNggvA"
+                    }
+                  },
+                  "reply_main_message_id": {
+                    "description": "The reply message's ID. This field only returns if the message is a reply message.",
+                    "type": "string",
+                    "example": "{27ED2949-6457-417C-83EA-72515DAF00BD}"
+                  },
+                  "to_channel": {
+                    "description": "The Channel Id of the channel where you would like to send a message.",
+                    "type": "string",
+                    "example": "825c9e31f1064c73b394c5e4557d3447"
+                  },
+                  "to_contact": {
+                    "description": "The email address of the contact to whom you would like to send the message.",
+                    "type": "string",
+                    "example": "jchill@example.com"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Send a chat message"
+      }
+    },
+    "/chat/users/{userId}/messages/{messageId}": {
+      "delete": {
+        "summary": "Delete a message",
+        "description": "Use this API to delete a chat message previously sent to a contact or a channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter. \n\n For an [account-level OAuth app](https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app), this API can only be used on behalf of a user who is assigned with a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management) that has the **Edit** permission for **Chat Messages**. \n\n **Scopes:** `chat_message:write`, `chat_message:write:admin` <br >**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "deleteChatMessage",
+        "tags": [
+          "Chat Messages"
+        ],
+        "parameters": [
+          {
+            "description": "The user ID or email address of a chat contact to whom the message was sent. You must provide this parameter or the `to_channel` parameter.",
+            "in": "query",
+            "name": "to_contact",
+            "schema": {
+              "oneOf": [
+                {
+                  "format": "email",
+                  "type": "string",
+                  "example": "jchill@example.com"
+                },
+                {
+                  "type": "string",
+                  "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                }
+              ]
+            }
+          },
+          {
+            "description": "The channel ID where the message was sent. You must provide this parameter or the `to_channel` parameter.",
+            "in": "query",
+            "name": "to_channel",
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204` <br>\nMessage deleted."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request \n\n**Error Code:** `200` \n* The contact or the channel parameter provided is invalid. \n* Only the sender of this message can make updates. \n\n**Error Code:** `300` \n* Channel does not exist: $messageId \n* You must provide the \"to_contact\" or the \"to_channel\" query parameter."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n**Error Code**: `1001` <br>\nUser does not exist: $to_contact \n\n**Error Code**: `4130` <br>\nChannel does not exist: $to_channel"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get a message",
+        "description": "Get a chat message previously sent to a contact or a channel. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\nYou must provide one of the following query parameters:<br>\n* `to_contact` — The email address of the Zoom contact to whom you sent the message.\n* `to_channel` — The ID of the Zoom channel where you sent the message.\n\n**Scopes:** `chat_message:read`, `chat_message:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, you can only use this API for a user assigned <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\">the <b>Edit</b> permission for the <b>Chat message</b> role setting</a>.</p>",
+        "operationId": "getChatMessage",
+        "tags": [
+          "Chat Messages"
+        ],
+        "parameters": [
+          {
+            "description": "The user ID or email address of a chat contact to whom the message was sent. You must provide this parameter or the `to_channel` parameter.",
+            "in": "query",
+            "name": "to_contact",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "email",
+                  "example": "jchill@example.com"
+                },
+                {
+                  "type": "string",
+                  "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                }
+              ]
+            }
+          },
+          {
+            "description": "The channel ID where the message was sent. You must provide this parameter or the `to_channel` parameter.",
+            "in": "query",
+            "name": "to_channel",
+            "schema": {
+              "type": "string",
+              "example": "cd102f7602c6428db0a273e632eb020B"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Information about the chat message.",
+                  "properties": {
+                    "bot_message": {
+                      "type": "object",
+                      "description": "The Chatbot's message, in JSON format. For more information, read the [Chatbots: Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages) documentation."
+                    },
+                    "date_time": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "The date and time at which the message was sent.",
+                      "example": "2020-02-10T21:39:50Z"
+                    },
+                    "download_url": {
+                      "type": "string",
+                      "description": "The file's download URL.",
+                      "example": "https://example.com/file/download/xt0aNj_DRtqRn041pIfpSQ?filename=Screenshot%202022-03-01%20at%20144337.png&jwt=eyJhbGciOiJIUzI1NiJ9.eyJkaWciOiJkOTllM2QwMjRjNmFiODNiMTNlNjVjYzM3NjJlYjc4ODMwMDE4YTNjNzNiNjc3ZWE3MzNlZDEzMTgxMTE3MzNkIiwiaXNzIjoiY3Jvc3NmaWxlIiwiYXVkIjoiZmlsZSIsImV4cCI6MTY0NjIwMzQ4MX0.7SF4L-xY-mqXgRD-NCzJOIu5nkuy33eKksif2m75Y38"
+                    },
+                    "file_id": {
+                      "type": "string",
+                      "description": "The file's ID.",
+                      "example": "XDCDSJNVCDS"
+                    },
+                    "file_name": {
+                      "type": "string",
+                      "description": "The file's name.",
+                      "example": "Screenshot 2022-03-01 at 144337.png"
+                    },
+                    "file_size": {
+                      "type": "integer",
+                      "description": "The file size.",
+                      "example": 89
+                    },
+                    "files": {
+                      "type": "array",
+                      "description": "Information about the chat file.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "download_url": {
+                            "type": "string",
+                            "description": "The chat file's download URL.",
+                            "example": "https://zoom.us/file/download/xBvggqyjQUal6TecwMlYwQ?filename=example.jpg&jwt=eyJhbGciOiJIUzI1NiJ9.eyJkaWciOiI3Yzg5YzBhYjIzYmZmMjdjNzE3NTQ4YzdjMTc0Njk3MWYzYjNmNjFjMzU5OTliNjE1ZjdjMWJmMzc5YTJiZThlIiwiYXVkIjoiZmlsZSIsImlzcyI6ImNyb3NzZmlsZSIsImV4cCI6MTY0ODI2NDY5N30.2fQxw3F1cEhvFJmnE2zPOdkHnPeZUktv_P0M--e-Tg8"
+                          },
+                          "file_id": {
+                            "type": "string",
+                            "description": "The chat file's unique ID.",
+                            "example": "xBvggqyjQUal6TecwMlYwQ"
+                          },
+                          "file_name": {
+                            "type": "string",
+                            "description": "The chat file's name and file extension.",
+                            "example": "example.jpg"
+                          },
+                          "file_size": {
+                            "type": "integer",
+                            "description": "The chat file's size, in bytes.",
+                            "example": 3966
+                          }
+                        }
+                      }
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "The message ID.",
+                      "example": "6dfgdfgdg444447b0egga"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "The message content.",
+                      "example": "Hello."
+                    },
+                    "reactions": {
+                      "type": "array",
+                      "description": "A list of emoji reactions.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "emoji": {
+                            "type": "string",
+                            "description": "The emoji's unicode value, in `UTF-32` format.",
+                            "example": "U+1F600"
+                          },
+                          "total_count": {
+                            "type": "integer",
+                            "description": "The emoji's total usage count.",
+                            "example": 1
+                          },
+                          "user_ids": {
+                            "type": "array",
+                            "description": "A list of user IDs that replied to this message with this emoji",
+                            "items": {
+                              "type": "string",
+                              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "reply_main_message_id": {
+                      "type": "string",
+                      "description": "The reply message's unique ID. The API only returns this value if the message is a reply message.",
+                      "example": "DE159sdhmf---dasfC7EBFE73"
+                    },
+                    "reply_main_message_timestamp": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The timestamp at which the reply message was sent. This field will only be returned if the message is a reply message.",
+                      "example": 1581370790388
+                    },
+                    "sender": {
+                      "type": "string",
+                      "description": "The message sender's email address.",
+                      "example": "jchill@example.com"
+                    },
+                    "timestamp": {
+                      "type": "integer",
+                      "format": "int64",
+                      "description": "The message's timestamp.",
+                      "example": 1581370790388
+                    }
+                  }
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `204` <br>\n Message successfully returned."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\n Bad Request \n\n**Error Code:** `200` \n* The provided \"to_contact\" or \"to_channel\" parameter is invalid. \n* Only the message's sender can get this message. \n\n**Error Code:** `300` \n* Channel does not exist: $messageId \n* Must provide either \"contact\" or \"channel\" parameter."
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404` <br>\n Not Found \n\n**Error Code**: `1001` <br>\nUser does not exist: $to_contact \n\n**Error Code**: `4130` <br>\nChannel does not exist: $to_channel"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "description": "Message ID: Unique Identifier of the message.",
+            "in": "path",
+            "name": "messageId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nMessage updated successfully."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBar request<br>\n**Error Code:** `200`<br>\nOnly the sender of this message can make updates.<br>\n**Error Code:** `300`<br>\nMessage does not exist: $messageId <br> Must provide either contact or channel parameter.\n"
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Messages"
+        ],
+        "description": "Use this API to edit a chat message that you previously sent to either a contact or a channel in Zoom by providing the ID of the message as the value of the `messageId` parameter. You can get the ID from the **List User's Chat Messages** API. Additionally, as a query parameter, you must provide either the contact's **email address** of the contact or the **Channel ID** of the channel where the message was sent.\n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n<p style=\"background-color:#e1f5fe; color:#01579b; padding:8px\"> <b>Note:</b> For an <b>account-level</b> <a href=\"https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app\">OAuth app</a>, this API can only be used on behalf of a user who is assigned with a <a href=\"https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.\"> role</a> that has the <b>Edit</b> permission for <b>Chat Messages</b>.</p>\n\n**Scope:** `chat_message:write`,`chat_message:write:admin`\t<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "editMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "message": {
+                    "description": "The edited message.",
+                    "type": "string",
+                    "example": "Hello there."
+                  },
+                  "to_channel": {
+                    "description": "The Channel ID of the channel where you sent the message.<br>You must provide either `to_contact` or `to_channel` parameter in the API request.\n Channel ID can be retrieved from List User's Channels API. ",
+                    "type": "string",
+                    "example": "825c9e31f1064c73b394c5e4557d3447"
+                  },
+                  "to_contact": {
+                    "description": "The email address of the contact to whom the message was sent.<br>\nYou must provide either `to_contact` or `to_channel` parameter in the API request.",
+                    "type": "string",
+                    "example": "jchill@example.com"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Update a message"
+      }
+    },
+    "/chat/users/{userId}/messages/{messageId}/emoji_reactions": {
+      "patch": {
+        "parameters": [
+          {
+            "description": "The user's unique ID.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          },
+          {
+            "description": "The message's unique ID.",
+            "in": "path",
+            "name": "messageId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nMessage reacted successfully."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBad request<br>\n**Error Code:** `300`<br>\nMessage does not exist: $messageId <br> Must provide either contact or channel parameter.\n"
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Messages"
+        ],
+        "description": "Use this API to react (add or remove) to a chat message with an emoji.\n\nFor an **account-level** [OAuth app](https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app), this API can only be used on behalf of a user who is assigned with a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.) that has the **Edit** permission for **Chat Messages**.\n\n**Scopes:** `chat_message:write`, `chat_message:write:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "reactMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "action": {
+                    "description": "The action to perform with the message:\n* `add` — Add an emoji reaction.\n* `remove` — Remove an emoji reaction.",
+                    "enum": [
+                      "add",
+                      "remove"
+                    ],
+                    "type": "string",
+                    "example": "remove"
+                  },
+                  "emoji": {
+                    "description": "The emoji's unicode value, in `UTF-32` format. For more information, read the [Emojipedia](https://emojipedia.org/emoji-modifier-sequence/) documentation.",
+                    "type": "string",
+                    "example": "U+1F600"
+                  },
+                  "to_channel": {
+                    "description": "The channel's ID where you sent the message. You must provide either the `to_contact` or the `to_channel` parameter in the API request.\n\nTo get a channel's ID, use the [**List user's channels**](/api-reference/chat/methods#operation/getChannels) API.",
+                    "type": "string",
+                    "example": "825c9e31f1064c73b394c5e4557d3447"
+                  },
+                  "to_contact": {
+                    "description": "The email address of the contact to whom the message was sent. You must provide either the `to_contact` or the `to_channel` parameter in the API request.\n\nTo get a channel's ID, use the [**List user's channels**](/api-reference/chat/methods#operation/getChannels) API.",
+                    "type": "string",
+                    "example": "jchill@example.com"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "React to a chat message"
+      }
+    },
+    "/chat/users/{userId}/messages/{messageId}/status": {
+      "patch": {
+        "parameters": [
+          {
+            "description": "Unique identifier of the user.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          },
+          {
+            "description": "Unique identifier of the message.",
+            "in": "path",
+            "name": "messageId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "**HTTP Status Code:** `204`<br>\nMessage marked successfully."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400`<br>\nBar request<br>\n**Error Code:** `300`<br>\nMessage does not exist: $messageId <br> Must provide either contact or channel parameter.\n"
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Chat Messages"
+        ],
+        "description": "Use this API to mark a chat message as read or unread. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter. \n\n**Note:** \n\nFor an [account-level OAuth app](https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app), this API can only be used on behalf of a [user assigned to a role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management) with the \"**Edit**\" permission for **Chat Messages**. \n\n**Scopes:** `chat_message:write`, `chat_message:write:admin` <br> **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`",
+        "operationId": "markMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "action": {
+                    "description": "Values include <br>`read` or `unread`.",
+                    "type": "string",
+                    "enum": [
+                      "read",
+                      "unread"
+                    ],
+                    "example": "read"
+                  },
+                  "timestamp": {
+                    "description": "The marking message's timestamp.",
+                    "type": "integer",
+                    "example": 1581370790388
+                  },
+                  "to_channel": {
+                    "description": "The Channel ID of the channel where you sent the message.<br>You must provide either a `to_contact` or `to_channel` parameter in the API request.\n You can retrieve the Channel ID using the [**List user's channels**](/api-reference/chat/methods#operation/getChannels) API.",
+                    "type": "string",
+                    "example": "825c9e31f1064c73b394c5e4557d3447"
+                  },
+                  "to_contact": {
+                    "description": "The email address of the contact to whom the message was sent.<br>\nYou must provide either a `to_contact` or `to_channel` parameter in the API request.",
+                    "type": "string",
+                    "example": "jchill@example.com"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Mark message read or unread"
+      }
+    },
+    "/chat/users/{userId}/messages/files": {
+      "post": {
+        "summary": "Send a chat file",
+        "description": "Use this API to send a file on Zoom to either an individual user in your contact list or a [channel](https://support.zoom.us/hc/en-us/articles/200912909-Getting-Started-With-Channels-Group-Messaging-) of which you are a member. \n\n **Note:** \n* The base URL for this API is `https://file.zoom.us/v2/`. \n* The caller must support HTTP 30x redirects. \n* All files are sent as common files except `png`,`jpg`,`jpeg` and `gif` \n* Zoom Cloud Storage will store the files sent through this API. If you do not use Zoom Cloud Storage, Zoom Cloud will temporarily store these files for 7 days. \n* The caller must retain the authorization header when redirected to a different hostname. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter. \n\n For an [account-level OAuth app](https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app), this API can only be used on behalf of a user who is assigned with a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management) that has the **Edit** permission for **Chat Messages**. \n\n **Scopes:** `chat_message:write`, `chat_message:write:admin`",
+        "operationId": "sendChatFile",
+        "tags": [
+          "Chat Files"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "The user's ID.",
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "files"
+                ],
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "maxItems": 1,
+                    "description": "A list of the chat files to send, in binary format. \n* This field only supports one file. \n* You can only send a maximum of 16 megabytes for images and 20 megabytes for all other file types.",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "reply_main_message_id": {
+                    "type": "string",
+                    "description": "The reply message's ID. This field only returns if the message is a reply message.",
+                    "example": "ex1233578rX46ky"
+                  },
+                  "to_channel": {
+                    "type": "string",
+                    "description": "The channel ID of the channel to which to send the chat file.",
+                    "example": "Fq123tU78rX46ky"
+                  },
+                  "to_contact": {
+                    "type": "string",
+                    "description": "The user ID of the contact to whom you want to send the chat file.",
+                    "example": "AbcDeF1234Gh"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The message ID.",
+                      "example": "ex1233578gdfjkh"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "**Status Code:** `201` <br>\nFile sent."
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad request. \n\n**Error Code:** `5301` <br>\nMessage sending failed. \n\n**Error Code:** `5402` <br>\nThis only supports replies to a main message. \n\n**Error Code:** `124` <br>\nInvalid access token. \n\n**Error Code:** `300` <br>\nMaximum file size exceeded: ${maxSize}"
+          },
+          "404": {
+            "description": "**HTTP Status Code:** `404`<br>\n**Error Code**: `1001`<br>\nUser does not exist: $to_contact.<br>\n**Error Code**: `4130`<br>\nChannel does not exist: $to_channel."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      }
+    },
+    "/chat/users/{userId}/files": {
+      "post": {
+        "summary": "Upload a chat file",
+        "description": "Use this API to upload a file to chat. \n\n **Note:** \n* The base URL for this API's is `https://file.zoom.us/v2/`. \n* The caller must support HTTP 30x redirects. \n* All files are sent as common files except `png`,`jpg`,`jpeg` and `gif` \n* Zoom Cloud Storage will store the files sent through this API. If you do not use Zoom Cloud Storage, Zoom Cloud will temporarily store these files for 7 days. \n* The caller must retain the authorization header when redirected to a different hostname. \n\n For an **account-level** [OAuth app](https://marketplace.zoom.us/docs/guides/getting-started/app-types/create-oauth-app), this API can only be used on behalf of a user who is assigned with a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Using-role-management#:~:text=Each%20user%20in%20a%20Zoom,owner%2C%20administrator%2C%20or%20member.&text=Role%2Dbased%20access%20control%20enables,needs%20to%20view%20or%20edit.) that has the **Edit** permission for **Chat Messages**. \n\n **Scopes:** `chat_message:write`, `chat_message:write:admin`",
+        "operationId": "uploadAChatFile",
+        "tags": [
+          "Chat Files"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The user's ID.",
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The upload file, in binary format. You can only send a maximum of 16 megabytes for images and 20 megabytes for all other file types."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "**Status Code:** `201` <br>\nFile successfully uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The file ID.",
+                      "example": "9c5408f87660a840167674acd7d"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "**HTTP Status Code:** `400` <br>\nBad Request \n\n**Error Code:** `124` <br>\nInvalid access token. \n\n**Error Code:** `300` <br>\nMaximum file size exceeded: ${maxSize}"
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ]
+      }
+    },
+    "/contacts": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Provide the keyword - either first name, last name or email of the contact whom you have to search for.",
+            "in": "query",
+            "name": "search_key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "jchill@example.com"
+            }
+          },
+          {
+            "description": "Set `query_presence_status` to `true` in order to include the presence status of a contact in the response.",
+            "in": "query",
+            "name": "query_presence_status",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "description": "The number of records to be returned with a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 1,
+              "maximum": 25,
+              "type": "integer",
+              "example": 20
+            }
+          },
+          {
+            "description": "A comma-separated list of the type of user contact to query: \n* `1` — A Zoom user. \n* `2` — An auto receptionist. \n* `3` — A common area phone. \n* `4` — A call queue. \n * `5` — A shared line group. \n* `6` — A shared global directory. \n* `7` — A shared office contact. \n\n**Note:** \n* You must have a [phone management role with the \"**View**\" permission](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management) to query the `2`, `3`, `4`, `5`, and `7` values. \n* You must provide a valid `search_key` value to query this parameter.",
+            "in": "query",
+            "name": "contact_types",
+            "schema": {
+              "default": 1,
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "contacts": {
+                      "items": {
+                        "properties": {
+                          "contact_type": {
+                            "description": "The user's contact type: \n* `1` — A Zoom user. \n* `2` — An auto receptionist. \n* `3` — A common area phone. \n* `4` — A call queue. \n * `5` — A shared line group. \n* `6` — A shared global directory. \n* `7` — A shared office contact.",
+                            "enum": [
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6,
+                              7
+                            ],
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "dept": {
+                            "description": "Department of the contact as provided in the user's Zoom profile.",
+                            "type": "string",
+                            "example": "Developer"
+                          },
+                          "direct_numbers": {
+                            "description": "Direct Number(s) of a user who has Zoom Phone license assigned.",
+                            "items": {
+                              "type": "string",
+                              "example": "+1111111"
+                            },
+                            "type": "array"
+                          },
+                          "email": {
+                            "description": "Email address of the contact.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "extension_number": {
+                            "description": "Extension Number of a user who has Zoom Phone license assigned.",
+                            "type": "string",
+                            "example": "31"
+                          },
+                          "first_name": {
+                            "description": "First name of the contact.",
+                            "type": "string",
+                            "example": "Jill"
+                          },
+                          "id": {
+                            "description": "User ID of the contact.",
+                            "type": "string",
+                            "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                          },
+                          "im_group_id": {
+                            "description": "Unique Identifier of the [IM directory group](https://support.zoom.us/hc/en-us/articles/203749815-IM-Management) in which the user has been added. An IM Directory group is not the same as a channel. IM Directory allows administrators to assign users in their account to groups that display within the Contacts list on Zoom clients. ",
+                            "type": "string",
+                            "example": "825c9e31f1064c73b394c5e4557d3447"
+                          },
+                          "im_group_name": {
+                            "description": "Name of the [IM directory group](https://support.zoom.us/hc/en-us/articles/203749815-IM-Management) in which the user has been added. An IM Directory group is not the same as a channel. IM Directory allows administrators to assign users in their account to groups that display within the Contacts list on Zoom clients. ",
+                            "type": "string",
+                            "example": "Developers"
+                          },
+                          "job_title": {
+                            "description": "Department of the user as provided in the user's Zoom profile.",
+                            "type": "string",
+                            "example": "Developer"
+                          },
+                          "last_name": {
+                            "description": "Last name of the contact.",
+                            "type": "string",
+                            "example": "Chill"
+                          },
+                          "location": {
+                            "description": "Location of the user as provided in the user's Zoom profile.",
+                            "type": "string",
+                            "example": "San Jose"
+                          },
+                          "phone_number": {
+                            "description": "Phone number of the user.",
+                            "type": "string",
+                            "example": "5550100"
+                          },
+                          "phone_numbers": {
+                            "items": {
+                              "properties": {
+                                "code": {
+                                  "description": "The phone number's country code. For example, for United States phone numbers, this will be a `+1` value.",
+                                  "type": "string",
+                                  "example": "+1"
+                                },
+                                "country": {
+                                  "description": "The phone number's [country ID](https://marketplace.zoom.us/docs/api-reference/other-references/abbreviation-lists#countries). For example, if the phone number provided in the `number` field is a Brazil-based number, this will be the `BR` value.",
+                                  "type": "string",
+                                  "example": "US"
+                                },
+                                "label": {
+                                  "description": "The phone number's label:\n* `Mobile`\n* `Office`\n* `Home`\n * `Fax`",
+                                  "enum": [
+                                    "Mobile",
+                                    "Office",
+                                    "Home",
+                                    "Fax"
+                                  ],
+                                  "type": "string",
+                                  "example": "Mobile"
+                                },
+                                "number": {
+                                  "description": "The user's phone number.",
+                                  "type": "string",
+                                  "example": "5550100"
+                                },
+                                "verified": {
+                                  "description": "Whether Zoom has verified the phone number.",
+                                  "type": "boolean",
+                                  "example": true
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "presence_status": {
+                            "description": "Presence status of the contact in Zoom Client. The value of this field can be one of the following:\n`Do_Not_Disturb`<br> `away`<br> `Available`<br> `Offline`",
+                            "enum": [
+                              "Do_Not_Disturb",
+                              "Away",
+                              "Available",
+                              "Offline"
+                            ],
+                            "type": "string",
+                            "example": "Available"
+                          },
+                          "activity": {
+                            "type": "string",
+                            "description": "The contact's activity status in Zoom client. This field only returns if the `contact_types` field is `4` (call queue): \n* `Active` \n* `Inactive` \n* `Unknown`",
+                            "enum": [
+                              "Active",
+                              "Inactive",
+                              "Unknown"
+                            ],
+                            "example": "Active"
+                          },
+                          "sip_phone_number": {
+                            "description": "SIP Phone number of the user. Returned only if user has SIP phone enabled.",
+                            "type": "string",
+                            "example": "11111111"
+                          },
+                          "sip_uri": {
+                            "description": "The contact's SIP (Session Initiation Protocol) URI.",
+                            "type": "string",
+                            "example": "example.com"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "type": "string",
+                      "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+                    },
+                    "page_size": {
+                      "description": "The number of records returned with a single API call. Default value is `1`.",
+                      "maximum": 25,
+                      "type": "integer",
+                      "example": 10
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nContact returned successfully."
+          }
+        },
+        "tags": [
+          "Contacts"
+        ],
+        "description": "A user under an organization's Zoom account has internal users listed under Company Contacts in the Zoom Client. Use this API to search users that are in the company contacts of a Zoom account. Using the `search_key` query parameter, provide either first name, last name or the email address of the user that you would like to search for. Optionally, set `query_presence_status` to `true` in order to include the presence status of a contact. <br><br>\n\n**Scopes:** `contact:read:admin`, `contact:read`<br>\n\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` ",
+        "operationId": "searchCompanyContacts",
+        "summary": "Search company contacts"
+      }
+    },
+    "/im/chat/sessions": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Start date in 'yyyy-mm-dd' format. The date range defined by the \"from\" and \"to\" parameters should only be one month as the report includes only one month worth of data at once.",
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "type": "string",
+              "example": "2020-03-01"
+            }
+          },
+          {
+            "description": "End date.",
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "type": "string",
+              "example": "2020-04-01"
+            }
+          },
+          {
+            "description": "The number of records returned within a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 30,
+              "maximum": 300,
+              "type": "integer",
+              "example": 30
+            }
+          },
+          {
+            "$ref": "#/paths/~1contacts/get/parameters/4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "from": {
+                          "description": "Start date.",
+                          "format": "date",
+                          "type": "string",
+                          "example": "2020-03-01"
+                        },
+                        "to": {
+                          "description": "End date.",
+                          "format": "date",
+                          "type": "string",
+                          "example": "2020-04-01"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "description": "Pagination object.",
+                      "properties": {
+                        "next_page_token": {
+                          "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of the available result list exceeds the page size. The expiration period is 15 minutes.",
+                          "type": "string",
+                          "example": "qUEQqB1V0HVhJmwKFQrGOD"
+                        },
+                        "page_size": {
+                          "default": 30,
+                          "description": "The amount of records returns within a single API call. ",
+                          "maximum": 300,
+                          "type": "integer",
+                          "example": 30
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "sessions": {
+                          "description": "Array of session objects.",
+                          "items": {
+                            "properties": {
+                              "last_message_sent_time": {
+                                "description": "Last message sent time.",
+                                "format": "date-time",
+                                "type": "string",
+                                "example": "2020-02-10T21:39:50Z"
+                              },
+                              "name": {
+                                "description": "Meeting topic.",
+                                "type": "string",
+                                "example": "My Meeting"
+                              },
+                              "session_id": {
+                                "description": "IM chat session ID.",
+                                "type": "string",
+                                "example": "5fdca6877b790503c027339a091e794498c146b849a1443d0c38d9ecd93b254d"
+                              },
+                              "type": {
+                                "description": "IM chat session type.",
+                                "enum": [
+                                  "Group",
+                                  "1:1"
+                                ],
+                                "type": "string",
+                                "example": "Group"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200` <br>\nArchived IM chat sessions returned."
+          },
+          "300": {
+            "description": "**Error Code:** `300` <br>\nThe next page token is invalid or expired. <br>\nReport requested exceeds 6 month limit."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "IM Chat"
+        ],
+        "deprecated": true,
+        "description": "Retrieve IM Chat sessions for a specified period of time. This API only supports Oauth2.<br>\n\t\n**Scopes:** `imchat:read, imchat:read:admin`<br>\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`\n <br><br>\n  <p style=\"background-color:#e1f5fe; color:#000000; padding:8px\"><b>Deprecated:</b> By end of 2021, Zoom is deprecating this API in favor of a consolidated set of APIs. The API will still be available for you to use, though Zoom will no longer provide support for it. For further information, see <a href=\"https://marketplace.zoom.us/docs/guides/stay-up-to-date/announcements#im-api-notice\">Announcements: IM APIs Deprecation</a>.</p>\n \n",
+        "operationId": "imChatSessions",
+        "summary": "Get IM chat sessions"
+      }
+    },
+    "/im/chat/sessions/{sessionId}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Chat session ID.",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6dfgdfgdg444447b0egga"
+            }
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1contacts/get/parameters/4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "properties": {
+                        "from": {
+                          "description": "Start date.",
+                          "format": "date",
+                          "type": "string",
+                          "example": "2020-03-01"
+                        },
+                        "session_id": {
+                          "description": "IM chat session ID.",
+                          "type": "string",
+                          "example": "5fdca6877b790503c027339a091e794498c146b849a1443d0c38d9ecd93b254d"
+                        },
+                        "to": {
+                          "description": "End date.",
+                          "format": "date",
+                          "type": "string",
+                          "example": "2020-04-01"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "$ref": "#/paths/~1im~1chat~1sessions/get/responses/200/content/application~1json/schema/allOf/1"
+                    },
+                    {
+                      "properties": {
+                        "messages": {
+                          "description": "Array of session objects.",
+                          "items": {
+                            "properties": {
+                              "action": {
+                                "description": "IM chat message action.",
+                                "type": "string",
+                                "enum": [
+                                  "read",
+                                  "unread"
+                                ],
+                                "example": "read"
+                              },
+                              "action_time": {
+                                "description": "Action time.",
+                                "format": "date-time",
+                                "type": "string",
+                                "example": "2020-02-10T21:50:01Z"
+                              },
+                              "date_time": {
+                                "description": "IM chat message sent time.",
+                                "format": "date-time",
+                                "type": "string",
+                                "example": "2020-02-10T21:39:50Z"
+                              },
+                              "message": {
+                                "description": "IM chat message content.",
+                                "type": "string",
+                                "example": "Hello"
+                              },
+                              "sender": {
+                                "description": "IM chat message sender.",
+                                "type": "string",
+                                "example": "jchill@example.com"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200` <br>\nArchived IM chat messages returned."
+          },
+          "300": {
+            "description": "**Error Code:**`300` <br>\nThe next page token is either invalid or has expired.<br>\nReport requested exceeds 6 month limit."
+          }
+        },
+        "tags": [
+          "IM Chat"
+        ],
+        "deprecated": true,
+        "description": "Retrieve IM chat messages for a specified period of time. This API only supports oauth2.<br>\n\n**Scopes:** `imchat:read`<br>\n\n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`<br>\n \n <br>\n \n <p style=\"background-color:#e1f5fe; color:#000000; padding:8px\"><b>Deprecated:</b> By end of 2021, Zoom is deprecating this API in favor of a consolidated set of APIs. The API will still be available for you to use, though Zoom will no longer provide support for it. For further information, see <a href=\"https://marketplace.zoom.us/docs/guides/stay-up-to-date/announcements#im-api-notice\">Announcements: IM APIs Deprecation</a>.</p>\n\n\n",
+        "operationId": "imChatMessages",
+        "summary": "Get IM chat messages"
+      }
+    },
+    "/im/users/me/chat/messages": {
+      "post": {
+        "parameters": [
+          {
+            "description": "The email address (registered with Zoom) or the userId of the chat user.",
+            "in": "query",
+            "name": "chat_user",
+            "schema": {
+              "oneOf": [
+                {
+                  "format": "email",
+                  "type": "string",
+                  "example": "jchill@example.com"
+                },
+                {
+                  "type": "string",
+                  "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "description": "IM message UUID.",
+                      "format": "uuid",
+                      "type": "string",
+                      "example": "7caca3b3-5156-4496-9ec4-7f92e3ca83f2"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `201`<br>\nMessage Sent."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "IM Chat"
+        ],
+        "deprecated": true,
+        "description": "Send chat message to a user. <aside>Note: This API only supports OAuth 2.0.</aside><br><br>**Scope:** `imchat:write`\n \n **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium` ",
+        "operationId": "sendimmessages",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "message": {
+                    "description": "IM message content.",
+                    "type": "string",
+                    "example": "Hello"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "summary": "Send IM messages"
+      }
+    },
+    "/im/users/{userId}/chat/messages": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The user ID or email address.",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "v4iyWT1LTfy8QvPG4GTvdg"
+            }
+          },
+          {
+            "description": "Chat user's ID or email address.",
+            "in": "query",
+            "name": "chat_user",
+            "schema": {
+              "oneOf": [
+                {
+                  "format": "email",
+                  "type": "string",
+                  "example": "jchill@example.com"
+                },
+                {
+                  "type": "string",
+                  "example": "v4iyWT1LTfy8QvPG4GTvdg"
+                }
+              ]
+            }
+          },
+          {
+            "description": "IM Channel's ID.",
+            "in": "query",
+            "name": "channel",
+            "schema": {
+              "type": "string",
+              "example": "825c9e31f1064c73b394c5e4557d3447"
+            }
+          },
+          {
+            "description": "IM message's query date, format as yyyy-MM-dd.",
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "type": "string",
+              "example": "2020-03-01"
+            }
+          },
+          {
+            "description": "The number of records returned within a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "example": 20
+            }
+          },
+          {
+            "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+            "in": "query",
+            "name": "next_page_token",
+            "schema": {
+              "type": "string",
+              "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "date": {
+                      "description": "Query date, format as yyyy-mm-dd.",
+                      "type": "string",
+                      "example": "2020-03-01"
+                    },
+                    "messages": {
+                      "description": "Array of im messages.",
+                      "items": {
+                        "properties": {
+                          "date_time": {
+                            "description": "IM message send time.",
+                            "format": "date-time",
+                            "type": "string",
+                            "example": "2020-02-10T21:39:50Z"
+                          },
+                          "id": {
+                            "description": "IM message UUID.",
+                            "format": "uuid",
+                            "type": "string",
+                            "example": "8cfaf567-bf5a-4acc-b4f2-88b3d371aca5"
+                          },
+                          "message": {
+                            "description": "IM message content.",
+                            "type": "string",
+                            "example": "Hello"
+                          },
+                          "sender": {
+                            "description": "IM message sender.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "timestamp": {
+                            "description": "IM message send timestamp.",
+                            "type": "integer",
+                            "example": 1581370790388
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
+                      "type": "string",
+                      "example": "R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42"
+                    },
+                    "page_size": {
+                      "description": "The number of records returned within a single API call.",
+                      "type": "integer",
+                      "example": 10
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200`<br>\nUser's IM messages returned."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "IM Chat"
+        ],
+        "deprecated": true,
+        "description": "Get IM Chat messages for a specified period of time. This API only supports Oauth2.<br>\n**Scopes:** `imchat:read`<br>\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n<br><br>\n  <p style=\"background-color:#e1f5fe; color:#000000; padding:8px\"><b>Deprecated:</b> By end of 2021, Zoom is deprecating this API in favor of a consolidated set of APIs. The API will still be available for you to use, though Zoom will no longer provide support for it. For further information, see <a href=\"https://marketplace.zoom.us/docs/guides/stay-up-to-date/announcements#im-api-notice\">Announcements: IM APIs Deprecation</a>.</p>\n",
+        "operationId": "listimmessages",
+        "summary": "Get user's IM messages"
+      }
+    },
+    "/report/chat/sessions": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/2"
+          },
+          {
+            "$ref": "#/paths/~1contacts/get/parameters/4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "from": {
+                      "description": "The query's start date.",
+                      "format": "date",
+                      "type": "string",
+                      "example": "2022-03-01"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of the available result list exceeds the page size. The expiration period is 15 minutes.",
+                      "type": "string",
+                      "example": "peU2gkVkRebcqMTzOPnidf0OxlA3WD9Cunrp"
+                    },
+                    "page_size": {
+                      "default": 30,
+                      "description": "The amount of records returned within a single API call. ",
+                      "maximum": 300,
+                      "type": "integer",
+                      "example": 30
+                    },
+                    "sessions": {
+                      "description": "Information about the chat session.",
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "description": "The chat session's ID.",
+                            "type": "string",
+                            "example": "c38230acb7f009282c1b0d367a08102d65d12629bbcca58dfe2168bd335f5849"
+                          },
+                          "last_message_sent_time": {
+                            "description": "The timestamp of the last message sent.",
+                            "format": "date-time",
+                            "type": "string",
+                            "example": "2022-03-18T10:16:13Z"
+                          },
+                          "name": {
+                            "description": "The chat session's name.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "type": {
+                            "description": "The chat session's type:\n* `Group` — A group chat.\n* `1:1` — A one-on-one chat.",
+                            "enum": [
+                              "Group",
+                              "1:1"
+                            ],
+                            "type": "string",
+                            "example": "1:1"
+                          },
+                          "channel_id": {
+                            "description": "If the chat session's type is 'Group',this field represents the id of the channel.",
+                            "type": "string",
+                            "example": "7a08102d65d12629bbcca5"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "to": {
+                      "description": "The query's end date.",
+                      "format": "date",
+                      "type": "string",
+                      "example": "2022-03-25"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200` <br>\nArchived chat sessions returned."
+          },
+          "300": {
+            "description": "**Error Code:** `300` <br>\nThe next page token is invalid or expired. <br>\nReport requested exceeds 6 month limit."
+          }
+        },
+        "security": [
+          {
+            "OAuth": []
+          }
+        ],
+        "tags": [
+          "Reports"
+        ],
+        "description": "Use this API to get Zoom Chat session reports for a specified period of time. The monthly date range **must** be within the last six months.\n\n**Scopes:** `report_chat:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`\n\n**Prerequisites:** \n* A Pro or higher plan \n* Report chat permissions.",
+        "operationId": "reportChatSessions",
+        "summary": "Get chat sessions reports"
+      }
+    },
+    "/report/chat/sessions/{sessionId}": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions~1%7BsessionId%7D/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/0"
+          },
+          {
+            "$ref": "#/paths/~1im~1chat~1sessions/get/parameters/1"
+          },
+          {
+            "$ref": "#/paths/~1contacts/get/parameters/4"
+          },
+          {
+            "description": "The number of records returned within a single API call.",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer",
+              "example": 30
+            }
+          },
+          {
+            "description": "Return all edited and deleted messages. The API only returns this value if the `include_fields` query parameter contains the `edited_messages` and/or the `deleted_messages` values.\n\nTo include both edited and deleted messages, comma-separate both values.",
+            "in": "query",
+            "name": "include_fields",
+            "schema": {
+              "enum": [
+                "edited_messages",
+                "deleted_messages",
+                "edited_messages,deleted_messages"
+              ],
+              "type": "string",
+              "example": "edited_messages"
+            }
+          },
+          {
+            "description": "Whether to return the bot message. If false, the bot_message will not be returned in the response body.",
+            "in": "query",
+            "name": "include_bot_message",
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "example": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "deleted_messages": {
+                      "description": "An array containing deleted chat messages information.",
+                      "items": {
+                        "properties": {
+                          "date_time": {
+                            "description": "The timestamp at which the chat message was sent.",
+                            "format": "date-time",
+                            "type": "string",
+                            "example": "2022-03-18T10:16:13Z"
+                          },
+                          "files": {
+                            "description": "Information about the chat files.",
+                            "items": {
+                              "properties": {
+                                "download_url": {
+                                  "description": "The URL at which to download the chat file.",
+                                  "type": "string",
+                                  "example": "https://zoom.us/file/download/qreigNgqTk24RNnGJDxpDg?filename=48k.png&jwt=downloadjwt"
+                                },
+                                "file_id": {
+                                  "description": "The chat file's unique ID.",
+                                  "type": "string",
+                                  "example": "qreigNgqTk24RNnGJDxpDg"
+                                },
+                                "file_name": {
+                                  "description": "The chat file's name and its file extension.",
+                                  "type": "string",
+                                  "example": "48k.png"
+                                },
+                                "file_size": {
+                                  "description": "The chat file's size, in bytes.",
+                                  "type": "integer",
+                                  "example": 224251
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "id": {
+                            "description": "The chat message's ID.",
+                            "type": "string",
+                            "example": "7ba4d98b-0a6a-4fb4-a71b-dd13fd689dc8"
+                          },
+                          "message": {
+                            "description": "The contents of the chat message.",
+                            "type": "string",
+                            "example": "How are you"
+                          },
+                          "receiver": {
+                            "description": "The chat message's recipient. This field only returns if the chat session `type` value is `1:1`.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "reply_main_message_id": {
+                            "description": "The reply message's unique ID. The API only returns this value if the message is a reply message.",
+                            "type": "string",
+                            "example": "{27ED2949-6457-417C-83EA-72515DAF00BD}"
+                          },
+                          "reply_main_message_timestamp": {
+                            "description": "A timestamp of when the reply message was sent. The API only returns this value if the message is a reply message.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          },
+                          "sender": {
+                            "description": "The chat message's sender.",
+                            "type": "string",
+                            "example": "thill@example.com"
+                          },
+                          "timestamp": {
+                            "description": "The message's timestamp, in milliseconds.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "edited_messages": {
+                      "description": "An array containing edited chat message information.",
+                      "items": {
+                        "properties": {
+                          "date_time": {
+                            "description": "The timestamp at which the chat message was sent.",
+                            "format": "date-time",
+                            "type": "string",
+                            "example": "2022-03-17T08:27:57Z"
+                          },
+                          "files": {
+                            "description": "Information about the chat files.",
+                            "items": {
+                              "properties": {
+                                "download_url": {
+                                  "description": "The URL at which to download the chat file.",
+                                  "type": "string",
+                                  "example": "https://zoom.us/file/download/qreigNgqTk24RNnGJDxpDg?filename=48k.png&jwt=downloadjwt"
+                                },
+                                "file_id": {
+                                  "description": "The chat file's unique ID.",
+                                  "type": "string",
+                                  "example": "qreigNgqTk24RNnGJDxpDg"
+                                },
+                                "file_name": {
+                                  "description": "The chat file's name and its file extension.",
+                                  "type": "string",
+                                  "example": "48k.png"
+                                },
+                                "file_size": {
+                                  "description": "The chat file's size, in bytes.",
+                                  "type": "integer",
+                                  "example": 224251
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "id": {
+                            "description": "The chat message's ID.",
+                            "type": "string",
+                            "example": "7ba4d98b-0a6a-4fb4-a71b-dd13fd689dc8"
+                          },
+                          "message": {
+                            "description": "The contents of the chat message.",
+                            "type": "string",
+                            "example": "How are you"
+                          },
+                          "receiver": {
+                            "description": "The chat message's recipient. This field only returns if the chat session `type` value is `1:1`.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "reply_main_message_id": {
+                            "description": "The reply message's unique ID. The API only returns this value if the message is a reply message.",
+                            "type": "string",
+                            "example": "{27ED2949-6457-417C-83EA-72515DAF00BD}"
+                          },
+                          "reply_main_message_timestamp": {
+                            "description": "A timestamp of when the reply message was sent. The API only returns this value if the message is a reply message.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          },
+                          "sender": {
+                            "description": "The chat message's sender.",
+                            "type": "string",
+                            "example": "thill@example.com"
+                          },
+                          "timestamp": {
+                            "description": "The message's timestamp, in milliseconds.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "from": {
+                      "description": "The query's start date.",
+                      "format": "date",
+                      "type": "string",
+                      "example": "2022-03-17"
+                    },
+                    "messages": {
+                      "description": "An array containing chat message information.\n\n**Note:** The `page_size` parameter only works for messages.",
+                      "items": {
+                        "properties": {
+                          "date_time": {
+                            "description": "The timestamp at which the chat message was sent.",
+                            "format": "date-time",
+                            "type": "string",
+                            "example": "2022-03-17T08:27:57Z"
+                          },
+                          "files": {
+                            "description": "Information about the chat files.",
+                            "items": {
+                              "properties": {
+                                "download_url": {
+                                  "description": "The URL at which to download the chat file.",
+                                  "type": "string",
+                                  "example": "https://zoom.us/file/download/qreigNgqTk24RNnGJDxpDg?filename=48k.png&jwt=downloadjwt"
+                                },
+                                "file_id": {
+                                  "description": "The chat file's unique ID.",
+                                  "type": "string",
+                                  "example": "qreigNgqTk24RNnGJDxpDg"
+                                },
+                                "file_name": {
+                                  "description": "The chat file's name and its file extension.",
+                                  "type": "string",
+                                  "example": "48k.png"
+                                },
+                                "file_size": {
+                                  "description": "The chat file's size, in bytes.",
+                                  "type": "integer",
+                                  "example": 224251
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "id": {
+                            "description": "The chat message's ID.",
+                            "type": "string",
+                            "example": "7ba4d98b-0a6a-4fb4-a71b-dd13fd689dc8"
+                          },
+                          "message": {
+                            "description": "The contents of the chat message.",
+                            "type": "string",
+                            "example": "How are you"
+                          },
+                          "receiver": {
+                            "description": "The chat message's recipient. This field only returns if the chat session `type` value is `1:1`.",
+                            "type": "string",
+                            "example": "jchill@example.com"
+                          },
+                          "reply_main_message_id": {
+                            "description": "The reply message's unique ID. The API only returns this value if the message is a reply message.",
+                            "type": "string",
+                            "example": "{27ED2949-6457-417C-83EA-72515DAF00BD}"
+                          },
+                          "reply_main_message_timestamp": {
+                            "description": "A timestamp of when the reply message was sent. The API only returns this value if the message is a reply message.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          },
+                          "sender": {
+                            "description": "The chat message's sender.",
+                            "type": "string",
+                            "example": "thill@example.com"
+                          },
+                          "timestamp": {
+                            "description": "The message's timestamp, in milliseconds.",
+                            "format": "int64",
+                            "type": "integer",
+                            "example": 1647494500135
+                          },
+                          "bot_message": {
+                            "description": "Details of bot message.",
+                            "properties": {
+                              "is_markdown_support": {
+                                "description": "Whether markdown is enabled.",
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "source": {
+                                "description": "If the message is sent via Mio, this field represents the platform from which the message was sent. For more information about Mio, see [Integrating with Mio Chat Interoperability](https://support.zoom.us/hc/en-us/articles/6584541876621-Integrating-with-Mio-Chat-Interoperability).",
+                                "type": "string",
+                                "example": "CCCC"
+                              },
+                              "external_sender_email": {
+                                "description": "If the message is sent via Mio, this field represents the email address from which the message was sent. For more information about Mio, see [Integrating with Mio Chat Interoperability](https://support.zoom.us/hc/en-us/articles/6584541876621-Integrating-with-Mio-Chat-Interoperability).",
+                                "type": "string",
+                                "example": "user@example.com"
+                              },
+                              "content": {
+                                "type": "object",
+                                "description": "The Chatbot's message content, in JSON format. For more information, see [Chatbots: Send, Edit, and Delete Messages](https://marketplace.zoom.us/docs/guides/chatbots/send-edit-and-delete-messages).",
+                                "example": "{\"head\":{\"text\":\"This is the head\",\"version\":1},\"body\":[{\"type\":\"message\",\"version\":1,\"text\":\"This is the body\",\"editable\":false,\"event_id\":\"message_0000\"}],\"settings\":{\"is_split_sidebar\":true,\"default_sidebar_color\":\"#0E71EB\"}}"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "next_page_token": {
+                      "description": "The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of the available result list exceeds the page size. The expiration period is 15 minutes.",
+                      "type": "string",
+                      "example": "b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"
+                    },
+                    "page_size": {
+                      "default": 30,
+                      "description": "The amount of records returned within a single API call. ",
+                      "maximum": 100,
+                      "type": "integer",
+                      "example": 30
+                    },
+                    "to": {
+                      "description": "The query's end date.",
+                      "format": "date",
+                      "type": "string",
+                      "example": "2022-03-25"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "**HTTP Status Code:** `200` <br>\nArchived chat messages returned."
+          },
+          "300": {
+            "description": "**Error Code:**`300` <br>\nThe next page token is either invalid or has expired.<br>\nReport requested exceeds 6 month limit."
+          }
+        },
+        "tags": [
+          "Reports"
+        ],
+        "description": "Use this API to get Zoom Chat message reports for a specified period of time. The monthly date range must be within the last six months.\n\n**Scopes:** `report_chat:read:admin`<br>**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`\n\n**Prerequisites:** \n* A Pro or higher plan \n* Report chat permissions",
+        "operationId": "reportChatMessages",
+        "summary": "Get chat messages reports"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      },
+      "Client_Credentials": {
+        "description": "Client Credentials Flow for ChatBots",
+        "flows": {
+          "clientCredentials": {
+            "scopes": {},
+            "tokenUrl": "https://api.zoom.us/oauth/token"
+          }
+        },
+        "type": "oauth2"
+      },
+      "OAuth": {
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://zoom.us/oauth/authorize",
+            "scopes": {},
+            "tokenUrl": "https://zoom.us/oauth/token"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "Chat channel operations.",
+      "name": "Chat Channels"
+    },
+    {
+      "description": "Account-level chat channel operations.",
+      "name": "Chat Channels (Account-level)"
+    },
+    {
+      "description": "Chat file operations.",
+      "name": "Chat Files"
+    },
+    {
+      "description": "Chat message operations.",
+      "name": "Chat Messages"
+    },
+    {
+      "description": "Contacts operations.",
+      "name": "Contacts"
+    }
+  ]
+}

@@ -116,6 +116,12 @@ connectors=(
   "healthcaredotgov"
   "zoom_meeting"
   "zoom_marketplace"
+  "zoom_phone"
+  "zoom_contact_center"
+  "zoom_video_sdk"
+  "zoom_chat"
+  "zoom_scim2"
+  "zoom_chatbot"
 )
 
 for c in ${connectors[@]}; do

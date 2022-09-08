@@ -1,0 +1,46 @@
+<GenericConnectorDescriptor requireConnectionForBrowse="true" browsingType="any" >
+    <description>This connector provides access to the Zoom Chatbot API.</description>
+    <field id="url" label="Server" type="string">
+        <defaultValue>https://api.zoom.us/v2</defaultValue>
+    </field>
+
+    <field id="spec" label="Override OpenAPI Spec" type="string">
+        <helpText>To override the specification included with the connector, enter a URL pointing to a JSON or YAML specification. Example: https://exampledocumentation.com/spec.yaml</helpText>
+    </field>
+
+    <field id="auth" label="Authentication Type" type="string">
+        <helpText>Identifies the authentication type for the connection. &lt;boomi-help id="ATOMSPHERE:9BB88920-7DB1-45EA-B650-F9C1244C24E2"&gt;Learn more&lt;/boomi-help&gt; about authentication.</helpText>
+        <allowedValue label="OAuth 2.0">
+            <value>OAUTH2</value>
+        </allowedValue>
+    </field>
+
+    <field id="oauthContext" label="OAuth 2.0" type="oauth">
+        <oauth2FieldConfig>
+            <authorizationTokenEndpoint>
+                <url >
+                    <defaultValue>https://zoom.us/oauth/authorize</defaultValue>
+                </url>
+            </authorizationTokenEndpoint>
+            <accessTokenEndpoint>
+                <url>
+                    <defaultValue>https://zoom.us/oauth/token</defaultValue>
+                </url>
+            </accessTokenEndpoint>
+            <grantType>
+                <allowedValue label="Authorization Code">
+                    <value>code</value>
+                </allowedValue>
+            </grantType>
+        </oauth2FieldConfig>
+    </field>
+
+    <field type="customproperties" label="Request Headers" id="customHeaders" />
+    <testConnection method="GET_OBJECT_TYPES" customOperationType="POST" />
+
+    <operation customTypeId="POST" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="PUT" supportsBrowse="true" types="EXECUTE"/>
+    <operation customTypeId="DELETE" supportsBrowse="true" types="EXECUTE"/>
+
+
+</GenericConnectorDescriptor>
